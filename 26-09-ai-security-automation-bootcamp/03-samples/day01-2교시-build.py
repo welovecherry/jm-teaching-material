@@ -341,7 +341,7 @@ nb = {
     "nbformat_minor": 5
 }
 
-out = "/Users/hong/jm-teaching-material/26-09_ai-security-automation-bootcamp/samples/day01_2교시_파이썬기초.ipynb"
+out = "/Users/hong/jm-teaching-material/26-09-ai-security-automation-bootcamp/03-samples/day01-2교시-파이썬기초.ipynb"
 os.makedirs(os.path.dirname(out), exist_ok=True)
 with open(out, "w", encoding="utf-8") as f:
     json.dump(nb, f, ensure_ascii=False, indent=1)
