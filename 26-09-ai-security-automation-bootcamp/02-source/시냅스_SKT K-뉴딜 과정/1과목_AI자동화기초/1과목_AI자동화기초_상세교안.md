@@ -1,0 +1,1557 @@
+**P1 SENSEMAKING · AI·자동화 기초(에이전트·API·스크립팅)**
+
+상세 강의 교안 (전체 64시간 · 8일)
+
+담당: 코리아IT아카데미 전임강사 \| 레포: agent_core/
+
+*본 교안은 하루 6시간(강의1 2h + 강의2 2h + 실습 2h, 마지막 Day는 4h) 기준 실제 진행 가능한 분량으로 작성되었으며, 모든 실습 산출물은 agent_core/ 레포에 누적되어 P3 캡스톤(80h, 팀 프로젝트)에서 재사용됩니다. 고객사명·설정값은 config로 분리해 어떤 캡스톤 시나리오에도 적용 가능하도록 설계했습니다.*
+
+**Day 1**
+
+# 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)
+
+**학습목표**
+
+\- 과정 전체 로드맵(64시간, 8일)과 레포 구조(security-agent-toolkit)를 이해한다
+
+\- Python·VS Code 개발환경을 스스로 설치·점검할 수 있다
+
+\- 변수·자료형·조건문·반복문으로 기본 스크립트를 작성할 수 있다
+
+**캡스톤 빌딩블록 태그:** 공통 기반 스킬 (전 모듈 공통 활용)
+
+**레포 경로:** agent_core/day01_basic.py
+
+| **블록** | **시간** | **내용**                                     |
+|----------|----------|----------------------------------------------|
+| 강의1    | 120분    | 강의1 - 오리엔테이션·개발환경·변수와 자료형  |
+| 강의2    | 120분    | 강의2 - 조건문·반복문과 제어흐름             |
+| 실습     | 120분    | 실습 - 제어문 기반 로그 필터링 스크립트 작성 |
+
+## 강의1 - 오리엔테이션·개발환경·변수와 자료형
+
+*총 120분*
+
+**00-15분 과정 로드맵 안내**
+
+64시간(8일) 전체 일정표를 화면에 띄우고 Day1~5(파이썬·API 자동화 기초)와 Day6~8(LLM·AI Agent 실전)의 두 축으로 나뉘는 이유를 설명한다. 이번 과목에서 만드는 모든 코드는 agent_core/ 레포에 누적되며, 이후 접근통제·이상탐지·SOAR 과목 산출물과 합쳐져 P3 캡스톤(80h, 팀 프로젝트) 보안 Agent의 핵심 엔진이 된다는 점을 강조한다.
+
+*\[확인질문\] 우리가 오늘부터 만드는 코드가 왜 폴더(레포) 단위로 쌓여야 할까요?*
+
+**15-35분 개발환경 설치 - Python, VS Code**
+
+python.org에서 Python 3.11 이상 설치, 설치 시 Add to PATH 체크 항목을 반드시 확인하도록 안내한다. VS Code 설치 후 Python 확장을 설치하고, 터미널에서 python --version, pip --version 명령으로 설치를 검증한다. 흔히 발생하는 PATH 미설정 오류의 해결법을 시연한다.
+
+\$ python --version
+
+Python 3.11.9
+
+\$ pip --version
+
+pip 24.0 from ...
+
+\$ pip install requests
+
+*\[확인질문\] python --version이 명령을 찾을 수 없다고 나오면 무엇을 먼저 확인해야 할까요?*
+
+**35-55분 가상환경(venv)과 프로젝트 폴더 구조**
+
+가상환경을 쓰는 이유(프로젝트별 패키지 버전 충돌 방지)를 설명하고, python -m venv venv 로 가상환경을 생성, activate 하는 법을 실습한다. security-agent-toolkit 최상위 폴더와 agent_core/, docs/, config/ 하위 폴더를 만들고 각 폴더의 역할(1과목=agent_core, 2과목=network_zt, 3과목=access_control, 4과목=anomaly_detection, 5과목=soar_response)을 확인한다.
+
+security-agent-toolkit/
+
+agent_core/
+
+network_zt/
+
+access_control/
+
+anomaly_detection/
+
+soar_response/
+
+docs/
+
+config/
+
+example_customer.yaml
+
+*\[확인질문\] 가상환경을 activate하지 않고 pip install을 하면 어떤 문제가 생길 수 있을까요?*
+
+**55-80분 변수와 기본 자료형**
+
+변수 선언 방식(파이썬은 타입 선언이 없다), int/float/str/bool의 차이와 type() 함수로 확인하는 법을 설명한다. 문자열 포매팅(f-string)을 중점적으로 다루는데, 이는 이후 로그 메시지·리포트 생성에 계속 쓰이는 핵심 문법이기 때문이다.
+
+customer_name = 'A사'
+
+failed_login_count = 7
+
+is_alert = failed_login_count \> 5
+
+print(f'{customer_name} 고객사 - 실패 로그인 {failed_login_count}건, 경보여부: {is_alert}')
+
+*\[확인질문\] is_alert 변수의 값은 bool 타입인데, 이 값을 그대로 if 조건문에 쓸 수 있을까요?*
+
+**80-105분 리스트와 딕셔너리 기초**
+
+list(순서 있는 값의 모음)와 dict(키-값 쌍)의 차이와 각각의 대표 메서드(append, keys, values, items)를 다룬다. 보안 로그 한 줄을 딕셔너리로 표현하는 예제를 통해, 이후 자료구조 심화 학습과 연결되도록 한다.
+
+log_event = {
+
+'customer': 'A사',
+
+'user': 'kim01',
+
+'event': 'login_failed',
+
+'ip': '203.0.113.5',
+
+'timestamp': '2026-07-07T09:12:00'
+
+}
+
+print(log_event\['event'\])
+
+*\[확인질문\] log_event\['event'\] 대신 log_event.get('event')를 쓰면 어떤 상황에서 더 안전할까요?*
+
+**105-120분 연산자와 형변환**
+
+산술·비교·논리 연산자를 정리하고, str()/int()/float() 형변환이 실무에서 왜 자주 오류를 일으키는지(예: CSV에서 읽은 숫자가 문자열로 들어오는 경우) 사례를 들어 설명한다.
+
+raw_value = '7' \# 파일에서 읽어온 값은 항상 문자열
+
+count = int(raw_value)
+
+print(count + 1) \# 8
+
+*\[확인질문\] int('7건')처럼 숫자와 문자가 섞여 있으면 어떤 에러가 날까요?*
+
+## 강의2 - 조건문·반복문과 제어흐름
+
+*총 120분*
+
+**00-25분 조건문(if/elif/else)**
+
+단일 조건, 다중 조건(elif), 복합조건(and/or)을 보안 이벤트 판정 예제로 설명한다. 들여쓰기가 파이썬 문법의 핵심이라는 점, 실무에서 들여쓰기 오류로 인한 버그가 흔하다는 점을 강조한다.
+
+failed_count = 7
+
+if failed_count \>= 10:
+
+level = '높음'
+
+elif failed_count \>= 5:
+
+level = '중간'
+
+else:
+
+level = '낮음'
+
+print(f'위험도: {level}')
+
+*\[확인질문\] failed_count가 정확히 5일 때 어느 분기로 들어갈까요?*
+
+**25-55분 반복문 - for, while**
+
+for문으로 리스트·딕셔너리를 순회하는 법, while문으로 조건이 유지되는 동안 반복하는 법을 다룬다. enumerate()도 함께 소개한다. 로그 리스트를 순회하며 조건에 맞는 항목만 걸러내는 예제로 실습을 이어간다.
+
+logs = \[
+
+{'user':'kim01','event':'login_failed'},
+
+{'user':'lee02','event':'login_success'},
+
+{'user':'kim01','event':'login_failed'},
+
+\]
+
+for idx, log in enumerate(logs):
+
+if log\['event'\] == 'login_failed':
+
+print(f'{idx}번째 실패 로그: {log\["user"\]}')
+
+*\[확인질문\] for문 대신 while문으로 같은 필터링을 하려면 무엇이 더 필요할까요?*
+
+**55-80분 리스트 컴프리헨션과 break/continue**
+
+간단한 리스트 컴프리헨션 문법을 소개하고, break로 반복을 즉시 종료하는 경우와 continue로 다음 반복으로 건너뛰는 경우를 실습한다.
+
+failed_users = \[log\['user'\] for log in logs if log\['event'\]=='login_failed'\]
+
+print(failed_users) \# \['kim01', 'kim01'\]
+
+*\[확인질문\] failed_users 리스트에 kim01이 두 번 나오는 게 실무에서는 왜 문제가 될 수 있을까요? (힌트: 집계)*
+
+**80-105분 집합(set)으로 중복 제거 + 카운팅 패턴**
+
+set() 자료형으로 중복을 제거하는 법, collections.Counter로 등장 횟수를 세는 법을 다룬다. 이는 실습 과제에서 사용자별 실패 횟수를 집계하는 데 바로 쓰인다.
+
+from collections import Counter
+
+counter = Counter(failed_users)
+
+print(counter) \# Counter({'kim01': 2})
+
+for user, cnt in counter.items():
+
+if cnt \>= 2:
+
+print(f'{user} 반복 실패 - 확인 필요')
+
+*\[확인질문\] Counter 없이 직접 딕셔너리로 카운팅한다면 코드가 몇 줄 더 필요할까요?*
+
+**105-120분 정리 및 실습 과제 안내**
+
+오늘 배운 변수·자료형·조건문·반복문을 조합해 실습 과제(로그 필터링 스크립트)를 수행함을 안내하고, 막히는 부분은 조원·강사에게 질문하도록 독려한다.
+
+## 실습 - 제어문 기반 로그 필터링 스크립트 작성
+
+*총 120분*
+
+**실습 목표:** 오늘 배운 변수·자료형·조건문·반복문만으로 실전형 로그 필터링 스크립트를 완성한다.
+
+**진행 단계**
+
+1\. agent_core/day01_basic.py 파일을 생성한다
+
+2\. 예제의 logs 리스트를 20개로 확장한 샘플 데이터를 만든다
+
+3\. event가 login_failed인 것만 추출해 사용자별 실패 횟수를 Counter로 집계한다
+
+4\. 2회 이상인 사용자를 '확인 필요' 목록으로 출력한다
+
+5\. 임계값(THRESHOLD)은 하드코딩하지 않고 파일 상단 변수로 분리한다 - 이는 이후 배우는 config 분리 습관의 첫걸음이다
+
+6\. 완성된 스크립트를 조원과 교차 실행해보고, 입력값을 바꿔가며 오류가 나지 않는지 확인한다
+
+**산출물:** agent_core/day01_basic.py (로그 필터링·카운팅 스크립트)
+
+**평가 기준**
+
+\- 조건문·반복문을 활용해 정상 동작하는가
+
+\- 임계값(THRESHOLD)이 하드코딩되지 않고 변수로 분리되었는가
+
+\- 출력 메시지가 f-string으로 읽기 쉽게 작성되었는가
+
+**Day 2**
+
+# 함수·모듈화 & 파일 입출력·예외처리·로깅
+
+**학습목표**
+
+\- 반복되는 코드를 함수와 모듈로 구조화할 수 있다
+
+\- 파일을 안전하게 읽고 쓰며 예외처리를 적용할 수 있다
+
+\- logging으로 스크립트 실행 상태를 체계적으로 기록할 수 있다
+
+**캡스톤 빌딩블록 태그:** 공통 기반 스킬 (전 모듈 공통 활용)
+
+**레포 경로:** agent_core/day02_basic.py, agent_core/utils.py
+
+| **블록** | **시간** | **내용**                        |
+|----------|----------|---------------------------------|
+| 강의1    | 120분    | 강의1 - 함수·모듈과 파일 입출력 |
+| 강의2    | 120분    | 강의2 - 예외처리와 로깅         |
+| 실습     | 120분    | 실습 - 보안 로그 파일 파서 작성 |
+
+## 강의1 - 함수·모듈과 파일 입출력
+
+*총 120분*
+
+**00-20분 함수 정의와 어제 코드 리팩토링**
+
+def 함수명(매개변수): 문법, return의 의미를 설명하고, 어제 작성한 로그 필터링 코드를 count_failed_logins(logs, threshold) 함수로 리팩토링하는 라이브 코딩을 진행한다. 함수로 쪼개면 재사용성과 테스트가 쉬워지는 이유를 강조한다.
+
+def count_failed_logins(logs, threshold=2):
+
+from collections import Counter
+
+failed = \[l\['user'\] for l in logs if l\['event'\]=='login_failed'\]
+
+counter = Counter(failed)
+
+return {u: c for u, c in counter.items() if c \>= threshold}
+
+*\[확인질문\] threshold=2처럼 기본값을 주는 것과 항상 값을 넘겨받는 것의 차이는 무엇일까요?*
+
+**20-40분 모듈과 import**
+
+여러 함수를 utils.py 같은 별도 파일(모듈)로 분리하고 import하는 법을 실습한다.
+
+\# utils.py
+
+def count_failed_logins(logs, threshold=2):
+
+...
+
+\# day02_basic.py
+
+from utils import count_failed_logins
+
+result = count_failed_logins(logs, threshold=2)
+
+*\[확인질문\] utils.py의 함수 이름을 바꾸면 day02_basic.py에서 무엇을 같이 바꿔야 할까요?*
+
+**40-60분 표준 라이브러리 둘러보기(datetime)**
+
+datetime으로 로그 타임스탬프를 다루는 법(strptime/strftime)을 다룬다.
+
+from datetime import datetime
+
+ts = datetime.strptime('2026-07-07T09:12:00', '%Y-%m-%dT%H:%M:%S')
+
+print(ts.hour) \# 9
+
+*\[확인질문\] 새벽 시간대(예: 새벽 3시)에 로그인 실패가 몰려있다면 어떤 의심을 해볼 수 있을까요?*
+
+**60-85분 파일 읽기/쓰기 - open, with문**
+
+open() 함수와 파일 모드(r/w/a), with문을 쓰면 파일을 자동으로 닫아준다는 점(리소스 관리)을 설명한다. txt와 csv 두 가지 형식으로 실습한다.
+
+with open('sample_logs.txt', 'r', encoding='utf-8') as f:
+
+lines = f.readlines()
+
+for line in lines:
+
+print(line.strip())
+
+*\[확인질문\] with문을 안 쓰고 f.close()를 깜빡하면 어떤 문제가 생길 수 있을까요?*
+
+**85-105분 CSV 파일 다루기**
+
+csv 모듈로 표 형태 로그를 읽고 쓰는 법을 실습한다. csv.DictReader를 사용하면 헤더를 키로 바로 딕셔너리를 만들 수 있다는 점을 강조한다.
+
+import csv
+
+with open('access_log.csv', encoding='utf-8') as f:
+
+reader = csv.DictReader(f)
+
+for row in reader:
+
+print(row\['user'\], row\['event'\])
+
+*\[확인질문\] csv 파일의 컬럼 순서가 바뀌어도 DictReader를 쓰면 코드가 안전한 이유는 무엇일까요?*
+
+**105-120분 코드 스타일(PEP8)과 네이밍 규칙**
+
+변수/함수는 snake_case, 상수는 UPPER_CASE라는 파이썬 관례를 설명하고, 팀 프로젝트(캡스톤)에서 이런 규칙이 협업 효율을 높이는 이유를 설명한다.
+
+*\[확인질문\] THRESHOLD처럼 상수를 대문자로 쓰는 이유는 무엇일까요?*
+
+## 강의2 - 예외처리와 로깅
+
+*총 120분*
+
+**00-30분 예외처리 - try/except/finally**
+
+파일이 없거나 형식이 잘못된 경우 프로그램이 그대로 멈추지 않도록 try/except로 방어하는 법을 다룬다. 예상 가능한 예외(FileNotFoundError, ValueError 등)를 구체적으로 잡는 것이 좋은 습관임을 강조한다.
+
+try:
+
+with open('missing.csv', encoding='utf-8') as f:
+
+data = f.read()
+
+except FileNotFoundError:
+
+print('파일이 없습니다. 경로를 확인하세요.')
+
+except Exception as e:
+
+print(f'예상치 못한 오류: {e}')
+
+*\[확인질문\] except Exception만 넓게 잡는 것과 except FileNotFoundError로 구체적으로 잡는 것, 실무에서는 왜 후자가 더 안전할까요?*
+
+**30-60분 logging 모듈 기초**
+
+print 대신 logging 모듈을 쓰면 시간, 레벨(INFO/WARNING/ERROR)까지 기록할 수 있어 이후 자동화 파이프라인 디버깅에 유리하다는 점을 설명하고 기본 설정을 실습한다.
+
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+
+logging.info('로그 파일 읽기 시작')
+
+logging.warning('실패 로그 5건 이상 발견')
+
+*\[확인질문\] print와 logging.info의 차이는 나중에 로그 파일로 저장할 때 왜 중요해질까요?*
+
+**60-90분 RotatingFileHandler로 로그 파일 관리**
+
+로그 파일이 무한정 커지지 않도록 일정 크기마다 회전(rotate)시키는 RotatingFileHandler를 소개하고 설정법을 실습한다.
+
+from logging.handlers import RotatingFileHandler
+
+handler = RotatingFileHandler('agent.log', maxBytes=1_000_000, backupCount=5, encoding='utf-8')
+
+logging.basicConfig(level=logging.INFO, handlers=\[handler\])
+
+*\[확인질문\] 로그 파일이 계속 커지기만 하면 어떤 문제가 생길까요? RotatingFileHandler는 이를 어떻게 해결하나요?*
+
+**90-110분 예외처리+로깅 결합 로그 파서**
+
+파일 입출력 + 예외처리 + 로깅을 조합한 로그 파서를 라이브 코딩으로 완성한다.
+
+def parse_logs(filepath):
+
+try:
+
+with open(filepath, encoding='utf-8') as f:
+
+reader = csv.DictReader(f)
+
+rows = list(reader)
+
+logging.info(f'{filepath} 읽기 완료 - {len(rows)}건')
+
+return rows
+
+except FileNotFoundError:
+
+logging.error(f'{filepath} 파일을 찾을 수 없음')
+
+return \[\]
+
+*\[확인질문\] 파일이 없을 때 빈 리스트를 반환하는 것과 프로그램을 강제 종료하는 것, 자동화 파이프라인에는 어느 쪽이 안전할까요?*
+
+**110-120분 실습 안내**
+
+예외처리와 로깅을 갖춘 안전한 로그 파서를 완성하는 실습을 안내한다.
+
+## 실습 - 보안 로그 파일 파서 작성
+
+*총 120분*
+
+**실습 목표:** CSV 형식의 샘플 보안 로그를 안전하게 읽고, 오류 상황에서도 죽지 않는 파서를 완성한다.
+
+**진행 단계**
+
+1\. agent_core/sample_logs.csv 를 20~30줄 규모로 작성한다 (컬럼: timestamp,user,event,ip)
+
+2\. agent_core/log_parser.py 파일을 생성하고 parse_logs(filepath) 함수를 작성한다
+
+3\. csv.DictReader로 파일을 읽고, 각 행마다 이벤트 유형을 분류해 리스트에 저장한다
+
+4\. 파일이 없거나 컬럼이 누락된 경우를 대비해 try/except로 방어 코드를 넣는다
+
+5\. RotatingFileHandler로 agent.log 파일에 처리 현황(시작-완료-실패건수)을 기록한다
+
+6\. 일부러 잘못된 경로를 입력해 예외처리가 정상 동작하는지 테스트한다
+
+**산출물:** agent_core/log_parser.py, agent_core/sample_logs.csv, agent.log
+
+**평가 기준**
+
+\- 파일이 없을 때 프로그램이 죽지 않고 안내 메시지를 출력하는가
+
+\- logging으로 처리 현황이 기록되는가
+
+\- 함수화가 되어 다른 파일 경로에도 재사용 가능한가
+
+**Day 3**
+
+# 자료구조 심화 & JSON·정규표현식
+
+**학습목표**
+
+\- 중첩된 리스트/딕셔너리 구조를 다룰 수 있다
+
+\- JSON 데이터를 파싱하고 생성할 수 있다
+
+\- 정규표현식으로 로그 패턴을 추출할 수 있다
+
+**캡스톤 빌딩블록 태그:** 공통 기반 스킬 (전 모듈 공통 활용)
+
+**레포 경로:** agent_core/day03_json_regex.py
+
+| **블록** | **시간** | **내용**                           |
+|----------|----------|------------------------------------|
+| 강의1    | 120분    | 강의1 - 자료구조 심화와 JSON       |
+| 강의2    | 120분    | 강의2 - 정규표현식(re) 기초        |
+| 실습     | 120분    | 실습 - 비정형 로그 정규화 스크립트 |
+
+## 강의1 - 자료구조 심화와 JSON
+
+*총 120분*
+
+**00-20분 중첩 자료구조(리스트 안의 딕셔너리, 딕셔너리 안의 리스트)**
+
+실제 보안 이벤트 데이터는 단일 딕셔너리가 아니라 중첩 구조(예: 이벤트 안에 여러 태그 리스트, 사용자 정보 딕셔너리)로 온다는 점을 예시로 보여주고, 접근 경로(대괄호 체이닝)를 연습한다.
+
+event = {
+
+'id': 'evt-1001',
+
+'user': {'name': 'kim01', 'dept': '영업1팀'},
+
+'tags': \['login_failed', 'unusual_location'\]
+
+}
+
+print(event\['user'\]\['dept'\])
+
+print(event\['tags'\]\[0\])
+
+*\[확인질문\] event\['tags'\]에 'unusual_location'이 포함되어 있는지 확인하려면 어떤 연산자를 쓸까요?*
+
+**20-45분 JSON이란 무엇인가**
+
+JSON이 왜 API·웹·로그 시스템 전반의 표준 데이터 교환 포맷인지 설명한다. JSON과 파이썬 딕셔너리의 표기법 차이(true/false/null vs True/False/None)를 표로 비교한다.
+
+*\[확인질문\] JSON에서는 true인데 파이썬에서는 왜 True로 써야 할까요?*
+
+**45-75분 json 모듈 - loads/dumps, load/dump**
+
+문자열↔객체 변환(loads/dumps)과 파일↔객체 변환(load/dump)의 차이를 실습한다. indent 옵션으로 가독성 있게 저장하는 법, ensure_ascii=False로 한글이 깨지지 않게 저장하는 법을 반드시 짚는다.
+
+import json
+
+with open('parsed_result.json', 'w', encoding='utf-8') as f:
+
+json.dump(events, f, indent=2, ensure_ascii=False)
+
+with open('parsed_result.json', encoding='utf-8') as f:
+
+loaded = json.load(f)
+
+*\[확인질문\] ensure_ascii=False를 빼먹으면 저장된 파일에서 한글이 어떻게 보일까요?*
+
+**75-100분 2일차 로그 파서를 JSON 저장 기능으로 확장**
+
+2일차에 만든 log_parser.py의 결과를 JSON 파일로 저장하는 코드를 라이브 코딩으로 이어 붙인다. 이는 이후 접근통제·이상탐지 과목에서 서로 다른 모듈이 JSON으로 데이터를 주고받는 첫 사례가 된다.
+
+def save_as_json(events, filepath):
+
+import json
+
+with open(filepath, 'w', encoding='utf-8') as f:
+
+json.dump(events, f, indent=2, ensure_ascii=False)
+
+*\[확인질문\] 왜 여러 모듈(접근통제/이상탐지/SOAR)이 서로 JSON으로 데이터를 주고받으면 편리할까요?*
+
+**100-120분 필수 필드 체크 패턴**
+
+딕셔너리 키 존재 여부 체크(in 연산자, .get())로 '이 필드는 항상 있어야 한다'는 개념을 가볍게 구현하는 법을 소개한다.
+
+required_keys = \['id', 'user', 'event', 'timestamp'\]
+
+missing = \[k for k in required_keys if k not in event\]
+
+if missing:
+
+print(f'필수 필드 누락: {missing}')
+
+*\[확인질문\] 필수 필드가 없는 이벤트를 그냥 무시하는 것과 경고를 남기는 것, 어떤 차이가 있을까요?*
+
+## 강의2 - 정규표현식(re) 기초
+
+*총 120분*
+
+**00-25분 정규표현식이 필요한 이유**
+
+구조화되지 않은 텍스트 로그(예: 방화벽 raw 로그)에서 원하는 패턴만 뽑아내려면 문자열 메서드만으로는 한계가 있다는 점을 실제 raw 로그 예시로 보여준다.
+
+raw_line = '2026-07-07 09:12:00 WARN failed login for kim01 from 203.0.113.5'
+
+*\[확인질문\] 이 한 줄에서 IP 주소만 뽑아내려면 split()만으로 충분할까요?*
+
+**25-55분 기본 패턴 문법**
+
+\d(숫자), \w(문자), .(임의문자), \*,+,?(반복), ()(그룹)의 의미를 표와 예제로 설명한다. re.search, re.findall의 차이를 다룬다.
+
+import re
+
+ip_pattern = r'\d{1,3}\\\d{1,3}\\\d{1,3}\\\d{1,3}'
+
+match = re.search(ip_pattern, raw_line)
+
+print(match.group()) \# 203.0.113.5
+
+*\[확인질문\] \d{1,3}에서 {1,3}은 무엇을 의미할까요?*
+
+**55-85분 그룹핑과 named group**
+
+괄호로 그룹을 지정해 사용자명·시간 등 여러 값을 한 번에 추출하는 법, (?P\<name\>...) named group으로 가독성을 높이는 법을 실습한다.
+
+pattern = r'(?P\<time\>\[\d-\]+ \[\d:\]+) (?P\<level\>\w+) failed login for (?P\<user\>\w+) from (?P\<ip\>\[\d.\]+)'
+
+m = re.search(pattern, raw_line)
+
+print(m.group('user'), m.group('ip'))
+
+*\[확인질문\] named group을 쓰면 나중에 코드를 유지보수할 때 어떤 점이 편해질까요?*
+
+**85-110분 여러 줄 로그 일괄 처리**
+
+여러 줄의 raw 로그 리스트를 순회하며 패턴에 매칭되는 것만 딕셔너리로 변환해 리스트에 쌓는 함수를 라이브 코딩한다.
+
+def parse_raw_logs(lines, pattern):
+
+results = \[\]
+
+for line in lines:
+
+m = re.search(pattern, line)
+
+if m:
+
+results.append(m.groupdict())
+
+return results
+
+*\[확인질문\] 매칭되지 않는 줄(m이 None)은 그냥 버려도 될까요, 아니면 별도로 기록해야 할까요?*
+
+**110-120분 실습 안내**
+
+오늘 배운 JSON 저장 + 정규표현식 추출을 합쳐 비정형 로그를 정형 JSON으로 변환하는 실습을 안내한다.
+
+## 실습 - 비정형 로그 정규화 스크립트
+
+*총 120분*
+
+**실습 목표:** raw 텍스트 로그를 정규표현식으로 파싱해 구조화된 JSON으로 저장하는 파이프라인을 완성한다.
+
+**진행 단계**
+
+1\. agent_core/raw_logs.txt에 방화벽/웹서버 스타일의 raw 로그 15~20줄을 준비한다
+
+2\. agent_core/normalize_logs.py를 생성하고, 정규표현식 패턴을 정의한다
+
+3\. parse_raw_logs() 함수로 각 줄을 파싱해 딕셔너리 리스트를 만든다
+
+4\. 필수 필드(time, level, user, ip) 존재 여부를 체크하는 로직을 추가한다
+
+5\. 결과를 normalized_logs.json으로 저장한다(ensure_ascii=False, indent=2)
+
+6\. 매칭 실패한 줄은 별도 unmatched_logs.txt로 기록해 데이터 누락을 방지한다
+
+**산출물:** agent_core/normalize_logs.py, normalized_logs.json
+
+**평가 기준**
+
+\- 정규표현식이 최소 4개 필드(시간/레벨/사용자/IP)를 정확히 추출하는가
+
+\- 매칭 실패 로그가 조용히 사라지지 않고 별도로 기록되는가
+
+\- 결과 JSON 파일의 한글이 깨지지 않는가
+
+**Day 4**
+
+# API·HTTP·requests 실전 & 인증정보 관리
+
+**학습목표**
+
+\- HTTP 요청/응답 구조와 상태코드를 이해한다
+
+\- API 인증방식과 환경변수 기반 민감정보 관리를 이해한다
+
+\- requests 라이브러리로 API를 호출하고 오류에 대응할 수 있다
+
+**캡스톤 빌딩블록 태그:** 공통 기반 스킬 (이후 SOAR·이상탐지 모듈에서 외부 API 연동 시 재사용)
+
+**레포 경로:** agent_core/day04_api.py
+
+| **블록** | **시간** | **내용**                           |
+|----------|----------|------------------------------------|
+| 강의1    | 120분    | 강의1 - API와 HTTP 개념            |
+| 강의2    | 120분    | 강의2 - requests 라이브러리 실전   |
+| 실습     | 120분    | 실습 - 공개 API 연동 데이터 수집기 |
+
+## 강의1 - API와 HTTP 개념
+
+*총 120분*
+
+**00-20분 API란 무엇인가 - 실생활 비유**
+
+API를 '식당의 메뉴판과 주방'에 비유해 설명한다. SKT 보안관제·기술영업 업무에서 접하게 될 SIEM API, 티켓시스템 API, LLM API 등 실제 예시를 든다.
+
+*\[확인질문\] API가 없다면 서로 다른 시스템을 연결하려면 어떻게 해야 할까요?*
+
+**20-45분 HTTP 메서드와 URL 구조**
+
+GET(조회)/POST(생성)/PUT·PATCH(수정)/DELETE(삭제)의 의미와 URL 구조(scheme/host/path/query string)를 설명한다.
+
+GET https://api.example.com/v1/events?status=open&limit=10
+
+POST https://api.example.com/v1/tickets
+
+Body: {"title": "비정상 로그인 탐지", "priority": "high"}
+
+*\[확인질문\] 이벤트 목록을 '조회'만 할 때는 어떤 메서드를 써야 할까요?*
+
+**45-70분 상태코드와 응답 구조**
+
+2xx/4xx/5xx 상태코드 분류와 200/201/400/401/403/404/429/500의 의미를 정리한다. 응답 Body가 대부분 JSON 형식이라는 점을 3일차 학습과 연결한다.
+
+*\[확인질문\] 401과 403은 둘 다 접근이 막히는 상황인데 어떤 차이가 있을까요?*
+
+**70-95분 API 인증 방식**
+
+API Key와 OAuth 2.0의 기본 흐름(토큰 발급→헤더에 Bearer 토큰 포함)을 개념 수준에서 설명한다. 인증 정보를 코드에 하드코딩하면 안 되는 이유를 강조한다.
+
+headers = {
+
+'Authorization': f'Bearer {API_TOKEN}'
+
+}
+
+\# API_TOKEN은 코드가 아니라 환경변수/설정파일에서 불러온다
+
+*\[확인질문\] API_TOKEN을 코드에 직접 적어서 깃(Git)에 올리면 어떤 사고가 날 수 있을까요?*
+
+**95-120분 환경변수로 민감정보 관리**
+
+python-dotenv로 API 키를 .env 파일에서 불러오는 법을 실습한다. .env 파일은 반드시 .gitignore에 포함시켜야 함을 강조한다.
+
+\# .env
+
+API_TOKEN=sk-xxxx
+
+\# code
+
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+token = os.environ\['API_TOKEN'\]
+
+*\[확인질문\] .env 파일을 .gitignore에 넣지 않으면 어떤 문제가 생길까요?*
+
+## 강의2 - requests 라이브러리 실전
+
+*총 120분*
+
+**00-25분 requests.get()으로 공개 API 호출**
+
+requests 라이브러리 설치와 기본 GET 요청, response.status_code / response.json() 확인법을 실습한다.
+
+import requests
+
+response = requests.get('https://api.example.com/v1/status')
+
+print(response.status_code)
+
+print(response.json())
+
+*\[확인질문\] response.json()을 호출했는데 에러가 난다면 응답이 JSON이 아닐 수도 있다는 뜻인데, 어떻게 먼저 확인해볼까요?*
+
+**25-50분 쿼리 파라미터와 헤더 다루기**
+
+params 딕셔너리로 쿼리 스트링을 안전하게 구성하는 법, headers 딕셔너리로 인증 토큰을 포함하는 법을 실습한다.
+
+params = {'status': 'open', 'limit': 10}
+
+headers = {'Authorization': f'Bearer {token}'}
+
+response = requests.get(url, params=params, headers=headers)
+
+*\[확인질문\] URL에 직접 ?status=open을 이어붙이는 것과 params=로 넘기는 것의 차이는 무엇일까요?*
+
+**50-75분 POST 요청과 요청 본문(Body)**
+
+json= 파라미터로 요청 본문을 자동 직렬화하는 법, 티켓 생성 같은 실무 시나리오를 예시로 POST 요청을 실습한다(5과목 SOAR에서 재사용될 패턴).
+
+payload = {'title': '비정상 로그인 탐지 - kim01', 'priority': 'high'}
+
+response = requests.post(f'{base_url}/tickets', json=payload, headers=headers)
+
+print(response.status_code, response.json())
+
+*\[확인질문\] 티켓 생성 API가 201을 반환했다면 무엇을 의미할까요?*
+
+**75-100분 에러 처리와 재시도(retry) 패턴**
+
+네트워크 오류, timeout, 429 상황을 대비한 try/except와 간단한 재시도 로직을 다룬다. 무한 재시도는 위험하므로 최대 횟수를 두는 것이 안전하다는 점을 강조한다.
+
+import time
+
+def call_with_retry(url, headers, max_retry=3):
+
+for attempt in range(max_retry):
+
+try:
+
+r = requests.get(url, headers=headers, timeout=5)
+
+r.raise_for_status()
+
+return r.json()
+
+except requests.exceptions.RequestException as e:
+
+logging.warning(f'요청 실패({attempt+1}/{max_retry}): {e}')
+
+time.sleep(2)
+
+raise RuntimeError('API 호출 최종 실패')
+
+*\[확인질문\] 재시도 횟수에 제한을 두지 않으면 SOAR 자동화에서 어떤 위험이 있을까요?*
+
+**100-120분 실습 안내**
+
+공개 API를 호출해 데이터를 수집·가공·저장하는 스크립트를 작성하는 실습을 안내한다.
+
+## 실습 - 공개 API 연동 데이터 수집기
+
+*총 120분*
+
+**실습 목표:** 실제 공개 API를 호출해 데이터를 받아오고, 가공한 뒤 JSON으로 저장하는 미니 파이프라인을 완성한다.
+
+**진행 단계**
+
+1\. agent_core/api_client.py 파일을 생성한다
+
+2\. 무료 공개 API의 API 키를 발급받아 .env에 저장한다
+
+3\. call_with_retry() 함수를 활용해 API를 호출하는 fetch_data() 함수를 작성한다
+
+4\. 받아온 JSON 응답에서 필요한 필드만 추출해 리스트로 가공한다
+
+5\. 가공 결과를 api_result.json으로 저장한다
+
+6\. API 키를 코드에 하드코딩하지 않았는지, .env가 .gitignore에 포함됐는지 서로 코드 리뷰한다
+
+**산출물:** agent_core/api_client.py, .env.example, api_result.json
+
+**평가 기준**
+
+\- API 키가 코드에 노출되지 않고 환경변수로 분리되었는가
+
+\- 요청 실패 시 프로그램이 죽지 않고 재시도 후 명확히 에러를 알리는가
+
+\- 결과가 구조화된 JSON으로 저장되는가
+
+**Day 5**
+
+# Webhook·CLI 자동화 & 워크플로우 설계·스케줄링
+
+**학습목표**
+
+\- Webhook 기반 이벤트 수신과 CLI 자동화를 구현할 수 있다
+
+\- 트리거-조건-액션 구조로 자동화 워크플로우를 설계할 수 있다
+
+\- 스케줄러로 스크립트를 정기 실행할 수 있다
+
+**캡스톤 빌딩블록 태그:** AI 오케스트레이션·에이전트 코어
+
+**레포 경로:** agent_core/day05_webhook_scheduler.py
+
+| **블록** | **시간** | **내용**                                      |
+|----------|----------|-----------------------------------------------|
+| 강의1    | 120분    | 강의1 - Webhook 수신과 CLI 자동화             |
+| 강의2    | 120분    | 강의2 - 자동화 워크플로우 설계와 스케줄링     |
+| 실습     | 120분    | 실습 - Webhook 수신·정기 실행 자동화 스크립트 |
+
+## 강의1 - Webhook 수신과 CLI 자동화
+
+*총 120분*
+
+**00-20분 Polling vs Webhook**
+
+API를 주기적으로 호출해 확인하는 polling 방식과, 이벤트 발생 시 상대 서버가 먼저 알려주는 webhook 방식의 차이를 비교한다. 보안관제에서 실시간성이 왜 중요한지 설명한다.
+
+*\[확인질문\] 10분마다 polling하는 것과 즉시 webhook을 받는 것, 침해사고 대응 속도에 어떤 차이가 있을까요?*
+
+**20-50분 Flask로 간단한 Webhook 수신 서버 만들기**
+
+Flask 설치와 최소한의 라우트(@app.route) 문법을 소개하고, POST 요청을 받아 JSON body를 파싱해 저장하는 최소 서버를 라이브 코딩한다.
+
+from flask import Flask, request
+
+app = Flask(\_\_name\_\_)
+
+@app.route('/webhook', methods=\['POST'\])
+
+def receive_webhook():
+
+data = request.get_json()
+
+logging.info(f'수신: {data.get("event")}')
+
+return {'status': 'received'}, 200
+
+if \_\_name\_\_ == '\_\_main\_\_':
+
+app.run(port=5000)
+
+*\[확인질문\] return {'status': 'received'}, 200 에서 200은 왜 필요할까요?*
+
+**50-75분 터미널 기본 명령어와 curl**
+
+cd, ls, cat, grep 등 기본 명령어를 정리하고, curl 명령어로 GET/POST 요청을 보내 Webhook 서버를 테스트하는 법을 실습한다.
+
+curl -X POST http://localhost:5000/webhook \\
+
+-H 'Content-Type: application/json' \\
+
+-d '{"event": "login_failed", "user": "kim01"}'
+
+*\[확인질문\] curl 응답으로 {'status':'received'}가 안 오고 에러가 난다면 가장 먼저 무엇을 확인해야 할까요?*
+
+**75-100분 Python 스크립트에 CLI 인자 넣기 (argparse)**
+
+스크립트를 매번 코드 수정 없이 다양한 옵션으로 실행하기 위해 argparse로 커맨드라인 인자를 받는 법을 실습한다.
+
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--input', required=True)
+
+parser.add_argument('--threshold', type=int, default=2)
+
+args = parser.parse_args()
+
+\# 실행: python script.py --input logs.csv --threshold 3
+
+*\[확인질문\] argparse로 threshold를 인자로 받으면, 코드를 안 고치고도 무엇을 바꿀 수 있을까요?*
+
+**100-120분 정리**
+
+Webhook·CLI 자동화를 정리하고 워크플로우 설계·스케줄링으로 넘어간다.
+
+## 강의2 - 자동화 워크플로우 설계와 스케줄링
+
+*총 120분*
+
+**00-25분 트리거-조건-액션(Trigger-Condition-Action) 모델**
+
+지금까지 배운 것들(파일 읽기, API 호출, Webhook 수신)을 하나의 공통 모델로 통합한다: 트리거 → 조건 → 액션. 이 모델이 이후 SOAR 플레이북 설계의 기초가 됨을 예고한다.
+
+\# 트리거: 새 로그 파일 도착 / Webhook 수신 / 스케줄 시각 도달
+
+\# 조건: event == 'login_failed' and count \>= threshold
+
+\# 액션: 알림 전송, 리포트 생성, 티켓 생성
+
+*\[확인질문\] 1일차 로그 필터링 스크립트를 트리거-조건-액션으로 나눠본다면 각각 무엇일까요?*
+
+**25-50분 멱등성(Idempotency)과 중복 실행 방지**
+
+자동화 스크립트가 같은 이벤트에 대해 실수로 중복 알림을 보내지 않도록, 처리한 이벤트 ID를 기록해두는 멱등성 패턴을 소개한다.
+
+processed_ids = set()
+
+if event\['id'\] not in processed_ids:
+
+handle_event(event)
+
+processed_ids.add(event\['id'\])
+
+else:
+
+logging.info(f"이미 처리된 이벤트 {event\['id'\]} - 스킵")
+
+*\[확인질문\] 멱등성 처리를 안 하면 스케줄러가 같은 로그를 두 번 읽었을 때 어떤 문제가 생길까요?*
+
+**50-75분 파이썬 schedule 라이브러리 실습**
+
+간단한 schedule 라이브러리로 '매 N분마다 실행' 같은 반복 작업을 구현하는 법을 실습한다.
+
+import schedule, time
+
+def job():
+
+print('로그 점검 실행')
+
+schedule.every(10).minutes.do(job)
+
+while True:
+
+schedule.run_pending()
+
+time.sleep(1)
+
+*\[확인질문\] while True 무한루프 안에서 스케줄을 도는 방식은 서버를 계속 켜둬야 하는데, 실무에서는 어떤 대안(cron)이 있을까요?*
+
+**75-100분 cron 문법 이해하기**
+
+리눅스 cron 표현식(분 시 일 월 요일)을 읽는 법을 예제로 연습한다.
+
+\# 매일 오전 6시에 실행
+
+0 6 \* \* \* /path/venv/bin/python /path/agent_core/daily_check.py
+
+*\[확인질문\] 0 6 \* \* \* 는 정확히 언제 실행되는 걸까요?*
+
+**100-120분 실습 안내**
+
+Webhook 수신 서버 + 스케줄러를 결합한 실습을 안내한다.
+
+## 실습 - Webhook 수신·정기 실행 자동화 스크립트
+
+*총 120분*
+
+**실습 목표:** Webhook으로 이벤트를 수신·처리하고, 스케줄러로 정기 점검까지 이어지는 자동화 스크립트를 완성한다.
+
+**진행 단계**
+
+1\. agent_core/webhook_server.py를 생성해 강의1 예제를 확장한다(argparse로 --port 옵션 추가)
+
+2\. 수신한 이벤트 중 login_failed인 경우만 WARNING 레벨로 로깅하도록 조건을 추가한다
+
+3\. agent_core/scheduler_job.py에 2일차 log_parser.py를 import해 '매 1분마다' 로그 점검 작업을 실행하도록 구성한다
+
+4\. processed_ids.json으로 멱등성을 구현해 같은 이벤트를 중복 처리하지 않도록 한다
+
+5\. curl 명령 3~5개를 담은 test_webhook.sh를 작성해 다양한 이벤트를 전송해본다
+
+6\. 5분 이상 실행해 로그가 정상 누적되는지 확인하고, 실제 운영시라면 몇 시에 cron으로 돌릴지 docs/에 메모한다
+
+**산출물:** agent_core/webhook_server.py, scheduler_job.py, test_webhook.sh
+
+**평가 기준**
+
+\- Webhook 서버가 POST 요청을 정상 수신하고 200을 반환하는가
+
+\- 스케줄러가 반복 실행되며 이미 처리한 이벤트를 중복 처리하지 않는가
+
+\- CLI 인자로 설정이 유연하게 바뀌는가
+
+**Day 6**
+
+# LLM 개념·프롬프트 엔지니어링 & AI Agent Tool-use 구조
+
+**학습목표**
+
+\- LLM의 동작 원리와 한계를 이해한다
+
+\- 효과적인 프롬프트를 설계할 수 있다
+
+\- AI Agent의 Tool-use(함수호출) 구조를 이해하고 구현할 수 있다
+
+**캡스톤 빌딩블록 태그:** AI 오케스트레이션·에이전트 코어
+
+**레포 경로:** agent_core/day06_agent_basics.py
+
+| **블록** | **시간** | **내용**                                        |
+|----------|----------|-------------------------------------------------|
+| 강의1    | 120분    | 강의1 - LLM 개념과 프롬프트 엔지니어링          |
+| 강의2    | 120분    | 강의2 - AI Agent와 Tool-use 구조                |
+| 실습     | 120분    | 실습 - LLM 연동 텍스트 요약 및 도구 라우터 구현 |
+
+## 강의1 - LLM 개념과 프롬프트 엔지니어링
+
+*총 120분*
+
+**00-20분 LLM(거대언어모델)이란**
+
+LLM이 다음 단어를 확률적으로 예측해 텍스트를 생성하는 모델이라는 점, 그래서 사실을 '검색'하는 것이 아니라 '생성'한다는 점(환각 가능성)을 설명한다. 보안 업무에 활용할 때는 반드시 사람이 최종 검증해야 함을 강조한다.
+
+*\[확인질문\] LLM이 보안 이벤트 요약을 만들어줬을 때, 왜 그 내용을 100% 그대로 믿으면 안 될까요?*
+
+**20-50분 프롬프트 엔지니어링 기본 원칙**
+
+역할 부여(persona), 명확한 지시, 출력 형식 지정, 예시 제공(few-shot)이라는 4가지 기본 원칙을 사례로 설명한다.
+
+나쁜 예: '이 로그 요약해줘'
+
+좋은 예:
+
+'당신은 보안관제 애널리스트입니다.
+
+아래 로그 목록을 분석해 다음 형식의 JSON으로만 답하세요.
+
+{"summary": "...", "risk_level": "low\|medium\|high", "recommended_action": "..."}
+
+로그: ...'
+
+*\[확인질문\] 출력 형식을 JSON으로 명확히 지정하면 이후 파이썬 코드에서 어떤 점이 편해질까요?*
+
+**50-80분 LLM API 호출 실습**
+
+4일차에 배운 requests 지식을 그대로 활용해 LLM API를 호출하는 법을 실습한다. 요청 본문(모델명, 메시지, temperature 등)의 의미를 설명한다.
+
+payload = {
+
+'model': 'gpt-4o-mini',
+
+'messages': \[
+
+{'role': 'system', 'content': '당신은 보안관제 애널리스트입니다.'},
+
+{'role': 'user', 'content': f'다음 로그를 요약하세요: {log_text}'}
+
+\],
+
+'temperature': 0.2
+
+}
+
+response = requests.post(llm_url, json=payload, headers=headers)
+
+*\[확인질문\] temperature 값을 낮게(0.2) 설정하면 응답이 더 일관적일까요, 더 창의적일까요?*
+
+**80-105분 구조화된 출력 파싱**
+
+LLM이 JSON 형태로 응답하도록 지시했더라도 앞뒤에 불필요한 텍스트가 붙을 수 있다는 점, 이를 안전하게 파싱하는 방어적 코드를 실습한다.
+
+import json
+
+def parse_llm_json(text):
+
+try:
+
+start = text.index('{')
+
+end = text.rindex('}') + 1
+
+return json.loads(text\[start:end\])
+
+except (ValueError, json.JSONDecodeError) as e:
+
+logging.warning(f'LLM 응답 파싱 실패: {e}')
+
+return None
+
+*\[확인질문\] LLM 응답 파싱에 실패했을 때 프로그램을 그대로 멈추게 하는 것과, None을 반환하고 계속 진행하는 것 중 자동화 파이프라인에는 어느 쪽이 안전할까요?*
+
+**105-120분 AI Agent 개념 예고**
+
+지금까지는 LLM에게 '한 번 물어보고 답 받기'만 했다면, 이제는 LLM이 '스스로 도구를 선택해 호출'하는 AI Agent 구조로 넘어감을 예고한다.
+
+## 강의2 - AI Agent와 Tool-use 구조
+
+*총 120분*
+
+**00-25분 AI Agent란 무엇인가**
+
+단순 챗봇(질문-답변)과 AI Agent(목표를 받아 스스로 계획하고 도구를 호출해 작업을 수행)의 차이를 비교한다. 캡스톤에서 만들 '과다권한 자동 회수 봇' 등이 결국 AI Agent 구조 위에서 동작함을 강조한다.
+
+*\[확인질문\] 챗봇은 '질문에 답하는 것'이 목표라면, Agent는 무엇이 목표일까요?*
+
+**25-55분 Tool-use(함수 호출) 구조**
+
+LLM에게 '사용 가능한 도구 목록(함수 이름, 설명, 파라미터)'을 함께 제공하면, LLM이 상황에 맞는 도구를 선택해 '이 함수를 이 인자로 호출해줘'라고 응답하는 구조를 설명한다. 실제 함수 실행은 우리 파이썬 코드가 담당한다는 점을 명확히 한다.
+
+tools = \[
+
+{'name': 'count_failed_logins', 'description': '로그인 실패 횟수를 센다', 'parameters': {'threshold': 'int'}},
+
+{'name': 'send_alert', 'description': '담당자에게 알림을 보낸다', 'parameters': {'message': 'str'}}
+
+\]
+
+\# LLM 응답 예시: {'tool': 'count_failed_logins', 'args': {'threshold': 5}}
+
+*\[확인질문\] LLM이 '이 함수를 호출해줘'라고 응답만 하고, 실제 실행은 누가 담당해야 안전할까요?*
+
+**55-85분 간단한 도구 호출 라우터 구현**
+
+LLM의 응답(JSON)을 파싱해 실제 파이썬 함수를 매핑·실행하는 라우터 코드를 라이브 코딩한다. 이는 agent_core의 핵심 엔진이 된다.
+
+tool_registry = {
+
+'count_failed_logins': count_failed_logins,
+
+'send_alert': send_alert,
+
+}
+
+def route_tool_call(llm_decision):
+
+tool_name = llm_decision\['tool'\]
+
+args = llm_decision\['args'\]
+
+func = tool_registry.get(tool_name)
+
+if func is None:
+
+raise ValueError(f'알 수 없는 도구: {tool_name}')
+
+return func(\*\*args)
+
+*\[확인질문\] tool_registry에 없는 도구 이름이 오면 그냥 무시하지 않고 에러를 내는 이유는 무엇일까요?*
+
+**85-110분 안전장치 - 승인 게이트 개념 예고**
+
+모든 도구 호출을 자동 실행하면 위험할 수 있다는 점(예: 계정 잠금처럼 영향이 큰 액션), 그래서 위험도가 높은 도구는 사람 승인을 거치도록 하는 '승인 게이트' 개념을 짧게 소개한다(5과목 SOAR에서 본격적으로 다룸을 예고).
+
+*\[확인질문\] 로그를 요약하는 도구와 계정을 잠그는 도구, 둘 중 어느 쪽에 사람 승인이 더 필요할까요?*
+
+**110-120분 실습 안내**
+
+LLM 응답을 파싱해 도구를 라우팅하는 미니 에이전트 프로토타입을 만드는 실습을 안내한다.
+
+## 실습 - LLM 연동 텍스트 요약 및 도구 라우터 구현
+
+*총 120분*
+
+**실습 목표:** LLM API를 연동해 로그 요약 기능을 만들고, 도구 호출 라우터의 뼈대를 완성한다.
+
+**진행 단계**
+
+1\. agent_core/llm_client.py를 생성해 LLM API 호출 함수(call_llm)를 작성한다
+
+2\. 3일차 normalized_logs.json을 입력으로 받아, 로그 목록을 요약하는 프롬프트를 설계한다
+
+3\. parse_llm_json()으로 응답을 안전하게 파싱한다
+
+4\. agent_core/tool_router.py를 생성해 tool_registry와 route_tool_call() 뼈대를 작성한다(도구는 1~2개만 우선 등록)
+
+5\. LLM에게 '지금 상황에서 count_failed_logins를 호출해야 하는지' 판단하게 하는 프롬프트를 설계하고 응답을 라우터로 실행해본다
+
+6\. 결과(요약문 + 실행된 도구 이름)를 agent_result.json으로 저장한다
+
+**산출물:** agent_core/llm_client.py, agent_core/tool_router.py, agent_result.json
+
+**평가 기준**
+
+\- LLM 응답 파싱 실패 시에도 프로그램이 안전하게 처리되는가
+
+\- tool_registry 기반 라우팅이 정상 동작하는가
+
+\- 결과가 이해하기 쉬운 형태로 저장되는가
+
+**Day 7**
+
+# LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성
+
+**학습목표**
+
+\- 보안 이벤트 요약 자동화 파이프라인을 설계할 수 있다
+
+\- 프롬프트 체이닝으로 여러 단계의 LLM 작업을 연결할 수 있다
+
+\- 템플릿과 LLM을 결합해 보고서 초안을 자동 생성할 수 있다
+
+**캡스톤 빌딩블록 태그:** AI 오케스트레이션·에이전트 코어 (AI 보안 이벤트 분류·초동대응봇의 핵심)
+
+**레포 경로:** agent_core/day07_pipeline.py
+
+| **블록** | **시간** | **내용**                                       |
+|----------|----------|------------------------------------------------|
+| 강의1    | 120분    | 강의1 - 이벤트 요약 자동화와 프롬프트 체이닝   |
+| 강의2    | 120분    | 강의2 - 템플릿+LLM 결합 보고서 자동 생성       |
+| 실습     | 120분    | 실습 - 이벤트 요약·보고서 자동 생성 파이프라인 |
+
+## 강의1 - 이벤트 요약 자동화와 프롬프트 체이닝
+
+*총 120분*
+
+**00-20분 이벤트 요약이 필요한 실무 맥락**
+
+보안관제 담당자가 하루 수백~수천 건의 이벤트를 일일이 확인하기 어렵다는 현실 문제를 제시하고, AI 요약이 어떻게 업무 부담을 줄이면서도 최종 판단은 사람이 하도록 설계해야 하는지(Human-in-the-loop) 강조한다.
+
+*\[확인질문\] AI가 요약과 우선순위까지 정해주더라도, 왜 최종 조치는 사람이 확인 후 결정해야 할까요?*
+
+**20-45분 요약 프롬프트 설계와 배치 처리**
+
+여러 건의 이벤트를 한 번에 넣고 심각도 상위 N건만 요약하도록 지시하는 프롬프트를 설계하고, 입력이 너무 많을 때 청크(batch) 단위로 나눠 처리하는 패턴을 함께 다룬다.
+
+def chunk_list(items, size=20):
+
+for i in range(0, len(items), size):
+
+yield items\[i:i+size\]
+
+all_summaries = \[\]
+
+for batch in chunk_list(events, size=20):
+
+result = call_llm(build_prompt(batch))
+
+all_summaries.extend(parse_llm_json(result) or \[\])
+
+*\[확인질문\] 이벤트가 100건인데 프롬프트에 전부 넣으면 어떤 문제(길이 제한, 비용)가 생길 수 있을까요?*
+
+**45-70분 요약 결과 후처리 - 우선순위 정렬**
+
+LLM이 준 risk_level(문자열)을 숫자로 매핑해 정렬하는 파이썬 로직을 실습한다(LLM 출력만으로는 정렬이 애매할 수 있으므로 코드에서 보정).
+
+risk_order = {'high': 0, 'medium': 1, 'low': 2}
+
+sorted_summaries = sorted(all_summaries, key=lambda x: risk_order.get(x\['risk_level'\], 3))
+
+*\[확인질문\] LLM이 risk_level에 'High'처럼 대문자로 응답하면 risk_order.get()에서 어떤 문제가 생길까요?*
+
+**70-95분 프롬프트 체이닝이란**
+
+한 번의 프롬프트로 모든 것을 해결하려 하지 않고, 여러 단계(정보 추출 → 분석 → 요약)로 나눠 LLM을 순차 호출하는 프롬프트 체이닝 기법을 설명한다. 각 단계의 출력이 다음 단계의 입력이 되는 구조를 다이어그램으로 보여준다.
+
+*\[확인질문\] 긴 작업을 한 번에 시키는 것과 여러 단계로 나눠 시키는 것, 오류가 났을 때 어느 쪽이 원인 파악이 쉬울까요?*
+
+**95-120분 체이닝 결과 검증과 로깅**
+
+각 단계의 중간 결과를 반드시 로깅·저장해두어야 문제 발생 시 어느 단계에서 틀렸는지 추적할 수 있다는 점을 강조하고, 단계별 결과를 파일로 남기는 코드를 추가한다.
+
+with open('pipeline_log.json', 'w', encoding='utf-8') as f:
+
+json.dump({'step1': step1_result, 'step2': step2_result}, f, ensure_ascii=False, indent=2)
+
+*\[확인질문\] 중간 단계 결과를 저장해두지 않으면, 최종 결과가 이상할 때 원인을 어떻게 찾아야 할까요?*
+
+## 강의2 - 템플릿+LLM 결합 보고서 자동 생성
+
+*총 120분*
+
+**00-20분 왜 템플릿 + LLM 결합인가**
+
+LLM에게 보고서 전체를 맡기면 형식이 매번 달라지는 문제가 있다는 점을 지적하고, 고정된 템플릿에 LLM이 생성한 문장만 채워 넣는 방식이 실무에서 더 안정적임을 설명한다.
+
+*\[확인질문\] 보고서 형식까지 매번 LLM에게 맡기면 팀원마다 결과물이 달라질 텐데, 이게 왜 문제가 될까요?*
+
+**20-45분 문자열 템플릿 활용**
+
+파이썬 f-string으로 보고서 뼈대를 만들고, 앞서 만든 이벤트 요약 데이터를 채워 넣는 실습을 진행한다.
+
+template = '''\n# 보안 이벤트 일일 요약 보고서\n작성일: {date}\n\n## 요약\n총 {total}건 중 위험도 high {high_count}건\n\n## 상세 내역\n{details}\n'''
+
+report = template.format(date=today, total=len(summaries), high_count=high_count, details=details_text)
+
+*\[확인질문\] 템플릿의 {details} 부분을 리스트를 그대로 넣지 않고 사람이 읽기 좋게 가공해야 하는 이유는 무엇일까요?*
+
+**45-70분 LLM으로 상세 문단만 생성**
+
+전체 보고서가 아니라 '상세 내역' 섹션의 자연어 설명 문단만 LLM에게 생성시키는 부분 위임 전략을 실습한다.
+
+detail_prompt = f'다음 이벤트 요약 리스트를 보고서에 어울리는 문단 형태로 정리해줘(글머리표 없이 문장으로): {summaries}'
+
+details_text = call_llm(detail_prompt)
+
+*\[확인질문\] 보고서 전체를 LLM에게 맡기는 것과, 상세 문단만 맡기고 제목·구조는 코드로 고정하는 것, 어느 쪽이 팀 표준 형식을 유지하기 쉬울까요?*
+
+**70-95분 조건부 경고 문구 삽입**
+
+high 등급 이벤트가 일정 건수 이상이면 보고서 상단에 경고 문구를 자동으로 추가하는 조건부 로직을 구현한다.
+
+if high_count \>= 3:
+
+report = '\[긴급 확인 필요\]\n' + report
+
+*\[확인질문\] 이런 조건부 문구가 없다면, 바쁜 담당자가 보고서를 끝까지 읽지 않고 넘어갈 위험이 있을까요?*
+
+**95-120분 실습 안내**
+
+이벤트 요약 파이프라인과 보고서 자동 생성을 결합한 실습을 안내한다.
+
+## 실습 - 이벤트 요약·보고서 자동 생성 파이프라인
+
+*총 120분*
+
+**실습 목표:** 다건의 보안 이벤트를 배치 처리로 요약하고, 사람이 읽기 좋은 보고서를 자동 생성한다.
+
+**진행 단계**
+
+1\. agent_core/event_summarizer.py를 생성한다
+
+2\. 3일차 normalized_logs.json(30~50건으로 확장)을 chunk_list()로 20건씩 나눈다
+
+3\. 각 청크에 대해 build_prompt() → call_llm() → parse_llm_json()으로 요약 결과를 수집하고 risk_order로 정렬한다
+
+4\. agent_core/report_generator.py에서 템플릿+LLM으로 daily_report_YYYYMMDD.md를 생성한다
+
+5\. high 등급이 3건 이상이면 경고 문구가 자동 삽입되는지 테스트한다
+
+6\. 결과를 event_summary_report.json, daily_report\_\*.md로 저장한다
+
+**산출물:** agent_core/event_summarizer.py, report_generator.py, daily_report\_\*.md
+
+**평가 기준**
+
+\- 청크 단위 배치 처리와 정렬이 정상 동작하는가
+
+\- 보고서 형식이 매번 일관되게 유지되는가
+
+\- high 등급 이벤트 수에 따라 경고 문구가 조건부로 삽입되는가
+
+**Day 8**
+
+# 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표
+
+**학습목표**
+
+\- 입력-분류-요약-알림-리포팅 전체 파이프라인을 설계·구현할 수 있다
+
+\- 이메일·메신저 API로 알림을 연동할 수 있다
+
+\- 1~7일차 산출물을 완성된 미니 프로젝트로 통합·발표할 수 있다
+
+**캡스톤 빌딩블록 태그:** AI 오케스트레이션·에이전트 코어 (캡스톤 착수 시 그대로 재사용될 완성본)
+
+**레포 경로:** agent_core/ (전체)
+
+| **블록** | **시간** | **내용**                               |
+|----------|----------|----------------------------------------|
+| 강의1    | 120분    | 강의1 - 파이프라인 통합과 알림 연동    |
+| 강의2    | 120분    | 강의2 - 코드 리뷰·디버깅과 발표 준비   |
+| 실습     | 120분    | 실습 - 미니 프로젝트 최종 완성 및 시연 |
+
+## 강의1 - 파이프라인 통합과 알림 연동
+
+*총 120분*
+
+**00-20분 전체 파이프라인 개관**
+
+1~7일차에 만든 기능들(파일/API 입력, 정규화, LLM 요약, 템플릿 보고서)을 하나의 흐름 - 입력→분류→요약→알림→리포팅 - 으로 통합하는 아키텍처를 다이어그램으로 정리한다.
+
+입력: log_parser.py / normalize_logs.py
+
+분류: tool_router.py
+
+요약: event_summarizer.py
+
+알림: (오늘 새로 작성)
+
+리포팅: report_generator.py
+
+*\[확인질문\] 이미 만든 코드를 재사용하지 않고 새로 다 짠다면 오늘 하루 안에 끝낼 수 있을까요? 재사용이 왜 중요할까요?*
+
+**20-45분 이메일 발송 실습(smtplib)**
+
+파이썬 표준 라이브러리 smtplib로 이메일을 발송하는 기본 코드를 실습한다. 비밀번호를 반드시 환경변수로 관리하도록 재차 강조한다.
+
+import smtplib
+
+from email.mime.text import MIMEText
+
+def send_email(subject, body, to_addr):
+
+msg = MIMEText(body)
+
+msg\['Subject'\] = subject
+
+msg\['From'\] = os.environ\['SMTP_USER'\]
+
+msg\['To'\] = to_addr
+
+with smtplib.SMTP('smtp.example.com', 587) as server:
+
+server.starttls()
+
+server.login(os.environ\['SMTP_USER'\], os.environ\['SMTP_PASSWORD'\])
+
+server.send_message(msg)
+
+*\[확인질문\] SMTP_PASSWORD를 코드에 직접 쓰지 않고 환경변수로 관리하는 이유는 무엇일까요?*
+
+**45-70분 메신저 Webhook 알림과 실패 대응**
+
+메신저 incoming webhook으로 알림을 보내는 코드를 실습하고, 알림 전송 자체가 실패했을 때 로컬 로그에라도 남기는 fallback 전략을 설계한다.
+
+def notify(message):
+
+try:
+
+requests.post(webhook_url, json={'text': message}, timeout=5).raise_for_status()
+
+except Exception as e:
+
+logging.error(f'알림 실패: {e}')
+
+with open('failed_alerts.log', 'a', encoding='utf-8') as f:
+
+f.write(f'{datetime.now()} {message}\n')
+
+*\[확인질문\] 알림 전송에 실패했는데 그 사실조차 기록하지 않는다면, 나중에 어떤 문제가 생길까요?*
+
+**70-95분 설정값(config) 분리 최종 점검**
+
+지금까지 흩어져 있던 threshold, API URL, 파일 경로 등을 config.yaml 하나로 모으는 리팩토링을 진행한다. 이는 캡스톤에서 팀이 고객사만 바꿔가며 재사용하기 위한 핵심 작업이다.
+
+\# config/example_customer.yaml
+
+customer_name: '가상 A사'
+
+threshold: 5
+
+log_input_path: 'sample_logs.csv'
+
+alert_channel: 'email'
+
+*\[확인질문\] config.yaml 파일 하나만 바꾸면, 이 파이프라인을 다른 고객사(B사)에도 그대로 쓸 수 있을까요?*
+
+**95-120분 파이프라인 오케스트레이션 코드 작성**
+
+각 단계를 독립 함수로 유지하면서, 메인 함수에서 순서대로 호출하는 run_pipeline() 함수를 라이브 코딩한다. 각 단계에 try/except를 적용해 한 단계 실패해도 전체가 멈추지 않도록 한다.
+
+def run_pipeline(config_path):
+
+config = load_config(config_path)
+
+logs = parse_logs(config\['log_input_path'\])
+
+summaries = summarize_events(normalize(logs))
+
+if has_high_risk(summaries):
+
+notify(f'고위험 이벤트 {len(summaries)}건 발견')
+
+return generate_report(summaries)
+
+*\[확인질문\] 요약(LLM) 단계가 실패했다고 전체 파이프라인을 멈추는 것이 항상 옳을까요, 아니면 요약 없이라도 원본 로그를 보고하는 게 나을까요?*
+
+## 강의2 - 코드 리뷰·디버깅과 발표 준비
+
+*총 120분*
+
+**00-30분 전체 코드 리뷰 체크리스트**
+
+강사가 준비한 체크리스트(① config 하드코딩 여부 ② 예외처리 누락 여부 ③ 로깅 일관성 ④ 함수 재사용성)로 각 팀/개인의 pipeline.py를 함께 점검한다.
+
+체크리스트 예시:
+
+\[ \] API 키/비밀번호가 코드에 하드코딩되지 않았는가
+
+\[ \] 모든 외부 호출(API, 파일, LLM)에 예외처리가 있는가
+
+\[ \] threshold 등 설정값이 config로 분리되었는가
+
+*\[확인질문\] 체크리스트 중 스스로 가장 취약하다고 생각하는 항목은 무엇인가요?*
+
+**30-55분 디버깅 실습 - 의도적 오류 주입**
+
+강사가 준비한 '고장난 pipeline.py' 샘플(예: config 키 오타, JSON 파싱 누락)을 학습자들이 직접 디버깅해보는 실습으로 예외처리·로깅의 중요성을 체감하게 한다.
+
+*\[확인질문\] 에러 메시지(traceback)를 읽을 때 가장 먼저 확인해야 할 정보는 무엇일까요?*
+
+**55-80분 발표 자료 준비**
+
+각자 만든 파이프라인의 아키텍처 다이어그램, 핵심 코드 3줄 요약, 실행 데모 시나리오를 정리하는 시간을 갖는다.
+
+**80-120분 캡스톤 연계 안내**
+
+오늘 완성한 agent_core/ 레포가 앞으로 2~5과목(네트워크·ZT, 접근통제, 이상탐지, SOAR)에서 만들 모듈들과 어떻게 결합되어 P3 캡스톤(80h)의 최종 보안 Agent가 되는지 전체 그림을 다시 한번 보여주고 질의응답을 진행한다.
+
+*\[확인질문\] 오늘 만든 tool_router.py는 앞으로 배울 접근통제/이상탐지/SOAR 모듈과 어떻게 연결될까요?*
+
+## 실습 - 미니 프로젝트 최종 완성 및 시연
+
+*총 120분*
+
+**실습 목표:** 리뷰에서 발견한 문제를 반영해 파이프라인을 완성하고, 팀/개인별로 실제 동작을 시연·발표한다.
+
+**진행 단계**
+
+1\. 코드 리뷰에서 지적된 항목(config 분리, 예외처리, 로깅)을 pipeline.py에 반영해 수정한다
+
+2\. 정상 케이스(로그 입력 → 요약 → 알림 → 리포트 생성)를 처음부터 끝까지 한 번에 실행해 정상 동작을 확인한다
+
+3\. 예외 케이스(잘못된 입력 파일 등)도 한 번 실행해 안전하게 처리되는지 재확인한다
+
+4\. 5분 내외 발표 자료(아키텍처 1장, 데모 화면)를 준비한다
+
+5\. 조별로 돌아가며 실제 파이프라인 실행을 시연하고, 강사·동료로부터 피드백을 받는다
+
+6\. 받은 피드백과 개선 아이디어를 docs/day08_retrospective.md에 정리해 남긴다(캡스톤 시작 시 다시 참고)
+
+**산출물:** agent_core/ 전체 완성본, docs/day08_retrospective.md
+
+**평가 기준**
+
+\- 전체 파이프라인이 오류 없이 시연되는가
+
+\- 코드 리뷰 지적사항이 실제로 반영되었는가
+
+\- 발표에서 아키텍처와 캡스톤 연결점을 명확히 설명하는가
