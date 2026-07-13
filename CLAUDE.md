@@ -5,17 +5,18 @@
 따라야 할 규칙과 절차를 정의한다. **새 세션에서 이 파일을 먼저 읽고 그대로 따른다.**
 
 ## 폴더명 규칙
-형식: `YYYY-MM_토픽-형태`  (예: `2026-08_ai-agent-oneday`)
-- `YYYY-MM` = 강의 **시작** 년-월 (알파벳순 정렬 = 시간순 정렬)
+형식: `YY-MM_토픽-형태`  (예: `26-08_ai-agent-oneday`)
+- `YY-MM` = 강의 **시작** 년(2자리)-월 (알파벳순 정렬 = 시간순 정렬)
 - `_` 로 '언제(날짜)'와 '무엇(토픽)'을 구분
 - 토픽·형태는 **영문 kebab-case** (한글·공백 금지)
 - 형태에는 기간/유형을 인코딩: `oneday`, `2h`, `4wk`, `8wk`, `3mo` 등
-- 같은 강의를 다시 열면 새 시작월로 새 폴더 (예: `2026-11_python-basics-8wk`)
+- 같은 강의를 다시 열면 새 시작월로 새 폴더 (예: `26-11_python-basics-8wk`)
 - 한글 정식 강의명·상세 정보는 폴더명이 아니라 `course-info.md`와 README에 둔다
+- 단, `course-info.md` frontmatter의 날짜(`start_date`)는 전체 `YYYY-MM-DD`로 적는다
 
 ## 강의 폴더 구조 (`_template/` 복사본)
 ```
-YYYY-MM_topic-form/
+YY-MM_topic-form/
 ├── docs/
 │   ├── course-info.md   (필수) 강의 기본 정보 + frontmatter
 │   ├── syllabus.md      (선택) 상세 커리큘럼 = 교안 원본(source of truth)

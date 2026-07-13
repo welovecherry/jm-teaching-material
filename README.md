@@ -4,14 +4,14 @@
 제작 규칙·워크플로우는 [`CLAUDE.md`](./CLAUDE.md) 참고.
 
 ## 폴더명 규칙
-`YYYY-MM_토픽-형태` — 시작 년-월 프리픽스 + 영문 kebab-case 토픽/형태
-(예: `2026-08_ai-agent-oneday`).
+`YY-MM_토픽-형태` — 시작 년(2자리)-월 프리픽스 + 영문 kebab-case 토픽/형태
+(예: `26-08_ai-agent-oneday`).
 
 ## 강의 인덱스
 
 | 시작월 | 강의명 | 형태 | 포맷 | 상태 | 폴더 |
 |--------|--------|------|------|------|------|
-| 2026-09 | AI·보안 자동화 부트캠프 | multi-month | jupyter | planning | [`2026-09_ai-security-automation-bootcamp`](./2026-09_ai-security-automation-bootcamp) |
+| 26-09 | AI·보안 자동화 부트캠프 | multi-month | jupyter | planning | [`26-09_ai-security-automation-bootcamp`](./26-09_ai-security-automation-bootcamp) |
 
 > 상태: `planning` → `sample` → `building` → `done`
 
