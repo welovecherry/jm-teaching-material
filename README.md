@@ -11,7 +11,7 @@
 
 | 시작월 | 강의명 | 형태 | 포맷 | 상태 | 폴더 |
 |--------|--------|------|------|------|------|
-| _(첫 강의 추가 시 여기에 기록)_ | | | | | |
+| 2026-09 | AI·보안 자동화 부트캠프 | multi-month | jupyter | planning | [`2026-09_ai-security-automation-bootcamp`](./2026-09_ai-security-automation-bootcamp) |
 
 > 상태: `planning` → `sample` → `building` → `done`
 
