@@ -5,7 +5,7 @@ start_date: 2026-09-01     # ⚠️ 정확한 시작일 확인 필요
 duration: multi-month      # P1-1~P3 합계 약 40.5일
 audience: "보안/자동화 실무 지향 수강생 (SKT 현직자 멘토링 병행 추정)"
 format: jupyter            # 실습 위주 — output-spec.md에서 최종 확정
-status: planning
+status: sample
 ---
 
 # 강의 정보 — AI·보안 자동화 부트캠프
