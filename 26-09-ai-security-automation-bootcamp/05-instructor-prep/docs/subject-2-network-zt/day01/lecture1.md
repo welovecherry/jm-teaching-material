@@ -30,6 +30,16 @@
 
     A. 아래(물리)→위(응용) 순서로. **케이블·연결(1계층)** → **IP·핑(3계층)** → **서비스 포트(4계층)**. 아래부터 지워 "3계층까진 정상, 그 위가 문제"처럼 범위를 좁힙니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>장애 원인을 찾을 때 '아래 계층(물리)부터' 점검하는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">응용 계층은 거의 고장 나지 않기 때문</button>
+<button class="quiz-opt" data-correct>아래가 막혀 있으면 위 계층은 볼 필요도 없어, 점검 범위를 한 번에 좁힐 수 있기 때문</button>
+<button class="quiz-opt">위 계층은 확인하는 데 특별한 장비가 필요하기 때문</button>
+<button class="quiz-opt">물리 계층이 항상 문제의 원인이기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 하위 계층이 죽었으면 상위는 자동으로 안 되므로, 아래부터 지워가면 원인 구간이 빠르게 좁혀집니다. "물리가 항상 원인"(4번)은 과장이고, 나머지도 사실이 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 20-50분 · 지도의 아래 세 칸 — 1·2·3계층 *(오늘의 핵심)*
@@ -44,16 +54,6 @@
 !!! example "쉬운 비유 — 캡슐화(봉투 덧씌우기)"
     ①편지지(데이터) → ②봉투에 받는 사람 이름 → ③택배 상자에 집 주소. 내려갈수록 포장이 하나씩 늘고, 받는 쪽은 반대로 벗기며 올라갑니다. 2·3계층이 각자 자기 "봉투(헤더)"를 씌웁니다.
 
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>데이터에 계층마다 봉투(헤더)를 하나씩 덧씌우는 과정을 무엇이라 할까요?</b></p>
-<button class="quiz-opt">라우팅</button>
-<button class="quiz-opt" data-correct>캡슐화</button>
-<button class="quiz-opt">브로드캐스트</button>
-<button class="quiz-opt">핑</button>
-<div class="quiz-explain"><b>정답: 캡슐화(encapsulation).</b> 편지지→봉투→택배상자처럼 층을 내려갈수록 포장(헤더)이 하나씩 늘어납니다. 받는 쪽은 반대로 벗기며 올라갑니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
-
 ### 1계층 — 물리(Physical): "길과 전선"
 - **무엇:** 랜선(UTP 케이블), 광케이블, 신호를 퍼뜨리는 허브(hub).
 - **다루는 것:** 0과 1의 **전기·빛 신호**. 지능은 없고 신호만 흘려보냅니다.
@@ -62,27 +62,17 @@
 !!! tip "실무 팁 — 1계층 장애는 의외로 흔하다"
     "인터넷 안 돼요"의 상당수가 사실 1계층입니다(랜선 반쯤 빠짐, 포트 불량, 케이블 눌림). 스위치 포트 **LED가 켜지는지**가 1계층 생존의 첫 신호입니다.
 
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>랜선이 반쯤 빠져 통신이 안 될 때, 문제는 주로 몇 계층일까요?</b></p>
-<button class="quiz-opt" data-correct>1계층 (물리)</button>
-<button class="quiz-opt">3계층 (네트워크)</button>
-<button class="quiz-opt">4계층 (전송)</button>
-<button class="quiz-opt">7계층 (응용)</button>
-<div class="quiz-explain"><b>정답: 1계층 (물리).</b> 케이블·전기신호는 물리 계층입니다. 그래서 장애 점검을 "케이블부터" 시작합니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
-
 ### 2계층 — 데이터링크(Data Link): "같은 동네 안 배달"
 - **주소:** **MAC(맥) 주소** — 랜카드마다 공장에서 찍혀 나오는 고유번호.
 - **장비:** **스위치(switch)** — MAC을 보고 같은 네트워크 안 정확한 기기에 전달.
 
 <div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>같은 네트워크 안에서 MAC 주소를 보고 정확한 기기로 전달하는 장비는?</b></p>
-<button class="quiz-opt">허브</button>
-<button class="quiz-opt" data-correct>스위치</button>
-<button class="quiz-opt">라우터</button>
-<button class="quiz-opt">게이트웨이</button>
-<div class="quiz-explain"><b>정답: 스위치.</b> 2계층 장비로, 같은 네트워크(동네) 안에서 MAC 기반으로 전달합니다. 라우터는 네트워크 사이(3계층·IP)를 담당합니다.</div>
+<p class="quiz-q"><span class="tag">퀴즈</span><b>옆자리 PC(같은 네트워크)로 파일을 보낼 때 라우터를 거치지 않아도 되는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">파일 크기가 작아 라우터의 처리가 필요 없기 때문</button>
+<button class="quiz-opt">같은 회사 기기끼리는 인증이 생략되기 때문</button>
+<button class="quiz-opt" data-correct>같은 네트워크라 목적지를 MAC 주소만으로 특정할 수 있어, 네트워크 사이를 잇는 라우터가 필요 없기 때문</button>
+<button class="quiz-opt">스위치가 라우터보다 항상 빠르기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 라우터는 '다른 네트워크로 넘길 때' 필요합니다. 같은 네트워크 안이면 2계층(MAC)만으로 전달되므로 라우터가 없어도 됩니다.</div>
 <button class="quiz-retry">다시 풀기</button>
 </div>
 
@@ -94,16 +84,6 @@ MAC 주소는 이 과정 내내(2과목~접근통제~이상탐지) 계속 나옵
 기기의 랜카드(NIC, 네트워크 인터페이스 카드)에 붙은 **48비트(6바이트) 고유 번호**입니다. 보통 16진수 12자리로 씁니다.
 > 예: `00:1A:2B:3C:4D:5E`  (콜론 대신 `-`나 `.`로 쓰기도 함)
 
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>MAC 주소의 길이는 몇 비트일까요?</b></p>
-<button class="quiz-opt">32비트</button>
-<button class="quiz-opt" data-correct>48비트</button>
-<button class="quiz-opt">64비트</button>
-<button class="quiz-opt">128비트</button>
-<div class="quiz-explain"><b>정답: 48비트</b> (6바이트, 16진수 12자리). 참고로 32비트는 IPv4 주소, 128비트는 IPv6 주소입니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
-
 **2단계 · 구조를 뜯어봅니다 (앞 절반 / 뒤 절반)**
 6칸은 **앞 3칸 + 뒤 3칸**으로 의미가 나뉩니다.
 
@@ -113,16 +93,6 @@ MAC 주소는 이 과정 내내(2과목~접근통제~이상탐지) 계속 나옵
 | **제조사** 식별 번호 | | 그 제조사가 기기마다 붙인 **고유 번호** |
 
 즉 앞 3칸만 보면 ==어느 회사가 만든 랜카드인지== 알 수 있습니다. (OUI는 IEEE라는 표준기구가 회사별로 배정)
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>MAC 주소 앞 3칸(OUI)이 알려주는 정보는?</b></p>
-<button class="quiz-opt">기기의 일련번호</button>
-<button class="quiz-opt" data-correct>랜카드 제조사</button>
-<button class="quiz-opt">기기의 IP 주소</button>
-<button class="quiz-opt">사용 중인 포트 번호</button>
-<div class="quiz-explain"><b>정답: 랜카드 제조사.</b> 앞 24비트(OUI)는 제조사 식별 번호, 뒤 24비트는 그 제조사가 붙인 일련번호입니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
 
 **3단계 · MAC은 어디서 오나요? (그리고 바뀌나요?)**
 공장에서 랜카드에 **각인(burned-in)**되어 나옵니다. 원칙적으로 평생 고정 — 그래서 "주민등록번호" 비유를 씁니다.
@@ -169,32 +139,12 @@ flowchart LR
     **Q. `00:1A:2B:99:88:77`과 `00:1A:2B:11:22:33`, 두 기기의 공통점은?**
     A. 앞 3칸(OUI `00:1A:2B`)이 같으니 ==같은 제조사가 만든 랜카드==입니다. 뒤 3칸이 달라 서로 다른 기기이고요.
 
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>"등록된 MAC 주소만 접속을 허용"하는 접근통제 방식을 무엇이라 할까요?</b></p>
-<button class="quiz-opt" data-correct>MAC 필터링</button>
-<button class="quiz-opt">NAT</button>
-<button class="quiz-opt">서브네팅</button>
-<button class="quiz-opt">캡슐화</button>
-<div class="quiz-explain"><b>정답: MAC 필터링.</b> 다만 MAC은 소프트웨어로 위장(스푸핑)할 수 있어, 단독 방어책보다는 보조 수단으로 씁니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
-
 ### 3계층 — 네트워크(Network): "다른 동네로 보내기"
 동네(네트워크)를 벗어나려면 새 주소·새 장비가 필요합니다.
 
 - **주소:** **IP(아이피) 주소** — `192.168.0.10`처럼 생기고, **접속 위치에 따라 바뀝니다.**
 - **장비:** **라우터(router)** — IP를 보고 "어느 네트워크로 보낼지" 길을 잡음.
 - **게이트웨이(gateway):** 우리 동네에서 바깥으로 나가는 **"정문"** 라우터 주소.
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>다른 네트워크로 데이터를 넘겨 경로를 정해주는 장비는?</b></p>
-<button class="quiz-opt">허브</button>
-<button class="quiz-opt">스위치</button>
-<button class="quiz-opt" data-correct>라우터</button>
-<button class="quiz-opt">리피터</button>
-<div class="quiz-explain"><b>정답: 라우터.</b> 3계층 장비로 IP 주소를 보고 네트워크와 네트워크 사이의 경로를 잡습니다. 스위치는 같은 네트워크 안(2계층·MAC) 담당입니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
 
 **🔑 MAC vs IP — 왜 둘 다 필요한가**
 
@@ -205,16 +155,6 @@ flowchart LR
 | 계층/장비 | 2계층 / 스위치 | 3계층 / 라우터 |
 
 둘을 잇는 다리가 **ARP(아르프)** — "이 IP 가진 기기의 MAC이 뭐죠?"라고 같은 네트워크에 물어보는 절차입니다. **IP로 동네를 찾아가고, 마지막엔 MAC으로 정확한 기기에 꽂습니다.**
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>IP 주소로 상대 기기의 MAC 주소를 알아내는 절차를 무엇이라 할까요?</b></p>
-<button class="quiz-opt">DNS</button>
-<button class="quiz-opt" data-correct>ARP</button>
-<button class="quiz-opt">NAT</button>
-<button class="quiz-opt">DHCP</button>
-<div class="quiz-explain"><b>정답: ARP.</b> "이 IP를 가진 기기의 MAC이 뭐죠?"를 같은 네트워크에 물어봅니다. (DNS는 도메인 이름 → IP를 찾는 것으로, 혼동 주의)</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
 
 ```mermaid
 flowchart TD
@@ -240,12 +180,12 @@ flowchart TD
     ==같은 동네는 MAC(스위치), 다른 동네는 IP(라우터).== 아래 3계층은 데이터를 목적지 기기까지 나른다.
 
 <div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>노트북을 집에서 쓰다가 카페 와이파이에 연결했습니다. 바뀌는 것은?</b></p>
-<button class="quiz-opt">MAC 주소</button>
-<button class="quiz-opt" data-correct>IP 주소</button>
-<button class="quiz-opt">랜카드 제조사</button>
-<button class="quiz-opt">MAC과 IP 둘 다</button>
-<div class="quiz-explain"><b>정답: IP 주소.</b> IP는 "지금 접속한 위치"라 카페 것으로 바뀝니다. MAC은 기기에 각인된 고정 값이라 그대로입니다.</div>
+<p class="quiz-q"><span class="tag">퀴즈</span><b>IP가 있는데도 마지막 전달에 MAC 주소가 또 필요한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">MAC이 IP보다 보안이 강하기 때문</button>
+<button class="quiz-opt" data-correct>IP는 '어느 네트워크(동네)'까지만 안내하고, 그 안에서 정확한 기기에 꽂으려면 그 네트워크에서 통하는 이름표(MAC)가 필요하기 때문</button>
+<button class="quiz-opt">MAC이 없으면 IP를 만들 수 없기 때문</button>
+<button class="quiz-opt">IP는 인터넷에서만, MAC은 내부에서만 쓰도록 정해져 있기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> IP로 목적지 동네를 찾아가고, 도착한 동네에서 실제 기기에 전달할 때 MAC을 씁니다. 둘은 담당 범위가 달라 함께 필요합니다.</div>
 <button class="quiz-retry">다시 풀기</button>
 </div>
 
@@ -265,12 +205,12 @@ flowchart TD
     IP가 "건물 주소"면 포트는 "몇 호실". 경비원이 "이건 302호(웹), 저건 505호(메일)"로 나눠 올려보냅니다.
 
 <div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>같은 IP를 가진 서버에서 웹과 메일을 구분해 각 프로그램에 전달하는 것은?</b></p>
-<button class="quiz-opt">IP 주소</button>
-<button class="quiz-opt" data-correct>포트 번호</button>
-<button class="quiz-opt">MAC 주소</button>
-<button class="quiz-opt">서브넷 마스크</button>
-<div class="quiz-explain"><b>정답: 포트 번호(4계층).</b> IP(건물)는 하나여도 포트(호실)로 웹·메일을 구분합니다. 예: 웹 443, 메일은 다른 포트.</div>
+<p class="quiz-q"><span class="tag">퀴즈</span><b>같은 IP를 가진 서버가 웹과 메일을 동시에 서비스할 수 있는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">서버가 IP를 두 개 갖고 있기 때문</button>
+<button class="quiz-opt">웹과 메일이 서로 다른 케이블을 쓰기 때문</button>
+<button class="quiz-opt">프로그램마다 MAC 주소가 다르기 때문</button>
+<button class="quiz-opt" data-correct>도착한 데이터를 포트 번호(4계층)로 구분해, 같은 IP라도 각기 다른 프로그램에 나눠 전달하기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> IP(건물)는 하나여도 포트(호실)로 서비스를 구분합니다. IP가 두 개(1번)일 필요도, 케이블(2번)·MAC(3번) 때문도 아닙니다.</div>
 <button class="quiz-retry">다시 풀기</button>
 </div>
 
@@ -284,12 +224,12 @@ flowchart TD
     화상회의가 가끔 깨져도 계속 가는 건 UDP라서. 파일 다운로드는 한 조각만 빠져도 깨지니 TCP로 빠짐없이 받습니다.
 
 <div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>"조금 유실돼도 빠른 게 중요한" 실시간 화상회의에 더 적합한 전송 방식은?</b></p>
-<button class="quiz-opt">TCP</button>
-<button class="quiz-opt" data-correct>UDP</button>
-<button class="quiz-opt">TCP와 UDP는 차이 없음</button>
-<button class="quiz-opt">포트가 결정한다</button>
-<div class="quiz-explain"><b>정답: UDP.</b> 확인·재전송 없이 빠르게 보냅니다. 반대로 파일 다운로드는 정확해야 하니 TCP(등기우편)를 씁니다.</div>
+<p class="quiz-q"><span class="tag">퀴즈</span><b>실시간 화상회의가 TCP가 아니라 UDP를 주로 쓰는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">UDP가 TCP보다 화질이 좋기 때문</button>
+<button class="quiz-opt" data-correct>조금 유실되더라도 '지금 이 순간'을 빨리 전하는 게 중요해, 확인·재전송으로 지체되는 것보다 낫기 때문</button>
+<button class="quiz-opt">TCP는 영상 데이터를 전송하지 못하기 때문</button>
+<button class="quiz-opt">UDP가 데이터를 자동으로 암호화해 주기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 실시간성이 정확성보다 중요할 때 UDP가 유리합니다. 화질(1번)·암호화(4번)와는 무관하고, TCP도 영상은 보낼 수 있습니다(3번).</div>
 <button class="quiz-retry">다시 풀기</button>
 </div>
 
@@ -307,26 +247,6 @@ flowchart TD
 | `443` | HTTPS | 암호화 웹(자물쇠) |
 | `22` | SSH | 서버 원격 접속 |
 | `53` | DNS | 도메인 → IP 변환 |
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>포트 <code>443</code>이 담당하는 서비스는?</b></p>
-<button class="quiz-opt">HTTP</button>
-<button class="quiz-opt" data-correct>HTTPS</button>
-<button class="quiz-opt">SSH</button>
-<button class="quiz-opt">DNS</button>
-<div class="quiz-explain"><b>정답: HTTPS</b> (암호화된 웹, 자물쇠). 참고로 80=HTTP, 22=SSH, 53=DNS.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>포트 <code>22</code>가 담당하는 서비스는?</b></p>
-<button class="quiz-opt">HTTP</button>
-<button class="quiz-opt">HTTPS</button>
-<button class="quiz-opt" data-correct>SSH</button>
-<button class="quiz-opt">DNS</button>
-<div class="quiz-explain"><b>정답: SSH</b> (서버 원격 접속). 방화벽 로그에 <code>dst port 22</code>가 급증하면 원격 접속 시도를 의심합니다.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
 
 !!! tip "실무 팁 — 포트를 알면 로그가 읽힌다"
     방화벽 로그에 `dst port 22`(SSH)가 급증 → "누가 원격 접속을 계속 시도"라고 바로 감. 4과목(이상탐지)에서 다시 만납니다.
@@ -363,12 +283,12 @@ flowchart TD
     A. 핑이 되면 IP까지는 도달한다는 뜻(3계층 정상). 그런데 특정 포트만 막혔다면, ==포트 단위로 통과/차단을 결정하는 방화벽(4계층)==이 그 포트를 막고 있을 가능성이 큽니다.
 
 <div class="quiz">
-<p class="quiz-q"><span class="tag">퀴즈</span><b>핑(3계층)은 성공인데 특정 포트(4계층) 연결만 실패합니다. 가장 먼저 의심할 것은?</b></p>
-<button class="quiz-opt">케이블 불량</button>
-<button class="quiz-opt" data-correct>방화벽의 포트 차단</button>
-<button class="quiz-opt">전원 문제</button>
-<button class="quiz-opt">모니터 고장</button>
-<div class="quiz-explain"><b>정답: 방화벽의 포트 차단.</b> IP까지는 도달(핑 성공)하는데 특정 포트만 막혔다면, 포트 단위로 통과/차단을 정하는 방화벽(4계층)이 유력합니다.</div>
+<p class="quiz-q"><span class="tag">퀴즈</span><b>핑(3계층)은 성공하는데 특정 포트 연결만 실패할 때, 방화벽을 의심하는 근거로 가장 타당한 것은?</b></p>
+<button class="quiz-opt">핑과 포트 연결은 서로 아무 관련이 없기 때문</button>
+<button class="quiz-opt">방화벽은 원래 핑만 차단하기 때문</button>
+<button class="quiz-opt" data-correct>핑이 됐다는 건 IP까지 도달했다는 뜻이라, 포트 단위로 통과/차단을 결정하는 4계층(방화벽)이 막았을 가능성이 높기 때문</button>
+<button class="quiz-opt">DNS가 없으면 포트 연결이 실패하기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> "어디까지 도달했나"로 층을 좁히는 사고가 핵심입니다. 3계층까지 정상인데 포트만 막혔으니 포트를 다루는 4계층(방화벽)을 먼저 봅니다.</div>
 <button class="quiz-retry">다시 풀기</button>
 </div>
 
@@ -404,16 +324,6 @@ flowchart TD
     class L3,L2,L1 deliver
 ```
 > 색으로 외우기: ==🟩 아래 3층(1·2·3)="배달", 🟨 4층="창구 배분", 🟦 위 3층(5·6·7)="사람 쪽".==
-
-<div class="quiz">
-<p class="quiz-q"><span class="tag">종합 퀴즈</span><b>포트 번호를 다루며 TCP/UDP로 전송 방식을 정하는 계층은?</b></p>
-<button class="quiz-opt">2계층 (데이터링크)</button>
-<button class="quiz-opt">3계층 (네트워크)</button>
-<button class="quiz-opt" data-correct>4계층 (전송)</button>
-<button class="quiz-opt">7계층 (응용)</button>
-<div class="quiz-explain"><b>정답: 4계층 (전송).</b> 포트로 프로그램을 구분하고 TCP/UDP로 보내는 방식을 정합니다. 2계층=MAC, 3계층=IP, 7계층=사람이 쓰는 서비스.</div>
-<button class="quiz-retry">다시 풀기</button>
-</div>
 
 **오후 예고:** 오전엔 "지도"를 그렸으니, 오후(강의2)엔 그 지도 위에서 실제로 연결을 맺는 **TCP/IP와 3-way Handshake**를 봅니다. 오늘 배운 4계층(TCP)·포트가 바로 이어집니다.
 

@@ -40,6 +40,16 @@
     **Q. 화상회의(실시간 영상)와 파일 다운로드, 어느 쪽이 TCP에 더 적합할까요?**
     A. **파일 다운로드가 TCP**입니다. 한 조각만 빠져도 파일이 깨지므로 확인·재전송으로 완벽하게 받아야 합니다. 화상회의는 조금 유실돼도 실시간성이 더 중요해 UDP를 씁니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>파일 다운로드에 UDP가 아니라 TCP가 적합한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">TCP가 UDP보다 항상 전송 속도가 빠르기 때문</button>
+<button class="quiz-opt" data-correct>파일은 한 조각만 빠져도 손상되므로, 빠짐없이 확인·재전송하는 방식이 필요하기 때문</button>
+<button class="quiz-opt">UDP는 큰 파일을 전송하지 못하기 때문</button>
+<button class="quiz-opt">파일 전송은 실시간성이 가장 중요하기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 정확성이 실시간성보다 중요할 때 TCP를 씁니다. TCP가 더 빠른 것도(1번), UDP가 대용량을 못 보내는 것도(3번) 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 25-55분 · 3-way Handshake — 연결을 "여는" 세 번의 인사 *(오늘의 핵심)*
@@ -80,6 +90,16 @@ sequenceDiagram
     **Q. 공격자가 SYN만 계속 보내고 ACK는 보내지 않으면 서버에 어떤 부담이 생길까요?**
     A. 서버는 3단계(ACK)를 기다리며 **반쯤 열린 연결을 위해 자원을 계속 붙잡습니다.** 이런 반쪽 연결이 대량으로 쌓이면 연결 대기 공간이 가득 차, 정상 사용자의 연결까지 거부되는 서비스 마비(SYN Flood)로 이어집니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>SYN Flood 공격이 서버를 마비시킬 수 있는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">SYN 패킷이 다른 패킷보다 용량이 훨씬 크기 때문</button>
+<button class="quiz-opt">서버가 SYN을 받으면 즉시 재부팅되기 때문</button>
+<button class="quiz-opt" data-correct>공격자가 SYN만 보내고 마지막 ACK를 안 보내, 서버가 '반쯤 열린 연결'을 위해 자원을 계속 붙잡게 만들기 때문</button>
+<button class="quiz-opt">3-way handshake가 원래 보안에 취약하도록 설계됐기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 정상 절차(SYN→SYN-ACK→ACK)의 마지막 단계를 일부러 빼서 서버 자원을 고갈시키는 공격입니다. handshake 자체가 취약(4번)한 게 아니라, 미완성 연결을 악용하는 것입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 !!! note "한 줄 요약 (25-55분)"
     ==SYN → SYN-ACK → ACK, 세 번 인사해야 TCP 연결이 열린다.== 이 절차의 허점이 SYN Flood 공격이다.
 
@@ -114,6 +134,16 @@ TTL은 패킷의 **"남은 목숨"** 숫자입니다.
     **Q. TTL 값이 0이 되면 패킷은 어떻게 될까요?**
     A. 그 자리에서 **폐기(버려짐)**됩니다. 그리고 보통 "시간 초과" 신호를 출발지로 돌려보내, 잘못된 경로나 무한 루프를 알 수 있게 합니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>IP 패킷에 TTL(남은 수명) 값을 두는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">TTL이 높을수록 전송 속도가 빨라지기 때문</button>
+<button class="quiz-opt">TTL 값으로 패킷을 암호화하기 때문</button>
+<button class="quiz-opt">TTL이 목적지 IP를 대신하기 때문</button>
+<button class="quiz-opt" data-correct>라우팅이 잘못돼 패킷이 무한히 돌더라도 TTL이 0이 되면 폐기돼, 영원히 떠도는 것을 막기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> TTL은 '자동 소멸 타이머'입니다. 라우터를 지날 때마다 1씩 줄어 0이 되면 버려집니다. 속도(1번)·암호화(2번)·주소(3번)와는 무관합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 85-110분 · Wireshark 기본 — 패킷을 눈으로 보기
@@ -142,6 +172,16 @@ tcp.flags.syn == 1         # SYN이 켜진 패킷만 (handshake 관찰용)
 !!! question "확인질문 · 나의 답"
     **Q. 특정 IP와 주고받은 패킷만 보고 싶을 때 어떤 필터를 쓸까요?**
     A. `ip.addr == 그IP` 를 씁니다. 예: `ip.addr == 8.8.8.8`. 출발지든 목적지든 그 IP가 낀 패킷만 걸러줍니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>패킷을 캡처할 때 필터로 먼저 좁혀서 보는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt" data-correct>필터 없이 캡처하면 수천 줄이 순식간에 쌓여, 원하는 패킷(예: handshake)을 찾기 어렵기 때문</button>
+<button class="quiz-opt">필터를 걸어야만 캡처가 시작되기 때문</button>
+<button class="quiz-opt">필터가 패킷을 더 빠르게 전송해 주기 때문</button>
+<button class="quiz-opt">필터 없이는 Wireshark가 실행되지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 1번.</b> 캡처는 필터 없이도 되지만(2·4번 틀림), 양이 너무 많아 분석이 어렵습니다. 그래서 "먼저 좁히고 본다"가 습관입니다. 필터는 전송 속도(3번)와 무관합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
