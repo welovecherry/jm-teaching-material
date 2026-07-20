@@ -41,6 +41,16 @@
     **Q. 회사 내부 PC들이 모두 192.168.x.x(사설)를 쓰는데 인터넷은 어떻게 접속할까요?**
     A. 나갈 때 **NAT(냇)**가 사설 IP를 회사 대표 **공인 IP로 바꿔서** 내보내고, 응답이 오면 다시 원래 PC로 돌려줍니다. (자세히는 85분 블록에서) 내선 → 대표번호로 바꿔 외부와 통화하는 것과 같습니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>서로 다른 수많은 회사가 똑같이 <code>192.168.0.x</code> 사설 IP를 써도 문제가 없는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">사설 IP는 회사마다 자동으로 다르게 배정되기 때문</button>
+<button class="quiz-opt" data-correct>사설 IP는 각 회사 내부에서만 통하는 주소라, 회사 밖에서는 NAT를 거친 공인 IP로만 통신하기 때문</button>
+<button class="quiz-opt">192.168.x.x는 인터넷에 유일하게 등록되기 때문</button>
+<button class="quiz-opt">사설 IP는 실제 통신에는 쓰이지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 사설 IP는 '회사 내선번호'와 같아 내부에서만 의미가 있습니다. 밖으로 나갈 땐 NAT가 대표 공인 IP로 바꿔주므로 충돌이 없습니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 25-55분 · 서브넷 마스크와 CIDR 표기법
@@ -93,6 +103,16 @@ $$\text{사용 가능 호스트} = 2^{(호스트비트)} - 2$$
     **Q. /24보다 /28이 더 좁은 대역인데, /28에서는 몇 개의 호스트를 쓸 수 있을까요?**
     A. `32 − 28 = 4` 호스트 비트 → `2⁴ − 2 = ` **14개**입니다. (네트워크 주소·브로드캐스트 주소 2개를 빼서 14개)
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>사용 가능한 호스트 수를 계산할 때 '2ⁿ에서 2를 빼는' 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">라우터와 스위치가 각각 한 개씩 차지하기 때문</button>
+<button class="quiz-opt">관리자 계정 2개를 위해 예약하기 때문</button>
+<button class="quiz-opt" data-correct>맨 앞 주소는 네트워크 자체를, 맨 뒤 주소는 브로드캐스트를 가리켜 기기에 줄 수 없기 때문</button>
+<button class="quiz-opt">계산 실수를 막기 위한 단순한 관례이기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 각 대역의 첫 주소(네트워크 주소)와 마지막 주소(브로드캐스트 주소)는 특수 용도로 예약돼 있어 실제 기기에 배정할 수 없습니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 55-85분 · 서브네팅 계산 실습 — 부서별로 쪼개기
@@ -140,6 +160,16 @@ flowchart TD
     **Q. 왜 팀마다 같은 대역을 나눠 쓰지 않고 서브넷으로 쪼갤까요? (보안·트래픽 관점)**
     A. ① **보안**: 대역이 갈리면 팀 간 접근을 방화벽·라우터에서 통제하기 쉽습니다(개발팀이 서버팀 대역에 함부로 못 감). ② **트래픽**: 한 동네가 너무 크면 브로드캐스트가 전체에 퍼져 혼잡해집니다. 쪼개면 그 범위가 줄어듭니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>부서마다 IP 대역을 서브넷으로 쪼개는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">서브넷을 나눠야 인터넷 속도가 빨라지기 때문</button>
+<button class="quiz-opt">서브넷을 나누면 IP 주소를 더 많이 만들 수 있기 때문</button>
+<button class="quiz-opt">부서마다 다른 통신사를 써야 하기 때문</button>
+<button class="quiz-opt" data-correct>대역이 갈리면 팀 간 접근을 통제하기 쉽고, 브로드캐스트가 퍼지는 범위도 줄어들기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> 서브넷 분리의 이유는 보안(접근 통제)과 트래픽(브로드캐스트 범위 축소)입니다. IP 개수가 늘거나(2번) 속도가 빨라지는(1번) 것과는 무관합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 85-110분 · NAT — 사설 IP가 인터넷으로 나가는 법
@@ -170,6 +200,16 @@ flowchart LR
 !!! question "확인질문 · 나의 답"
     **Q. NAT가 없다면 사내 PC 하나하나가 공인 IP를 가져야 할 텐데, 어떤 문제가 생길까요?**
     A. ① **IP 고갈**: 공인 IPv4는 수가 한정돼 있어 모든 기기에 줄 수 없습니다. ② **보안**: 모든 PC가 인터넷에 직접 노출돼 공격 표적이 됩니다. NAT는 이 둘을 동시에 해결합니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>NAT가 '첫 번째 방어선'이라고 불리는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">NAT가 오가는 모든 트래픽을 암호화하기 때문</button>
+<button class="quiz-opt">NAT가 바이러스를 자동으로 검사하기 때문</button>
+<button class="quiz-opt" data-correct>밖에서는 대표 공인 IP 하나만 보여, 내부에 어떤 기기가 몇 대 있는지 드러나지 않아 직접 지목이 어렵기 때문</button>
+<button class="quiz-opt">사설 IP가 공격자에게 보이지 않게 삭제되기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> NAT는 내부 구조를 가려 주는 '가림막' 역할을 합니다. 암호화(1번)나 백신(2번) 기능은 없습니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 

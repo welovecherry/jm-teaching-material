@@ -34,6 +34,16 @@
     **Q. 라우팅 테이블에 없는 목적지로 가는 패킷은 기본적으로 어디로 보내질까요?**
     A. **기본 경로(`0.0.0.0/0`) = 기본 게이트웨이**로 보내집니다. "아는 길이 없으면 일단 정문으로 내보낸다"는 규칙입니다. 그래서 대부분의 인터넷행 트래픽이 게이트웨이로 모입니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>라우팅 테이블에 없는 목적지의 패킷이 기본 게이트웨이로 보내지는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">게이트웨이가 세상의 모든 IP 주소를 외우고 있기 때문</button>
+<button class="quiz-opt">기본 게이트웨이가 언제나 가장 빠른 경로이기 때문</button>
+<button class="quiz-opt">목적지를 모르는 패킷은 삭제하는 것이 원칙이기 때문</button>
+<button class="quiz-opt" data-correct>라우터는 '다음 한 걸음'만 정하는데, 아는 경로가 없으면 일단 정문(기본 경로)으로 내보내 바깥에서 찾게 하기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> 라우터는 전체 길을 다 알 필요 없이 "다음 홉"만 정합니다. 모르면 기본 경로로 넘겨 상위 라우터가 이어받습니다. 게이트웨이가 전부 외우는(1번) 것이 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 25-50분 · 정적 라우팅 vs 동적 라우팅
@@ -54,6 +64,16 @@
 !!! question "확인질문 · 나의 답"
     **Q. 소규모 지사 네트워크와 대형 통신사 백본망, 어느 쪽이 동적 라우팅이 더 필요할까요?**
     A. **대형 통신사 백본망**입니다. 경로가 수없이 많고 자주 바뀌며 장애 시 우회가 필수라, 사람이 일일이 못 넣습니다. 소규모 지사는 경로가 몇 개뿐이라 정적으로 충분합니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>대형 통신사 백본망이 정적 라우팅보다 동적 라우팅을 쓰는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">동적 라우팅이 정적 라우팅보다 항상 더 안전하기 때문</button>
+<button class="quiz-opt" data-correct>경로가 수없이 많고 자주 바뀌며 장애 시 자동 우회가 필요해, 사람이 일일이 손으로 넣을 수 없기 때문</button>
+<button class="quiz-opt">정적 라우팅은 대형 장비에서 아예 작동하지 않기 때문</button>
+<button class="quiz-opt">동적 라우팅이 IP 주소를 절약해 주기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 규모·변화·장애 대응 때문에 자동 관리가 필수입니다. 동적이 항상 더 안전한 것(1번)도, 정적이 대형에서 안 되는 것(3번)도 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
@@ -103,6 +123,16 @@ flowchart TD
     **Q. 게스트 Wi-Fi를 VLAN으로 분리하지 않으면 어떤 보안 위험이 생길까요?**
     A. 게스트(외부인)가 **사내망에 같은 네트워크로 들어와** 내부 PC·서버·공유폴더에 접근을 시도할 수 있습니다. VLAN 99로 분리하면 게스트는 인터넷만 쓰고 사내망엔 닿지 못하게 격리됩니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>게스트 Wi-Fi를 VLAN으로 분리하면 보안에 도움이 되는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">VLAN이 게스트의 인터넷 속도를 늦춰 공격을 어렵게 하기 때문</button>
+<button class="quiz-opt">VLAN이 게스트의 모든 트래픽을 자동으로 암호화하기 때문</button>
+<button class="quiz-opt" data-correct>같은 물리 스위치라도 논리적으로 다른 네트워크가 되어, 게스트가 사내망에 직접 접근하지 못하기 때문</button>
+<button class="quiz-opt">VLAN이 게스트 기기의 MAC 주소를 숨겨 주기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> VLAN은 '논리적 칸막이'라 같은 스위치라도 사내망과 격리합니다. 속도 저하(1번)·암호화(2번)·MAC 은닉(4번)은 VLAN이 하는 일이 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 75-100분 · 망 구성도에서 라우팅·VLAN 읽기
@@ -139,6 +169,16 @@ flowchart LR
 !!! question "확인질문 · 나의 답"
     **Q. 망 구성도에서 'DMZ'라고 표시된 구간은 왜 내부망과 분리되어 있을까요?**
     A. DMZ에는 **외부에 공개된 서버**가 있어 공격에 노출되기 쉽습니다. 만약 그 서버가 뚫리더라도 ==내부망(안방)까지 바로 넘어가지 못하도록== 사이에 벽(방화벽)을 두고 분리하는 것입니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>외부에 공개하는 서버(웹·메일)를 내부망이 아니라 DMZ에 두는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">DMZ가 내부망보다 인터넷 속도가 빠르기 때문</button>
+<button class="quiz-opt">공개 서버는 IP 주소가 필요 없기 때문</button>
+<button class="quiz-opt">DMZ에서는 방화벽을 쓰지 않아도 되기 때문</button>
+<button class="quiz-opt" data-correct>공개 서버는 공격에 노출되기 쉬워, 뚫리더라도 내부망까지 바로 넘어가지 못하게 사이에 벽을 두려는 것이기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> DMZ는 '현관 응접실'처럼 외부 접근이 필요한 서버를 두되 내부(안방)와 분리해, 침해가 번지는 것을 막는 완충 구역입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
