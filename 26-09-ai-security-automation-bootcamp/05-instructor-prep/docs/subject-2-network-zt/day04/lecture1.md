@@ -163,6 +163,7 @@ flowchart LR
 ---
 
 ## ✅ 가르칠 준비 체크리스트 (강의1)
+
 - [ ] VPN을 "공용도로 위 밀봉 터널"로 설명한다
 - [ ] Site-to-Site vs Remote Access를 표로 비교한다
 - [ ] 재택근무자에게 필요한 VPN 종류를 답한다
