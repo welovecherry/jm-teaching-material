@@ -23,3 +23,8 @@ env/
 
 # 빌드 임시물
 *.tmp
+
+# MkDocs 빌드 산출물 (mkdocs build/gh-deploy 생성)
+site/
+*/site/
+**/site/

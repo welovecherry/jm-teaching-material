@@ -1,0 +1,91 @@
+site_name: 강사 예습 튜토리얼 · SKT K-뉴딜 보안 부트캠프
+site_description: 정민홍 강사 본인 예습용 — 강의 전에 먼저 공부하는 아주 자세한 튜토리얼
+docs_dir: docs
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로 전환
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로 전환
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - content.code.copy
+    - search.highlight
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.emoji
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search
+
+nav:
+  - 홈: index.md
+  - 예습 스타일 가이드: prep-style-guide.md
+  - "🧪 스타일 고르기 (임시)":
+      - "⭐ v4 · 스토리텔링 개선본": choose-style/v4.md
+      - "v1 · 스토리텔링형": choose-style/v1-storytelling.md
+      - "v2 · 구조화 요약형": choose-style/v2-structured.md
+      - "v3 · Q&A 플래시카드형": choose-style/v3-qna.md
+  - "2과목 · 네트워크·ZT 운영 기초":
+      - "Day 1 · OSI 7계층과 TCP/IP": subject-2-network-zt/day01.md
+      - "Day 2 · IP 주소 체계·서브네팅 & 라우팅·VLAN": subject-2-network-zt/day02.md
+      - "Day 3 · DNS 개념과 동작원리": subject-2-network-zt/day03.md
+      - "Day 4 · VPN 개념·종류 & 방화벽 기본": subject-2-network-zt/day04.md
+      - "Day 5 · 클라우드·SaaS 환경·망 구성도 & 네트워크 품질지표": subject-2-network-zt/day05.md
+      - "Day 6 · Zero Trust 원칙 & PDP/PEP·최소권한·지속검증": subject-2-network-zt/day06.md
+      - "Day 7 · 정책 로그 이해 & 고객 환경 설명 문서화": subject-2-network-zt/day07.md
+      - "Day 8 · 장애·위협·접근통제 이슈 도식화 & 종합 발표": subject-2-network-zt/day08.md
+  - "3과목 · 접근통제 자동화":
+      - "Day 1 · RBAC 원리 & 최소권한 정책 설계 기준": subject-3-access-control/day01.md
+      - "Day 2 · 접근 요청-승인-부여 프로세스 자동화": subject-3-access-control/day02.md
+      - "Day 3 · 접근 점검·회수 프로세스 & 과다권한 탐지": subject-3-access-control/day03.md
+      - "Day 4 · 권한 회수 자동화 & 조건기반 정책·예외승인": subject-3-access-control/day04.md
+      - "Day 5 · 권한 점검 체크리스트 & 접근통제 결과 리포트 자동화·통합": subject-3-access-control/day05.md
+  - "4과목 · 이상탐지 자동화":
+      - "Day 1 · 로그·이벤트·알림 개념 & SIEM/XDR 구조·데이터 전처리": subject-4-anomaly-detection/day01.md
+      - "Day 2 · 이벤트 유형 분류(베이스라인) & 로그인·트래픽 급증 탐지 룰": subject-4-anomaly-detection/day02.md
+      - "Day 3 · 비인가접근·SaaS이상·악성행위 탐지 & 상관분석": subject-4-anomaly-detection/day03.md
+      - "Day 4 · 오탐·미탐 검토 & 탐지룰 튜닝": subject-4-anomaly-detection/day04.md
+      - "Day 5 · AI 기반 이벤트 요약·우선순위 분류 & 전체 통합·발표": subject-4-anomaly-detection/day05.md
+  - "1과목 · AI 자동화 기초":
+      - "Day 1 · 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)": subject-1-ai-automation/day01.md
+      - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅": subject-1-ai-automation/day02.md
+      - "Day 3 · 자료구조 심화 & JSON·정규표현식": subject-1-ai-automation/day03.md
+      - "Day 4 · API·HTTP·requests 실전 & 인증정보 관리": subject-1-ai-automation/day04.md
+      - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링": subject-1-ai-automation/day05.md
+      - "Day 6 · LLM 개념·프롬프트 엔지니어링 & AI Agent Tool-use 구조": subject-1-ai-automation/day06.md
+      - "Day 7 · LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성": subject-1-ai-automation/day07.md
+      - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
