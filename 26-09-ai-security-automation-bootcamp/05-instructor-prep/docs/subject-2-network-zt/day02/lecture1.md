@@ -121,6 +121,16 @@ flowchart TD
     A --> C["개발팀 /27<br/>.64 ~ .95 (30개)"]
     A --> D["서버팀 /28<br/>.96 ~ .111 (14개)"]
     A --> E["남은 대역<br/>.112 ~ .255 (여유)"]
+    classDef parent fill:#7048e8,stroke:#5a37c0,color:#fff
+    classDef t1 fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef t2 fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef t3 fill:#f59f00,stroke:#c67c00,color:#111
+    classDef free fill:#868e96,stroke:#5f666c,color:#fff
+    class A parent
+    class B t1
+    class C t2
+    class D t3
+    class E free
 ```
 
 !!! tip "실무 팁 — 여유를 둔다"
@@ -141,6 +151,19 @@ flowchart TD
 
 !!! example "쉬운 비유 — 회사 대표 전화"
     직원 수백 명이 각자 내선(사설 IP)을 쓰지만, 밖으로 전화하면 상대에겐 **회사 대표번호(공인 IP) 하나**로 보입니다. 응답이 오면 교환원(NAT)이 "이건 302번 통화였지" 하고 원래 내선으로 연결합니다.
+
+```mermaid
+flowchart LR
+    P1["PC 192.168.0.10<br/>(사설)"] --> N
+    P2["PC 192.168.0.11<br/>(사설)"] --> N
+    N["NAT 라우터<br/>공인 IP 1.2.3.4"] --> I["인터넷<br/>(대표 IP만 보임)"]
+    classDef priv fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef nat fill:#f59f00,stroke:#c67c00,color:#111
+    classDef net fill:#2f9e44,stroke:#237a35,color:#fff
+    class P1,P2 priv
+    class N nat
+    class I net
+```
 
 **왜 '첫 번째 방어선'인가?** 밖에서 보면 회사 안은 **대표 IP 하나**뿐이라, 내부에 PC가 몇 대인지·어떤 사설 IP인지 보이지 않습니다. 공격자가 **내부 기기를 직접 지목해 들어오기 어렵습니다.**
 

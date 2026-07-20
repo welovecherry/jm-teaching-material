@@ -84,6 +84,12 @@ flowchart TD
     SW --> V99[VLAN 99<br/>게스트 Wi-Fi]
     V10 -. 라우터/방화벽 거쳐야 .-> V20
     V99 -. 사내망과 완전 분리 .-x V10
+    classDef sw fill:#7048e8,stroke:#5a37c0,color:#fff
+    classDef in fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef guest fill:#e8590c,stroke:#c24906,color:#fff
+    class SW sw
+    class V10,V20 in
+    class V99 guest
 ```
 
 **3단계 · 비유**
@@ -112,6 +118,23 @@ flowchart TD
 
 !!! example "쉬운 비유 — DMZ는 현관 응접실"
     손님을 집 안방까지 들이지 않고 **현관 응접실**에서 맞습니다. 웹서버처럼 외부가 반드시 접근해야 하는 것은 DMZ(응접실)에 두고, 진짜 중요한 내부망(안방)과는 분리합니다.
+
+```mermaid
+flowchart LR
+    NET["인터넷<br/>(외부)"] --> FW1[방화벽]
+    FW1 --> DMZ["DMZ<br/>웹·메일 서버"]
+    DMZ --> FW2[방화벽]
+    FW2 --> INT["내부망<br/>DB·사무망"]
+    classDef ext fill:#e8590c,stroke:#c24906,color:#fff
+    classDef fw fill:#f59f00,stroke:#c67c00,color:#111
+    classDef dmz fill:#7048e8,stroke:#5a37c0,color:#fff
+    classDef intz fill:#2f9e44,stroke:#237a35,color:#fff
+    class NET ext
+    class FW1,FW2 fw
+    class DMZ dmz
+    class INT intz
+```
+> 외부(주황)는 DMZ(보라)까지만. 내부망(초록)은 방화벽을 한 번 더 거쳐야 닿습니다.
 
 !!! question "확인질문 · 나의 답"
     **Q. 망 구성도에서 'DMZ'라고 표시된 구간은 왜 내부망과 분리되어 있을까요?**

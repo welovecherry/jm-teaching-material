@@ -68,6 +68,21 @@ DNS 응답에는 **TTL(티티엘)**이 붙어 있어, 그 시간 동안 **캐싱
 **2단계 · 공격**
 공격자가 **조작된 DNS 응답**을 리졸버 **캐시에 몰래 주입(Cache Poisoning, 캐시 포이즈닝)**합니다. 그러면 `bank.com` → **가짜 서버 IP**로 답하게 됩니다.
 
+```mermaid
+flowchart TD
+    U["사용자<br/>bank.com 입력"] --> R{리졸버 캐시}
+    R -->|정상| G["진짜 은행 IP<br/>→ 진짜 사이트"]
+    R -->|"공격자가 조작 주입<br/>(Cache Poisoning)"| B["가짜 IP<br/>→ 피싱 사이트"]
+    classDef user fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef dec fill:#f59f00,stroke:#c67c00,color:#111
+    classDef good fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef bad fill:#e03131,stroke:#b02525,color:#fff
+    class U user
+    class R dec
+    class G good
+    class B bad
+```
+
 **3단계 · 결과**
 사용자는 주소창에 **정확히 `bank.com`을 쳤는데도** 가짜 피싱 사이트로 갑니다. 주소는 맞으니 **눈으로 알아채기 어렵습니다.** ==이게 DNS 공격이 무서운 이유입니다.==
 

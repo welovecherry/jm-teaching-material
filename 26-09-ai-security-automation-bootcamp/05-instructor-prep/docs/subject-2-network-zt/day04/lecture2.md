@@ -65,6 +65,14 @@ flowchart TD
     R1 -->|아님| R2{룰2: 웹서버 22?}
     R2 -->|맞음| A2[Deny · 멈춤]
     R2 -->|아님| R3[룰3 기본: 전부 Deny]
+    classDef step fill:#7048e8,stroke:#5a37c0,color:#fff
+    classDef dec fill:#f59f00,stroke:#c67c00,color:#111
+    classDef allow fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef deny fill:#e03131,stroke:#b02525,color:#fff
+    class P step
+    class R1,R2 dec
+    class A1 allow
+    class A2,R3 deny
 ```
 > 위에서부터 대조하다 ==처음 들어맞는 룰에서 멈춥니다.==
 

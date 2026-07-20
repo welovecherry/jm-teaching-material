@@ -44,6 +44,10 @@ flowchart LR
       B[직원 PC들]
     end
     A --- G1[VPN 장비] === |암호화 터널| G2[VPN 장비] --- B
+    classDef dev fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef gw fill:#f59f00,stroke:#c67c00,color:#111
+    class A,B dev
+    class G1,G2 gw
 ```
 직원들은 VPN을 **의식하지 않습니다.** 장비끼리 터널을 유지하므로, 지사 직원이 본사 서버에 그냥 접속하면 알아서 터널을 타고 갑니다.
 
@@ -59,6 +63,21 @@ flowchart LR
     ✔ Remote Access가 누구를 위한 것인지 안다
 
 **Remote Access(리모트 액세스) VPN**은 **개별 사용자**가 자기 PC/노트북에서 회사망으로 들어오는 방식입니다. VPN **클라이언트 프로그램**을 켜고 **인증(로그인)**을 거쳐 터널을 맺습니다.
+
+```mermaid
+flowchart LR
+    U["재택 직원 PC<br/>VPN 클라이언트"] --> AUTH{인증<br/>로그인}
+    AUTH -->|성공| T["암호화 터널"] --> C["회사 내부망"]
+    AUTH -->|실패| X["차단"]
+    classDef dev fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef dec fill:#f59f00,stroke:#c67c00,color:#111
+    classDef ok fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef bad fill:#e03131,stroke:#b02525,color:#fff
+    class U dev
+    class AUTH dec
+    class T,C ok
+    class X bad
+```
 
 ### 🔬 깊이 보기 — 두 VPN, 한눈에 비교
 

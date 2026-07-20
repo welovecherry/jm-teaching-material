@@ -149,6 +149,14 @@ flowchart LR
     B -->|앎| D[해당 포트로만 전달]
     C --> E[응답 오면 위치 학습]
     E --> B
+    classDef step fill:#7048e8,stroke:#5a37c0,color:#fff
+    classDef dec fill:#f59f00,stroke:#c67c00,color:#111
+    classDef ok fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef warn fill:#e8590c,stroke:#c24906,color:#fff
+    class A,E step
+    class B dec
+    class D ok
+    class C warn
 ```
 한 번 배우면 다음부터는 해당 포트로만 정확히 보냅니다. (이 "학습" 개념이 뒤 이상탐지에서 "정상 baseline 학습"과 통합니다.)
 
@@ -213,6 +221,14 @@ flowchart TD
     A[내 PC] --> Q{목적지가<br/>같은 네트워크?}
     Q -->|예| S[스위치<br/>2계층·MAC] --> B[옆자리 PC]
     Q -->|아니오| G[게이트웨이<br/>정문 라우터] --> R[여러 라우터<br/>3계층·IP] --> C[구글 서버]
+    classDef dev fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef dec fill:#f59f00,stroke:#c67c00,color:#111
+    classDef ok fill:#2f9e44,stroke:#237a35,color:#fff
+    classDef step fill:#7048e8,stroke:#5a37c0,color:#fff
+    class A,B,C dev
+    class Q dec
+    class S ok
+    class G,R step
 ```
 
 !!! warning "학생이 헷갈리는 지점 (미리 답 준비)"
@@ -372,7 +388,22 @@ flowchart TD
 | 2 | 데이터링크 | **MAC** | 스위치 |
 | 1 | 물리 | 신호·케이블 | 허브 |
 
-> 외우기: ==아래 3층(1·2·3)은 "배달", 4층은 "창구 배분", 위 3층(5·6·7)은 "사람 쪽".==
+```mermaid
+flowchart TD
+    L7["7 · 응용 (HTTP·DNS)"] --> L6["6 · 표현 (암호화)"]
+    L6 --> L5["5 · 세션 (연결 관리)"]
+    L5 --> L4["4 · 전송 (포트·TCP/UDP)"]
+    L4 --> L3["3 · 네트워크 (IP·라우터)"]
+    L3 --> L2["2 · 데이터링크 (MAC·스위치)"]
+    L2 --> L1["1 · 물리 (신호·케이블)"]
+    classDef human fill:#3b5bdb,stroke:#2f4bc0,color:#fff
+    classDef gate fill:#f59f00,stroke:#c67c00,color:#111
+    classDef deliver fill:#2f9e44,stroke:#237a35,color:#fff
+    class L7,L6,L5 human
+    class L4 gate
+    class L3,L2,L1 deliver
+```
+> 색으로 외우기: ==🟩 아래 3층(1·2·3)="배달", 🟨 4층="창구 배분", 🟦 위 3층(5·6·7)="사람 쪽".==
 
 <div class="quiz">
 <p class="quiz-q"><span class="tag">종합 퀴즈</span><b>포트 번호를 다루며 TCP/UDP로 전송 방식을 정하는 계층은?</b></p>
