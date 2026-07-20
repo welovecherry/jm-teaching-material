@@ -4,7 +4,7 @@
 .reading-progress-track {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 4px;
+  height: 6px;
   background: var(--md-default-fg-color--lightest);
   z-index: 2000;
   pointer-events: none;
@@ -13,11 +13,26 @@
 .reading-progress {
   position: fixed;
   top: 0; left: 0;
-  height: 4px;
+  height: 6px;
   width: 0;
-  background: linear-gradient(90deg, #3b5bdb, #7048e8, #2f9e44);
+  background: linear-gradient(90deg, #4dabf7, #7048e8, #37b24d);
+  box-shadow: 0 0 6px rgba(112,72,232,.6);
   z-index: 2001;
   transition: width .3s ease;
+  pointer-events: none;
+}
+/* 우하단 진행률 배지 */
+.reading-progress-badge {
+  position: fixed;
+  bottom: 1rem; right: 1rem;
+  z-index: 2001;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  font-size: .8rem; font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #4263eb, #7048e8);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
   pointer-events: none;
 }
 

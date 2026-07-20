@@ -18,21 +18,26 @@
       bar.className = "reading-progress";
       document.body.appendChild(bar);
     }
+    if (!document.querySelector(".reading-progress-badge")) {
+      var badge = document.createElement("div");
+      badge.className = "reading-progress-badge";
+      badge.innerHTML = "<span>📖</span><span class='rpb-text'>읽기 0%</span>";
+      document.body.appendChild(badge);
+    }
   }
 
   function updateBar() {
     var bar = document.querySelector(".reading-progress");
-    if (!bar) return;
+    var text = document.querySelector(".reading-progress-badge .rpb-text");
     var boxes = document.querySelectorAll(".readcheck input");
-    if (!boxes.length) {
-      bar.style.width = "0%";
-      return;
+    var pct = 0;
+    if (boxes.length) {
+      var done = 0;
+      boxes.forEach(function (b) { if (b.checked) done++; });
+      pct = Math.round((done / boxes.length) * 100);
     }
-    var done = 0;
-    boxes.forEach(function (b) {
-      if (b.checked) done++;
-    });
-    bar.style.width = Math.round((done / boxes.length) * 100) + "%";
+    if (bar) bar.style.width = pct + "%";
+    if (text) text.textContent = "읽기 " + pct + "%";
   }
 
   function injectChecks() {
