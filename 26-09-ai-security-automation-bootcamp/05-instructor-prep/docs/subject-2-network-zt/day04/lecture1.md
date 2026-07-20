@@ -26,6 +26,16 @@
     **Q. 재택근무자가 회사 내부 시스템에 VPN 없이 접속하면 어떤 위험이 있을까요?**
     A. 아이디·비밀번호·업무 데이터가 **암호화되지 않은 채** 공용 인터넷(특히 카페 와이파이 등)을 지나, 중간에서 **도청·가로채기(스니핑)**당할 수 있습니다. VPN 터널로 감싸면 가로채도 내용을 못 봅니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>재택근무자가 VPN 없이 회사 시스템에 접속하면 위험한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">회사 서버가 재택 IP를 자동으로 차단하기 때문</button>
+<button class="quiz-opt" data-correct>아이디·데이터가 암호화되지 않은 채 공용망을 지나, 중간에서 도청·가로채기당할 수 있기 때문</button>
+<button class="quiz-opt">VPN 없이는 인터넷 자체가 되지 않기 때문</button>
+<button class="quiz-opt">재택 PC가 자동으로 느려지기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 공용망(특히 카페 와이파이)에서는 암호화 없이 오가는 데이터가 스니핑될 수 있습니다. VPN 터널이 그 내용을 감싸 보호합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 20-50분 · Site-to-Site VPN
@@ -54,6 +64,16 @@ flowchart LR
 !!! question "확인질문 · 나의 답"
     **Q. Site-to-Site VPN은 개별 직원이 아니라 무엇과 무엇을 연결하는 걸까요?**
     A. **네트워크와 네트워크**(예: 본사망 ↔ 지사망)를 통째로 연결합니다. 개인이 프로그램을 켜는 게 아니라, 양쪽 **VPN 장비(게이트웨이)**가 상시 터널을 유지합니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>Site-to-Site VPN에서 직원들이 VPN을 '의식하지 않고' 쓸 수 있는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">직원 PC마다 VPN 클라이언트가 미리 설치돼 있기 때문</button>
+<button class="quiz-opt">Site-to-Site는 암호화를 하지 않아 설정이 필요 없기 때문</button>
+<button class="quiz-opt" data-correct>양쪽 VPN 장비가 상시 터널을 유지해, 직원은 그냥 접속하면 자동으로 터널을 타기 때문</button>
+<button class="quiz-opt">지사에서는 인터넷이 필요 없기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 개인이 클라이언트를 켜는 Remote Access와 달리, Site-to-Site는 장비끼리 터널을 상시 유지하므로 직원은 신경 쓸 필요가 없습니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
@@ -93,6 +113,16 @@ flowchart LR
     **Q. Site-to-Site와 Remote Access 중, 재택근무자 개인에게 필요한 것은?**
     A. **Remote Access VPN**입니다. 개인이 자기 PC에서 클라이언트를 켜고 인증해 회사망에 들어옵니다. Site-to-Site는 지점 전체를 잇는 것이라 개인용이 아닙니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>재택근무자 개인에게 Site-to-Site가 아니라 Remote Access VPN이 맞는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">Remote Access가 Site-to-Site보다 항상 더 빠르기 때문</button>
+<button class="quiz-opt">Site-to-Site는 재택 환경에서 아예 작동하지 않기 때문</button>
+<button class="quiz-opt">개인은 공인 IP를 가질 수 없기 때문</button>
+<button class="quiz-opt" data-correct>개인이 자기 PC에서 클라이언트를 켜고 인증해 접속하는 방식이라 '개인 단위' 연결에 맞기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> Site-to-Site는 '네트워크끼리'를 잇는 것이라 지점 전체용입니다. 개인 재택은 클라이언트+인증으로 접속하는 Remote Access가 적합합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 80-105분 · VPN과 Zero Trust의 관계 (예고)
@@ -108,6 +138,16 @@ flowchart LR
 !!! question "확인질문 · 나의 답"
     **Q. VPN에 접속한 사람이 내부에서 아무 자원이나 접근할 수 있다면 어떤 위험이 있을까요?**
     A. 계정 하나만 탈취되면 공격자가 **내부를 자유롭게 이동(측면 이동)**하며 민감 자원에 접근할 수 있습니다. "터널 안이면 신뢰"라 내부에서의 추가 검증이 없기 때문입니다. → 그래서 자원마다 매번 검증하는 Zero Trust가 필요합니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>전통 VPN의 "터널 안에 들어오면 신뢰" 방식이 위험한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">터널이 느려져 업무가 지연되기 때문</button>
+<button class="quiz-opt">VPN이 자주 끊기기 때문</button>
+<button class="quiz-opt">암호화가 너무 강해 접속이 어렵기 때문</button>
+<button class="quiz-opt" data-correct>계정 하나만 탈취되면 내부에서 추가 검증이 없어, 공격자가 자유롭게 이동(측면 이동)할 수 있기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> 문 하나(VPN)만 통과하면 내부 전체에 접근되는 구조라, 계정 탈취 시 피해가 커집니다. 이 한계가 Zero Trust(매번 검증)의 등장 배경입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 

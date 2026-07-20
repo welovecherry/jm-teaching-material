@@ -26,6 +26,16 @@
     **Q. 방화벽 규칙이 하나도 없다면(모두 허용) 어떤 위험이 있을까요?**
     A. 누구나 어떤 포트로든 내부에 접근할 수 있어 **사실상 무방비**입니다. 공격자가 열린 포트를 찾아 서버·DB에 바로 접근하거나 취약점을 노릴 수 있습니다. 그래서 "필요한 것만 열고 나머지는 막는다"가 기본입니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>방화벽에 규칙이 하나도 없어 '모두 허용' 상태이면 위험한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">규칙이 없으면 방화벽 장비가 꺼지기 때문</button>
+<button class="quiz-opt">트래픽이 전체적으로 느려지기 때문</button>
+<button class="quiz-opt" data-correct>누구나 어떤 포트로든 내부에 접근할 수 있어, 공격자가 열린 포트를 찾아 서버·DB에 바로 침투할 수 있기 때문</button>
+<button class="quiz-opt">로그가 전혀 남지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> "모두 허용"은 문을 다 열어둔 것과 같아 무방비입니다. 그래서 "필요한 것만 열고 나머지는 막는다(화이트리스트)"가 기본 원칙입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 25-55분 · 방화벽 규칙 구성 요소
@@ -83,6 +93,16 @@ flowchart TD
     **Q. 룰1(443 Allow)과 룰2(22 Deny)의 순서를 바꾸면 결과가 달라질까요?**
     A. **이 경우엔 달라지지 않습니다** — 두 룰은 포트가 443과 22로 서로 **겹치지 않기** 때문입니다. 다만 만약 한 룰이 "웹서버 전체 Deny"처럼 **범위가 겹쳤다면**, 위에 있는 룰이 먼저 적용돼 결과가 완전히 달라집니다. 그래서 **겹치는 룰의 순서**가 핵심입니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>방화벽 룰에서 '순서'가 결과를 좌우하는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">룰은 개수가 많을수록 더 안전해지기 때문</button>
+<button class="quiz-opt" data-correct>룰을 위에서부터 대조하다 처음 맞는 룰에서 멈추므로, 범위가 겹치는 룰은 위에 있는 것이 결과를 결정하기 때문</button>
+<button class="quiz-opt">방화벽은 아래 룰부터 먼저 읽기 때문</button>
+<button class="quiz-opt">순서를 바꾸면 방화벽이 재시작되기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> "처음 맞는 룰에서 멈춤"이 핵심입니다. 그래서 기본 차단(Deny all)을 맨 위에 두면 아래 허용 룰이 무력화됩니다. 위→아래 순서로 읽습니다(3번 틀림).</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 55-85분 · 화이트리스트 vs 블랙리스트
@@ -104,6 +124,16 @@ flowchart TD
     **Q. 새로운 공격 기법이 매일 등장하는 상황에서, 블랙리스트 방식만으로 충분히 방어할 수 있을까요?**
     A. **충분하지 않습니다.** 블랙리스트는 "이미 아는 위험"만 막습니다. 매일 나오는 **새 공격은 목록에 없어 그대로 통과**합니다. 그래서 중요한 자원일수록 ==화이트리스트(다 막고 필요한 것만 허용)==가 안전합니다. 이게 3과목·Zero Trust의 최소권한 원칙과 같습니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>새로운 공격이 매일 나오는 상황에서 블랙리스트 방식만으로는 부족한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">블랙리스트는 트래픽 속도를 느리게 하기 때문</button>
+<button class="quiz-opt">블랙리스트는 내부 사용자만 막기 때문</button>
+<button class="quiz-opt">화이트리스트는 실제로 설정이 불가능하기 때문</button>
+<button class="quiz-opt" data-correct>블랙리스트는 '이미 아는 위험'만 막아, 목록에 없는 새 공격은 그대로 통과하기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> 블랙리스트(다 열고 위험만 차단)는 알려진 위협만 막습니다. 새 공격은 목록에 없어 통과하므로, 중요한 자원엔 화이트리스트(다 막고 필요한 것만)가 안전합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 85-110분 · 방화벽 정책 설계 시연
@@ -123,6 +153,16 @@ flowchart TD
 !!! question "확인질문 · 나의 답"
     **Q. DB서버에 외부에서 직접 접근할 수 있게 열어두면 어떤 위험이 있을까요?**
     A. 인터넷의 누구나 DB에 접근을 시도할 수 있어, **데이터 유출·무차별 대입 공격·취약점 공격**의 표적이 됩니다. DB는 내부에서만 접근하게 막고, 외부는 웹서버를 거치게 하는 것이 원칙입니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>DB 서버를 외부에서 직접 접근하지 못하게 막는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">DB는 외부에서 접근하면 속도가 느려지기 때문</button>
+<button class="quiz-opt">DB 서버는 공인 IP를 가질 수 없기 때문</button>
+<button class="quiz-opt" data-correct>인터넷의 누구나 접근을 시도할 수 있어 데이터 유출·공격의 표적이 되므로, 내부에서만 접근하게 제한하는 것이기 때문</button>
+<button class="quiz-opt">외부 접근은 원래 웹서버만 가능하도록 정해져 있기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 민감 자원(DB)일수록 노출 면을 줄여야 합니다. 외부는 웹서버를 거치게 하고 DB는 내부에서만 접근하게 막는 것이 최소권한 설계입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
