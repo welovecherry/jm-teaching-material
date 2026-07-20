@@ -21,7 +21,6 @@ theme:
         icon: material/weather-sunny
         name: 라이트 모드로 전환
   features:
-    - navigation.sections
     - navigation.top
     - navigation.tracking
     - toc.follow
