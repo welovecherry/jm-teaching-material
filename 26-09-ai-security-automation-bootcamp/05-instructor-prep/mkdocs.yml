@@ -59,6 +59,11 @@ markdown_extensions:
 plugins:
   - search
 
+extra_css:
+  - assets/quiz.css
+extra_javascript:
+  - assets/quiz.js
+
 nav:
   - 홈: index.md
   - 예습 스타일 가이드: prep-style-guide.md
