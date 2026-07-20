@@ -1,0 +1,44 @@
+/* 상단 스크롤 진행률 바 + 페이지 완독 체크박스 */
+
+/* 스크롤하면 차오르는 상단 바 */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #3b5bdb, #7048e8);
+  z-index: 1001;
+  transition: width .1s ease-out;
+  pointer-events: none;
+}
+
+/* 페이지 하단 "공부 완료" 체크박스 (JS가 자동 삽입) */
+.readcheck-done {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 2.6rem 0 1rem;
+  padding: .7rem 1rem;
+  border: 1px dashed var(--md-default-fg-color--lighter);
+  border-radius: .35rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  transition: background .15s, border-color .15s, color .15s;
+}
+.readcheck-done:hover { border-color: var(--md-accent-fg-color, #526cfe); }
+.readcheck-done input {
+  width: 1.15rem;
+  height: 1.15rem;
+  cursor: pointer;
+  accent-color: #2f9e44;
+}
+.readcheck-done.checked {
+  border-style: solid;
+  border-color: #2f9e44;
+  background: rgba(47,158,68,.12);
+  color: #2f9e44;
+}
+.readcheck-done.checked .rc-label::after { content: "  ✓"; }

@@ -61,8 +61,10 @@ plugins:
 
 extra_css:
   - assets/quiz.css
+  - assets/progress.css
 extra_javascript:
   - assets/quiz.js
+  - assets/progress.js
 
 nav:
   - 홈: index.md
