@@ -7,9 +7,14 @@
   box-shadow: none;
 }
 
-/* 가운데 본문 글자만 조금 키우기 (기본 .8rem → .88rem). 사이드바는 그대로 */
+/* 가운데 본문 글자 크기 (사이드바는 그대로) */
 .md-typeset {
-  font-size: .88rem;
+  font-size: .84rem;         /* 본문: 기본 .8보다 살짝 크게, 이전 .88보다는 작게 */
+}
+/* 박스(콜아웃·접기) 안 글자 키우기: Material 기본 .64rem이라 너무 작았음 */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: .78rem;
 }
 
 /* 사이드바 최상위(과목 등) 항목을 크고 굵게 + 과목 사이 구분선으로 뚜렷이 */
