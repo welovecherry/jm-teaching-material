@@ -35,14 +35,22 @@ markdown_extensions:
   - md_in_html
   - tables
   - footnotes
+  - abbr                       # 약어에 마우스 올리면 뜻 툴팁 (*[OSI]: ... 정의)
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid        # ```mermaid 코드블록을 다이어그램으로 렌더
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.inlinehilite
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.keys
+  - pymdownx.mark              # ==형광펜== 강조
+  - pymdownx.caret             # ^^밑줄/삽입^^ , 위첨자
+  - pymdownx.tilde             # ~~취소선~~ , 아래첨자
   - pymdownx.emoji
   - toc:
       permalink: true
@@ -54,13 +62,12 @@ plugins:
 nav:
   - 홈: index.md
   - 예습 스타일 가이드: prep-style-guide.md
-  - "🧪 스타일 고르기 (임시)":
-      - "⭐ v4 · 스토리텔링 개선본": choose-style/v4.md
-      - "v1 · 스토리텔링형": choose-style/v1-storytelling.md
-      - "v2 · 구조화 요약형": choose-style/v2-structured.md
-      - "v3 · Q&A 플래시카드형": choose-style/v3-qna.md
   - "2과목 · 네트워크·ZT 운영 기초":
-      - "Day 1 · OSI 7계층과 TCP/IP": subject-2-network-zt/day01.md
+      - "Day 1 · OSI 7계층과 TCP/IP":
+          - "① 개요·시간표": subject-2-network-zt/day01/index.md
+          - "② 강의1 · OSI 7계층 (오전)": subject-2-network-zt/day01/lecture1.md
+          - "③ 강의2 · TCP/IP (오후)": subject-2-network-zt/day01/lecture2.md
+          - "④ 실습 · 패킷 캡처": subject-2-network-zt/day01/practice.md
       - "Day 2 · IP 주소 체계·서브네팅 & 라우팅·VLAN": subject-2-network-zt/day02.md
       - "Day 3 · DNS 개념과 동작원리": subject-2-network-zt/day03.md
       - "Day 4 · VPN 개념·종류 & 방화벽 기본": subject-2-network-zt/day04.md
