@@ -7,6 +7,11 @@
   box-shadow: none;
 }
 
+/* 가운데 본문 글자만 조금 키우기 (기본 .8rem → .88rem). 사이드바는 그대로 */
+.md-typeset {
+  font-size: .88rem;
+}
+
 /* 사이드바 최상위(과목 등) 항목을 크고 굵게 + 과목 사이 구분선으로 뚜렷이 */
 .md-nav--primary > .md-nav__list > .md-nav__item {
   margin-top: .55rem;
