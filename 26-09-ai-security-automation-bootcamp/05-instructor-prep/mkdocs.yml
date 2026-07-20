@@ -98,6 +98,11 @@ nav:
           - "② 강의1 · 클라우드·SaaS·망 구성도 (오전)": subject-2-network-zt/day05/lecture1.md
           - "③ 강의2 · 품질지표·지연 진단 (오후)": subject-2-network-zt/day05/lecture2.md
           - "④ 실습 · 구성도·진단 리포트": subject-2-network-zt/day05/practice.md
+      - "Day 6 · Zero Trust 원칙 & PDP/PEP·최소권한·지속검증":
+          - "① 개요·시간표": subject-2-network-zt/day06/index.md
+          - "② 강의1 · Zero Trust 5대 원칙 (오전)": subject-2-network-zt/day06/lecture1.md
+          - "③ 강의2 · PDP/PEP·최소권한 (오후)": subject-2-network-zt/day06/lecture2.md
+          - "④ 실습 · ZT 시나리오·흐름도": subject-2-network-zt/day06/practice.md
   - "3과목 · 접근통제 자동화":
       - "Day 1 · RBAC 원리 & 최소권한 정책 설계 기준": subject-3-access-control/day01.md
       - "Day 2 · 접근 요청-승인-부여 프로세스 자동화": subject-3-access-control/day02.md
