@@ -36,22 +36,22 @@
     });
   }
 
-  /* 1) 용어표에 체크박스 주입 */
+  /* 1) 용어표에 체크박스 주입
+     — 제목 위치가 아니라 '표 헤더에 용어가 있는지'로 찾아, Material의 표 감싸기에도 안전 */
   function injectTermTables() {
     var article = document.querySelector(".md-content__inner");
     if (!article) return;
     var src = currentSource();
     var url = location.pathname;
+    var data = load();
 
-    article.querySelectorAll("h2, h3").forEach(function (h) {
-      if (!/어려운 용어|어려운 개념/.test(h.textContent)) return;
-      var el = h.nextElementSibling;
-      while (el && el.tagName !== "TABLE") el = el.nextElementSibling;
-      if (!el || el.dataset.wbInit) return;
-      el.dataset.wbInit = "1";
+    article.querySelectorAll("table").forEach(function (table) {
+      if (table.dataset.wbInit) return;
+      var firstTh = table.querySelector("thead th");
+      if (!firstTh || !/용어/.test(firstTh.textContent)) return; // 용어표만
+      table.dataset.wbInit = "1";
 
-      var data = load();
-      var hr = el.querySelector("thead tr");
+      var hr = table.querySelector("thead tr");
       if (hr) {
         var th = document.createElement("th");
         th.className = "wb-col";
@@ -59,7 +59,7 @@
         hr.insertBefore(th, hr.firstChild);
       }
 
-      el.querySelectorAll("tbody tr").forEach(function (tr) {
+      table.querySelectorAll("tbody tr").forEach(function (tr) {
         var cells = tr.querySelectorAll("td");
         if (!cells.length) return;
         var term = norm(cells[0].textContent);

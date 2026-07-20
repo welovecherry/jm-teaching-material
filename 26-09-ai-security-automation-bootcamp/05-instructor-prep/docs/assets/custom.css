@@ -27,12 +27,16 @@
   border-top: none;   /* 맨 위 항목은 선 제거 */
 }
 .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
-  font-size: .82rem;
+  font-size: .74rem;
   font-weight: 700;
   color: var(--md-default-fg-color);
 }
 /* 하위(Day·교시) 항목은 상대적으로 작게 유지해 대비를 준다 */
 .md-nav--primary .md-nav .md-nav__link {
-  font-size: .72rem;
+  font-size: .66rem;
   font-weight: 400;
+}
+/* 오른쪽 목차(TOC)도 작게 */
+.md-nav--secondary .md-nav__link {
+  font-size: .66rem;
 }
