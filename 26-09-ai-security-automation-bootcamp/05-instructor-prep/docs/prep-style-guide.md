@@ -59,8 +59,8 @@ MkDocs Material의 admonition을 씁니다. 종류를 **의미별로 고정**합
 subject-N-topic/
   dayDD/
     index.md      # Day 개요: 시간표(하루 전체) + 어려운 개념 풀기 + 최종 목표
-    lecture1.md   # 강의1 (오전, 120분)
-    lecture2.md   # 강의2 (오후, 120분)
+    lecture1.md   # 강의1 (오전) — 상단(시간표 아래)에 '이 교시에 나오는 어려운 용어' 표 포함
+    lecture2.md   # 강의2 (오후) — 상단에 용어 표 포함
     practice.md   # 실습 (120분) — 강사가 직접 해보고 함정 기록
 ```
 nav도 `Day 1 → ①개요 / ②강의1 / ③강의2 / ④실습`으로 중첩한다.
