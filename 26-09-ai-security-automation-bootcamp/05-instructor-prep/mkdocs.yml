@@ -74,44 +74,44 @@ nav:
   - "🧪 어려운 퀴즈 3종 (임시)": quiz-hard-demo.md
   - "2과목 · 네트워크·ZT 운영 기초":
       - "Day 1 · OSI 7계층과 TCP/IP":
-          - "① 개요·시간표": subject-2-network-zt/day01/index.md
-          - "② 강의1 · OSI 7계층 (오전)": subject-2-network-zt/day01/lecture1.md
-          - "③ 강의2 · TCP/IP (오후)": subject-2-network-zt/day01/lecture2.md
-          - "④ 실습 · 패킷 캡처": subject-2-network-zt/day01/practice.md
+          - "Day 1 · ① 개요·시간표": subject-2-network-zt/day01/index.md
+          - "Day 1 · ② 강의1 · OSI 7계층 (오전)": subject-2-network-zt/day01/lecture1.md
+          - "Day 1 · ③ 강의2 · TCP/IP (오후)": subject-2-network-zt/day01/lecture2.md
+          - "Day 1 · ④ 실습 · 패킷 캡처": subject-2-network-zt/day01/practice.md
       - "Day 2 · IP 주소 체계·서브네팅 & 라우팅·VLAN":
-          - "① 개요·시간표": subject-2-network-zt/day02/index.md
-          - "② 강의1 · IP·서브네팅 (오전)": subject-2-network-zt/day02/lecture1.md
-          - "③ 강의2 · 라우팅·VLAN (오후)": subject-2-network-zt/day02/lecture2.md
-          - "④ 실습 · 서브네팅 설계": subject-2-network-zt/day02/practice.md
+          - "Day 2 · ① 개요·시간표": subject-2-network-zt/day02/index.md
+          - "Day 2 · ② 강의1 · IP·서브네팅 (오전)": subject-2-network-zt/day02/lecture1.md
+          - "Day 2 · ③ 강의2 · 라우팅·VLAN (오후)": subject-2-network-zt/day02/lecture2.md
+          - "Day 2 · ④ 실습 · 서브네팅 설계": subject-2-network-zt/day02/practice.md
       - "Day 3 · DNS 개념과 동작원리":
-          - "① 개요·시간표": subject-2-network-zt/day03/index.md
-          - "② 강의1 · DNS 계층구조 (오전)": subject-2-network-zt/day03/lecture1.md
-          - "③ 강의2 · DNS 실습·보안 (오후)": subject-2-network-zt/day03/lecture2.md
-          - "④ 실습 · DNS 이상징후 식별": subject-2-network-zt/day03/practice.md
+          - "Day 3 · ① 개요·시간표": subject-2-network-zt/day03/index.md
+          - "Day 3 · ② 강의1 · DNS 계층구조 (오전)": subject-2-network-zt/day03/lecture1.md
+          - "Day 3 · ③ 강의2 · DNS 실습·보안 (오후)": subject-2-network-zt/day03/lecture2.md
+          - "Day 3 · ④ 실습 · DNS 이상징후 식별": subject-2-network-zt/day03/practice.md
       - "Day 4 · VPN 개념·종류 & 방화벽 기본":
-          - "① 개요·시간표": subject-2-network-zt/day04/index.md
-          - "② 강의1 · VPN 개념·종류 (오전)": subject-2-network-zt/day04/lecture1.md
-          - "③ 강의2 · 방화벽 정책 (오후)": subject-2-network-zt/day04/lecture2.md
-          - "④ 실습 · 방화벽 룰셋 설계": subject-2-network-zt/day04/practice.md
+          - "Day 4 · ① 개요·시간표": subject-2-network-zt/day04/index.md
+          - "Day 4 · ② 강의1 · VPN 개념·종류 (오전)": subject-2-network-zt/day04/lecture1.md
+          - "Day 4 · ③ 강의2 · 방화벽 정책 (오후)": subject-2-network-zt/day04/lecture2.md
+          - "Day 4 · ④ 실습 · 방화벽 룰셋 설계": subject-2-network-zt/day04/practice.md
       - "Day 5 · 클라우드·SaaS 환경·망 구성도 & 네트워크 품질지표":
-          - "① 개요·시간표": subject-2-network-zt/day05/index.md
-          - "② 강의1 · 클라우드·SaaS·망 구성도 (오전)": subject-2-network-zt/day05/lecture1.md
-          - "③ 강의2 · 품질지표·지연 진단 (오후)": subject-2-network-zt/day05/lecture2.md
-          - "④ 실습 · 구성도·진단 리포트": subject-2-network-zt/day05/practice.md
+          - "Day 5 · ① 개요·시간표": subject-2-network-zt/day05/index.md
+          - "Day 5 · ② 강의1 · 클라우드·SaaS·망 구성도 (오전)": subject-2-network-zt/day05/lecture1.md
+          - "Day 5 · ③ 강의2 · 품질지표·지연 진단 (오후)": subject-2-network-zt/day05/lecture2.md
+          - "Day 5 · ④ 실습 · 구성도·진단 리포트": subject-2-network-zt/day05/practice.md
       - "Day 6 · Zero Trust 원칙 & PDP/PEP·최소권한·지속검증":
-          - "① 개요·시간표": subject-2-network-zt/day06/index.md
-          - "② 강의1 · Zero Trust 5대 원칙 (오전)": subject-2-network-zt/day06/lecture1.md
-          - "③ 강의2 · PDP/PEP·최소권한 (오후)": subject-2-network-zt/day06/lecture2.md
-          - "④ 실습 · ZT 시나리오·흐름도": subject-2-network-zt/day06/practice.md
+          - "Day 6 · ① 개요·시간표": subject-2-network-zt/day06/index.md
+          - "Day 6 · ② 강의1 · Zero Trust 5대 원칙 (오전)": subject-2-network-zt/day06/lecture1.md
+          - "Day 6 · ③ 강의2 · PDP/PEP·최소권한 (오후)": subject-2-network-zt/day06/lecture2.md
+          - "Day 6 · ④ 실습 · ZT 시나리오·흐름도": subject-2-network-zt/day06/practice.md
       - "Day 7 · 정책 로그 이해 & 고객 환경 설명 문서화":
-          - "① 개요·시간표": subject-2-network-zt/day07/index.md
-          - "② 강의1 · 정책 로그 해석 (오전)": subject-2-network-zt/day07/lecture1.md
-          - "③ 강의2 · 고객 설명 문서화 (오후)": subject-2-network-zt/day07/lecture2.md
-          - "④ 실습 · 고객 설명자료 작성": subject-2-network-zt/day07/practice.md
+          - "Day 7 · ① 개요·시간표": subject-2-network-zt/day07/index.md
+          - "Day 7 · ② 강의1 · 정책 로그 해석 (오전)": subject-2-network-zt/day07/lecture1.md
+          - "Day 7 · ③ 강의2 · 고객 설명 문서화 (오후)": subject-2-network-zt/day07/lecture2.md
+          - "Day 7 · ④ 실습 · 고객 설명자료 작성": subject-2-network-zt/day07/practice.md
       - "Day 8 · 장애·위협·접근통제 이슈 도식화 & 종합 발표":
-          - "① 개요·시간표": subject-2-network-zt/day08/index.md
-          - "② 강의 · 이슈 정리·도식화 (통합)": subject-2-network-zt/day08/lecture1.md
-          - "③ 실습 · 팀별 도식화·발표": subject-2-network-zt/day08/practice.md
+          - "Day 8 · ① 개요·시간표": subject-2-network-zt/day08/index.md
+          - "Day 8 · ② 강의 · 이슈 정리·도식화 (통합)": subject-2-network-zt/day08/lecture1.md
+          - "Day 8 · ③ 실습 · 팀별 도식화·발표": subject-2-network-zt/day08/practice.md
   - "3과목 · 접근통제 자동화":
       - "Day 1 · RBAC 원리 & 최소권한 정책 설계 기준": subject-3-access-control/day01.md
       - "Day 2 · 접근 요청-승인-부여 프로세스 자동화": subject-3-access-control/day02.md
