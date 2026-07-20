@@ -62,17 +62,21 @@ extra_css:
   - assets/quiz.css
   - assets/progress.css
   - assets/custom.css
+  - assets/wordbook.css
 extra_javascript:
   - assets/quiz.js
   - assets/progress.js
+  - assets/wordbook.js
 
 nav:
   - 홈: index.md
+  - "⭐ 내 단어장": wordbook.md
   - 예습 스타일 가이드: prep-style-guide.md
   - "🧪 샘플·파일럿 (임시)":
       - "퀴즈 형식 고르기": samples/quiz-demo.md
       - "어려운 퀴즈 3종": samples/quiz-hard-demo.md
       - "3과목 깊은 형식 파일럿 (Day1 강의1)": samples/3과목-pilot-day1-강의1.md
+      - "파이썬 브릿지 1층 · 딕셔너리": samples/python-bridge-floor1-dict.md
   - "1과목 · AI 자동화 기초":
       - "Day 1 · 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)": subject-1-ai-automation/day01.md
       - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅": subject-1-ai-automation/day02.md
