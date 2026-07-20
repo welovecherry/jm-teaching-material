@@ -18,11 +18,28 @@
   }
   function count() { return Object.keys(load()).length; }
 
-  /* 현재 페이지의 출처 이름 (예: "강의1 · OSI 7계층 모델 (오전, 총 120분)") */
+  /* 출처 이름을 짧게: 끝의 "(오전, 총 120분)" 같은 괄호부 제거 */
+  function shortSource(t) {
+    return norm(t).replace(/¶/g, "").replace(/\s*\([^)]*\)\s*$/, "");
+  }
   function currentSource() {
     var h1 = document.querySelector(".md-content__inner h1");
-    var t = h1 ? norm(h1.textContent).replace(/¶/g, "") : norm(document.title);
-    return t;
+    return shortSource(h1 ? h1.textContent : document.title);
+  }
+
+  /* URL로 과목 판별 (그룹 정렬용) */
+  var SUBJECTS = [
+    ["subject-1-ai-automation", "1과목 · AI 자동화 기초"],
+    ["subject-2-network-zt", "2과목 · 네트워크·ZT 운영 기초"],
+    ["subject-3-access-control", "3과목 · 접근통제 자동화"],
+    ["subject-4-anomaly-detection", "4과목 · 이상탐지 자동화"],
+    ["subject-5", "5과목"]
+  ];
+  function subjectOf(url) {
+    for (var i = 0; i < SUBJECTS.length; i++) {
+      if ((url || "").indexOf(SUBJECTS[i][0]) >= 0) return { order: i, name: SUBJECTS[i][1] };
+    }
+    return { order: 99, name: "기타" };
   }
 
   /* 사이드바의 '내 단어장' 링크에 개수 표시 */
@@ -111,30 +128,49 @@
         '<p class="wb-empty">아직 담은 용어가 없습니다. 각 강의 상단 <b>“이 교시에 나오는 어려운 용어”</b> 표에서 ⭐를 눌러 담아보세요.</p>';
       return;
     }
-    items.sort(function (a, b) { return (a.source || "").localeCompare(b.source || ""); });
+    /* 과목별 그룹 묶기 */
+    var groups = {};
+    items.forEach(function (it) {
+      var s = subjectOf(it.url);
+      if (!groups[s.order]) groups[s.order] = { name: s.name, items: [] };
+      groups[s.order].items.push(it);
+    });
+    var orders = Object.keys(groups).sort(function (a, b) { return a - b; });
+
+    function rowHtml(it) {
+      return '<tr data-term="' + esc(it.term) + '">' +
+        '<td class="wb-term">' + esc(it.term) + "</td>" +
+        '<td class="wb-hide">' + esc(it.meaning) + "</td>" +
+        '<td class="wb-hide">' + esc(it.analogy) + "</td>" +
+        '<td><textarea class="wb-memo" rows="1" placeholder="메모…">' + esc(it.memo || "") + "</textarea></td>" +
+        '<td class="wb-src"><a href="' + esc(it.url) + '">' + esc(shortSource(it.source)) + "</a></td>" +
+        '<td><button class="wb-del" title="단어장에서 빼기">✕</button></td>' +
+        "</tr>";
+    }
 
     var html =
       '<div class="wb-toolbar">' +
       '<button class="wb-btn" id="wb-review">🔁 복습 모드</button>' +
       '<button class="wb-btn" id="wb-clear">🗑 전체 비우기</button>' +
       '<span class="wb-count">총 ' + items.length + '개</span></div>' +
-      '<p class="wb-hint" id="wb-hint"></p>' +
-      '<table class="wb-table"><thead><tr>' +
-      '<th>용어</th><th>뜻</th><th>비유</th><th>메모</th><th>어디서</th><th></th>' +
-      '</tr></thead><tbody>';
+      '<p class="wb-hint" id="wb-hint"></p>';
 
-    items.forEach(function (it) {
+    orders.forEach(function (o) {
+      var g = groups[o];
+      g.items.sort(function (a, b) {
+        return shortSource(a.source).localeCompare(shortSource(b.source)) ||
+               a.term.localeCompare(b.term);
+      });
       html +=
-        '<tr data-term="' + esc(it.term) + '">' +
-        '<td class="wb-term">' + esc(it.term) + "</td>" +
-        '<td class="wb-hide">' + esc(it.meaning) + "</td>" +
-        '<td class="wb-hide">' + esc(it.analogy) + "</td>" +
-        '<td><textarea class="wb-memo" rows="1" placeholder="메모…">' + esc(it.memo || "") + "</textarea></td>" +
-        '<td class="wb-src"><a href="' + esc(it.url) + '">' + esc(it.source) + "</a></td>" +
-        '<td><button class="wb-del" title="단어장에서 빼기">✕</button></td>' +
-        "</tr>";
+        '<h3 class="wb-group">' + esc(g.name) +
+        ' <span class="wb-gcount">' + g.items.length + '개</span></h3>' +
+        '<table class="wb-table"><thead><tr>' +
+        '<th>용어</th><th>뜻</th><th>비유</th><th>메모</th><th>어디서</th><th></th>' +
+        '</tr></thead><tbody>' +
+        g.items.map(rowHtml).join("") +
+        "</tbody></table>";
     });
-    html += "</tbody></table>";
+
     root.innerHTML = html;
     bind(root);
   }
