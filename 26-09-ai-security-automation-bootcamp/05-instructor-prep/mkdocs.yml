@@ -73,6 +73,15 @@ nav:
       - "퀴즈 형식 고르기": samples/quiz-demo.md
       - "어려운 퀴즈 3종": samples/quiz-hard-demo.md
       - "3과목 깊은 형식 파일럿 (Day1 강의1)": samples/3과목-pilot-day1-강의1.md
+  - "1과목 · AI 자동화 기초":
+      - "Day 1 · 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)": subject-1-ai-automation/day01.md
+      - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅": subject-1-ai-automation/day02.md
+      - "Day 3 · 자료구조 심화 & JSON·정규표현식": subject-1-ai-automation/day03.md
+      - "Day 4 · API·HTTP·requests 실전 & 인증정보 관리": subject-1-ai-automation/day04.md
+      - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링": subject-1-ai-automation/day05.md
+      - "Day 6 · LLM 개념·프롬프트 엔지니어링 & AI Agent Tool-use 구조": subject-1-ai-automation/day06.md
+      - "Day 7 · LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성": subject-1-ai-automation/day07.md
+      - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
   - "2과목 · 네트워크·ZT 운영 기초":
       - "Day 1 · OSI 7계층과 TCP/IP":
           - "Day 1 · ① 개요·시간표": subject-2-network-zt/day01/index.md
@@ -125,12 +134,3 @@ nav:
       - "Day 3 · 비인가접근·SaaS이상·악성행위 탐지 & 상관분석": subject-4-anomaly-detection/day03.md
       - "Day 4 · 오탐·미탐 검토 & 탐지룰 튜닝": subject-4-anomaly-detection/day04.md
       - "Day 5 · AI 기반 이벤트 요약·우선순위 분류 & 전체 통합·발표": subject-4-anomaly-detection/day05.md
-  - "1과목 · AI 자동화 기초":
-      - "Day 1 · 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)": subject-1-ai-automation/day01.md
-      - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅": subject-1-ai-automation/day02.md
-      - "Day 3 · 자료구조 심화 & JSON·정규표현식": subject-1-ai-automation/day03.md
-      - "Day 4 · API·HTTP·requests 실전 & 인증정보 관리": subject-1-ai-automation/day04.md
-      - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링": subject-1-ai-automation/day05.md
-      - "Day 6 · LLM 개념·프롬프트 엔지니어링 & AI Agent Tool-use 구조": subject-1-ai-automation/day06.md
-      - "Day 7 · LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성": subject-1-ai-automation/day07.md
-      - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
