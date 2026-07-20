@@ -26,6 +26,16 @@
     **Q. DNS가 없다면 웹사이트에 접속할 때마다 무엇을 외우고 있어야 할까요?**
     A. 사이트마다 **IP 주소(예 `93.184.216.34`)를 직접** 외워야 합니다. 도메인 이름 대신 숫자를 외워야 하니 사실상 불가능하죠. DNS가 그 수고를 대신해 줍니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>DNS가 '인터넷의 전화번호부'라고 불리는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">DNS가 모든 웹사이트의 비밀번호를 보관하기 때문</button>
+<button class="quiz-opt" data-correct>사람은 외우기 쉬운 도메인 이름을 쓰지만 컴퓨터는 IP로 통신하므로, 이름↔IP를 이어주기 때문</button>
+<button class="quiz-opt">DNS가 전화 통화를 인터넷으로 연결해 주기 때문</button>
+<button class="quiz-opt">도메인 이름이 실제 전화번호로 변환되기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 전화번호부가 이름→번호를 찾아주듯, DNS는 도메인 이름→IP를 찾아줍니다. 비밀번호 보관(1번)이나 전화 연결(3번)과는 무관합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 20-50분 · DNS 계층구조 — Root, TLD, Authoritative
@@ -61,6 +71,16 @@ sequenceDiagram
     **Q. Root 서버가 다운되면 전세계 DNS 조회에 어떤 영향이 있을까요?**
     A. 이론상 새 조회의 출발점이 막혀 큰 혼란이 됩니다. 다만 실제로는 ① Root 서버가 **전 세계에 여러 대로 분산·이중화**되어 있고, ② 많은 답이 **캐싱**되어 있어, 하나 둘 죽어도 바로 인터넷이 멈추진 않습니다. (그래서 Root는 극도로 견고하게 운영됩니다)
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>Root DNS 서버 한두 대가 죽어도 인터넷이 바로 멈추지 않는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">Root 서버는 사실 조회에 쓰이지 않기 때문</button>
+<button class="quiz-opt">각 PC가 Root 서버의 완전한 사본을 갖고 있기 때문</button>
+<button class="quiz-opt" data-correct>Root 서버가 전 세계에 여러 대로 분산·이중화돼 있고, 많은 답이 이미 캐싱돼 있기 때문</button>
+<button class="quiz-opt">브라우저가 IP를 직접 계산해 내기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 분산·이중화 + 캐싱 덕분에 일부 장애가 전체 마비로 번지지 않습니다. PC가 Root 사본을 갖는(2번) 것은 아닙니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 50-80분 · 재귀 질의 vs 반복 질의
@@ -80,6 +100,16 @@ sequenceDiagram
 !!! question "확인질문 · 나의 답"
     **Q. 우리 PC는 Root, TLD, Authoritative에 각각 직접 물어보지 않는데 그 이유는?**
     A. 그 복잡한 과정을 **리졸버가 대신(재귀 질의)** 해주기 때문입니다. 또 리졸버가 결과를 **캐싱**해 두어, 다음 사람은 훨씬 빠르게 답을 받습니다. 모든 PC가 매번 Root부터 뒤지면 비효율적이고 Root에 부하가 몰립니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>우리 PC가 Root·TLD·Authoritative 서버에 직접 묻지 않고 리졸버에 맡기는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">PC는 Root 서버의 주소를 전혀 알 수 없기 때문</button>
+<button class="quiz-opt">리졸버만 인터넷에 연결돼 있기 때문</button>
+<button class="quiz-opt">직접 조회는 법으로 금지돼 있기 때문</button>
+<button class="quiz-opt" data-correct>리졸버가 복잡한 조회를 대신 처리하고 결과를 캐싱해, 빠르고 Root 서버의 부하도 줄기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> '비서(리졸버)'에게 한 번 맡기면 발품과 캐싱을 대신해 줍니다. 모든 PC가 매번 Root부터 뒤지면 비효율적이고 부하가 몰립니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
@@ -101,6 +131,16 @@ DNS에 저장된 한 줄 한 줄을 **레코드(record)**라 합니다. 자주 �
 !!! question "확인질문 · 나의 답"
     **Q. www.example.com과 example.com이 같은 곳으로 연결되게 하려면 어떤 레코드를 쓸까요?**
     A. **CNAME**입니다. `www.example.com`을 `example.com`의 **별칭**으로 걸면, IP가 바뀌어도 한 곳(example.com의 A 레코드)만 고치면 둘 다 따라옵니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>www.example.com과 example.com을 같은 곳으로 연결할 때 CNAME이 편리한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">CNAME이 A 레코드보다 조회 속도가 빠르기 때문</button>
+<button class="quiz-opt" data-correct>www를 example.com의 별칭으로 걸어두면, IP가 바뀌어도 한 곳만 고치면 둘 다 따라오기 때문</button>
+<button class="quiz-opt">CNAME이 IP 주소를 자동으로 생성해 주기 때문</button>
+<button class="quiz-opt">www 주소는 원래 IP를 가질 수 없기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 별칭(CNAME)으로 묶으면 관리 지점이 하나로 줄어 IP 변경이 쉬워집니다. 속도(1번)나 IP 자동생성(3번)과는 무관합니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 

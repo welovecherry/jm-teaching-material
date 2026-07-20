@@ -37,6 +37,16 @@ dig +trace example.com          # Root부터 전체 경로 추적
     **Q. `dig +trace` 명령은 무엇을 보여줄까요?**
     A. 도메인 하나를 찾는 **전체 조회 경로**를 Root 서버부터 TLD, Authoritative까지 **단계별로** 보여줍니다. "어디서 어디로 물어가며 IP를 찾는지" 눈으로 확인하는 도구입니다.
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b><code>dig +trace</code>가 DNS 구조를 이해하는 데 유용한 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">도메인의 관리자 비밀번호를 함께 보여주기 때문</button>
+<button class="quiz-opt">조회 속도를 두 배로 높여 주기 때문</button>
+<button class="quiz-opt" data-correct>리졸버 캐시를 무시하고 Root→TLD→Authoritative 전체 조회 경로를 단계별로 보여주기 때문</button>
+<button class="quiz-opt">가짜 DNS 응답을 자동으로 차단해 주기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> 오전에 배운 3층 구조가 실제로 화면에 단계별로 찍혀 나옵니다. 비밀번호(1번)·차단(4번) 기능은 없습니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 25-50분 · DNS 캐싱과 TTL
@@ -52,6 +62,16 @@ DNS 응답에는 **TTL(티티엘)**이 붙어 있어, 그 시간 동안 **캐싱
 !!! question "확인질문 · 나의 답"
     **Q. 회사 웹사이트의 IP를 변경했는데 일부 사용자에게는 여전히 예전 사이트가 보인다면, 원인은?**
     A. 그 사용자(또는 그들의 리졸버)에 **예전 IP가 아직 캐싱**되어 있고, **TTL이 만료되지 않아** 옛 답을 계속 쓰기 때문입니다. 이 **전파 지연** 때문에 IP 변경은 보통 TTL을 미리 줄여두고 진행합니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>웹사이트 IP를 바꿨는데 일부 사용자에게는 옛 사이트가 계속 보이는 이유로 가장 적절한 것은?</b></p>
+<button class="quiz-opt">새 IP가 아직 만들어지지 않았기 때문</button>
+<button class="quiz-opt" data-correct>그 사용자/리졸버에 예전 IP가 캐싱돼 있고 TTL이 아직 안 끝나, 옛 답을 계속 쓰기 때문</button>
+<button class="quiz-opt">브라우저가 옛 사이트를 더 선호하기 때문</button>
+<button class="quiz-opt">DNS는 원래 IP 변경을 지원하지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 2번.</b> 캐싱 + TTL 때문에 변경이 전 세계에 즉시 반영되지 않습니다(전파 지연). 그래서 IP 변경 전 TTL을 미리 줄여둡니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
@@ -93,6 +113,16 @@ flowchart TD
     **Q. 은행 사이트 도메인을 입력했는데 이상한 페이지가 뜬다면, DNS 관점에서 무엇을 의심할 수 있을까요?**
     A. **DNS 스푸핑 / 캐시 포이즈닝**을 의심합니다. 도메인은 정상인데 조작된 DNS 응답 때문에 **가짜 IP로 연결**되었을 수 있습니다. (HTTPS 인증서 경고가 함께 뜨는지도 확인 포인트)
 
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>주소창에 정확히 <code>bank.com</code>을 쳤는데 가짜 사이트가 뜰 때, DNS 스푸핑을 의심하는 근거로 가장 타당한 것은?</b></p>
+<button class="quiz-opt">도메인 이름을 잘못 입력했을 것이 분명하기 때문</button>
+<button class="quiz-opt">은행 사이트는 원래 주소가 자주 바뀌기 때문</button>
+<button class="quiz-opt" data-correct>도메인은 정상인데 조작된 DNS 응답 때문에 가짜 IP로 연결됐을 수 있기 때문</button>
+<button class="quiz-opt">HTTPS는 주소를 전혀 검증하지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 3번.</b> "주소는 맞는데 엉뚱한 곳" = DNS 단계에서 IP가 조작됐을 가능성입니다. 오타(1번)가 아니라는 전제이고, HTTPS 인증서 경고가 함께 뜨는지도 단서가 됩니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
+
 ---
 
 ## ⏱️ 80-105분 · DNS 로그에서 이상징후 찾기 (DGA)
@@ -118,6 +148,16 @@ flowchart TD
 !!! question "확인질문 · 나의 답"
     **Q. 무작위 문자열 도메인을 짧은 시간에 대량 조회하는 PC가 있다면 무엇을 의심할까요?**
     A. **악성코드 감염(DGA를 통한 C2 통신)**을 의심합니다. 정상 사용자는 사람이 읽는 도메인을 이따금 조회하지, 무작위 문자열을 초당 수십 개씩 조회하지 않습니다. 해당 PC를 격리하고 조사 대상에 올립니다.
+
+<div class="quiz">
+<p class="quiz-q"><span class="tag">퀴즈</span><b>무작위 문자열 도메인을 짧은 시간에 대량 조회하는 PC를 악성코드 감염으로 의심하는 근거로 가장 타당한 것은?</b></p>
+<button class="quiz-opt">무작위 도메인은 항상 존재하지 않는 주소이기 때문</button>
+<button class="quiz-opt">대량 조회는 인터넷 속도를 높여 주기 때문</button>
+<button class="quiz-opt">도메인이 길수록 더 안전하기 때문</button>
+<button class="quiz-opt" data-correct>정상 사용자는 사람이 읽는 도메인을 이따금 조회할 뿐, 무작위 문자열을 초당 수십 개씩 조회하지 않기 때문</button>
+<div class="quiz-explain"><b>정답: 4번.</b> DGA는 공격자 서버 주소를 계속 바꾸려고 무작위 도메인을 대량 생성합니다. "사람이 안 지을 이름을 대량 조회"가 감염 신호입니다.</div>
+<button class="quiz-retry">다시 풀기</button>
+</div>
 
 ---
 
