@@ -73,7 +73,11 @@ nav:
           - "② 강의1 · IP·서브네팅 (오전)": subject-2-network-zt/day02/lecture1.md
           - "③ 강의2 · 라우팅·VLAN (오후)": subject-2-network-zt/day02/lecture2.md
           - "④ 실습 · 서브네팅 설계": subject-2-network-zt/day02/practice.md
-      - "Day 3 · DNS 개념과 동작원리": subject-2-network-zt/day03.md
+      - "Day 3 · DNS 개념과 동작원리":
+          - "① 개요·시간표": subject-2-network-zt/day03/index.md
+          - "② 강의1 · DNS 계층구조 (오전)": subject-2-network-zt/day03/lecture1.md
+          - "③ 강의2 · DNS 실습·보안 (오후)": subject-2-network-zt/day03/lecture2.md
+          - "④ 실습 · DNS 이상징후 식별": subject-2-network-zt/day03/practice.md
       - "Day 4 · VPN 개념·종류 & 방화벽 기본": subject-2-network-zt/day04.md
       - "Day 5 · 클라우드·SaaS 환경·망 구성도 & 네트워크 품질지표": subject-2-network-zt/day05.md
       - "Day 6 · Zero Trust 원칙 & PDP/PEP·최소권한·지속검증": subject-2-network-zt/day06.md
