@@ -1,62 +1,79 @@
-/* 상단 스크롤 진행률 바 + 페이지 완독 체크박스(localStorage 저장) */
+/* 상단 진행률 바(체크박스 기반) + 섹션별 '읽음' 체크박스(localStorage 저장) */
 (function () {
-  // 1) 스크롤 진행률 바
-  function setupProgressBar() {
-    var bar = document.querySelector(".reading-progress");
-    if (!bar) {
-      bar = document.createElement("div");
+  function articleEl() {
+    return (
+      document.querySelector(".md-content__inner") ||
+      document.querySelector("article")
+    );
+  }
+
+  function ensureBar() {
+    if (!document.querySelector(".reading-progress-track")) {
+      var track = document.createElement("div");
+      track.className = "reading-progress-track";
+      document.body.appendChild(track);
+    }
+    if (!document.querySelector(".reading-progress")) {
+      var bar = document.createElement("div");
       bar.className = "reading-progress";
       document.body.appendChild(bar);
     }
-    function update() {
-      var el = document.documentElement;
-      var scrollable = el.scrollHeight - el.clientHeight;
-      var pct = scrollable > 0 ? (el.scrollTop / scrollable) * 100 : 0;
-      bar.style.width = pct + "%";
-    }
-    if (!window.__rpBound) {
-      window.addEventListener("scroll", update, { passive: true });
-      window.addEventListener("resize", update);
-      window.__rpBound = true;
-    }
-    update();
   }
 
-  // 2) 페이지 완독 체크박스 (URL별로 상태 저장)
-  function setupReadCheck() {
-    var article =
-      document.querySelector(".md-content__inner") ||
-      document.querySelector("article");
-    if (!article || article.querySelector(".readcheck-done")) return;
-
-    var key = "read:" + location.pathname;
-    var wrap = document.createElement("label");
-    wrap.className = "readcheck-done";
-
-    var box = document.createElement("input");
-    box.type = "checkbox";
-    box.checked = localStorage.getItem(key) === "1";
-
-    var span = document.createElement("span");
-    span.className = "rc-label";
-    span.textContent = "이 페이지 공부 완료";
-
-    wrap.appendChild(box);
-    wrap.appendChild(span);
-    if (box.checked) wrap.classList.add("checked");
-
-    box.addEventListener("change", function () {
-      if (box.checked) localStorage.setItem(key, "1");
-      else localStorage.removeItem(key);
-      wrap.classList.toggle("checked", box.checked);
+  function updateBar() {
+    var bar = document.querySelector(".reading-progress");
+    if (!bar) return;
+    var boxes = document.querySelectorAll(".readcheck input");
+    if (!boxes.length) {
+      bar.style.width = "0%";
+      return;
+    }
+    var done = 0;
+    boxes.forEach(function (b) {
+      if (b.checked) done++;
     });
+    bar.style.width = Math.round((done / boxes.length) * 100) + "%";
+  }
 
-    article.appendChild(wrap);
+  function injectChecks() {
+    var article = articleEl();
+    if (!article || article.dataset.rcInjected) return;
+    article.dataset.rcInjected = "1";
+
+    var headings = Array.prototype.slice.call(article.querySelectorAll("h2"));
+    headings.forEach(function (h2, i) {
+      var key = "sec:" + location.pathname + "#" + i;
+      var label = document.createElement("label");
+      label.className = "readcheck";
+
+      var box = document.createElement("input");
+      box.type = "checkbox";
+      box.checked = localStorage.getItem(key) === "1";
+
+      var span = document.createElement("span");
+      span.textContent = "여기까지 읽음";
+
+      label.appendChild(box);
+      label.appendChild(span);
+      if (box.checked) label.classList.add("checked");
+
+      box.addEventListener("change", function () {
+        if (box.checked) localStorage.setItem(key, "1");
+        else localStorage.removeItem(key);
+        label.classList.toggle("checked", box.checked);
+        updateBar();
+      });
+
+      var next = headings[i + 1];
+      if (next && next.parentNode) next.parentNode.insertBefore(label, next);
+      else article.appendChild(label);
+    });
   }
 
   function init() {
-    setupProgressBar();
-    setupReadCheck();
+    ensureBar();
+    injectChecks();
+    updateBar();
   }
 
   if (window.document$ && typeof window.document$.subscribe === "function") {
