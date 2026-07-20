@@ -1,0 +1,8 @@
+/* 본문 ==하이라이트== 형광펜 색: 연한 노랑 (라이트/다크 모두 가독) */
+.md-typeset mark {
+  background-color: #ffec99;
+  color: #212121;
+  padding: 0 .14em;
+  border-radius: .14em;
+  box-shadow: none;
+}

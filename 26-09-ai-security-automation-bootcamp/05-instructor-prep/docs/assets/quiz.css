@@ -11,7 +11,7 @@
 .quiz-q .tag {
   display: inline-block; font-size: .7rem; font-weight: 700;
   padding: .05rem .4rem; margin-right: .4rem; border-radius: .2rem;
-  background: var(--md-accent-fg-color, #526cfe); color: #212121; vertical-align: middle;
+  background: var(--md-accent-fg-color, #526cfe); color: #fff; vertical-align: middle;
 }
 .quiz-opt {
   display: block; width: 100%; text-align: left;

@@ -8,15 +8,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: yellow
-      accent: yellow
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-night
         name: 다크 모드로 전환
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: yellow
-      accent: yellow
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-sunny
         name: 라이트 모드로 전환
@@ -62,6 +62,7 @@ plugins:
 extra_css:
   - assets/quiz.css
   - assets/progress.css
+  - assets/custom.css
 extra_javascript:
   - assets/quiz.js
   - assets/progress.js
