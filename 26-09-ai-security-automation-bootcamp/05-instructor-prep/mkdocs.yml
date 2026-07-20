@@ -68,7 +68,11 @@ nav:
           - "② 강의1 · OSI 7계층 (오전)": subject-2-network-zt/day01/lecture1.md
           - "③ 강의2 · TCP/IP (오후)": subject-2-network-zt/day01/lecture2.md
           - "④ 실습 · 패킷 캡처": subject-2-network-zt/day01/practice.md
-      - "Day 2 · IP 주소 체계·서브네팅 & 라우팅·VLAN": subject-2-network-zt/day02.md
+      - "Day 2 · IP 주소 체계·서브네팅 & 라우팅·VLAN":
+          - "① 개요·시간표": subject-2-network-zt/day02/index.md
+          - "② 강의1 · IP·서브네팅 (오전)": subject-2-network-zt/day02/lecture1.md
+          - "③ 강의2 · 라우팅·VLAN (오후)": subject-2-network-zt/day02/lecture2.md
+          - "④ 실습 · 서브네팅 설계": subject-2-network-zt/day02/practice.md
       - "Day 3 · DNS 개념과 동작원리": subject-2-network-zt/day03.md
       - "Day 4 · VPN 개념·종류 & 방화벽 기본": subject-2-network-zt/day04.md
       - "Day 5 · 클라우드·SaaS 환경·망 구성도 & 네트워크 품질지표": subject-2-network-zt/day05.md
