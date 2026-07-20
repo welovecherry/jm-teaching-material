@@ -75,7 +75,6 @@ nav:
   - "🧪 샘플·파일럿 (임시)":
       - "퀴즈 형식 고르기": samples/quiz-demo.md
       - "어려운 퀴즈 3종": samples/quiz-hard-demo.md
-      - "3과목 깊은 형식 파일럿 (Day1 강의1)": samples/3과목-pilot-day1-강의1.md
       - "파이썬 브릿지 1층 · 딕셔너리": samples/python-bridge-floor1-dict.md
   - "1과목 · AI 자동화 기초":
       - "Day 1 · 오리엔테이션·개발환경 구축 & Python 기초(변수·자료형·제어문)": subject-1-ai-automation/day01.md
@@ -127,7 +126,11 @@ nav:
           - "Day 8 · ② 강의 · 이슈 정리·도식화 (통합)": subject-2-network-zt/day08/lecture1.md
           - "Day 8 · ③ 실습 · 팀별 도식화·발표": subject-2-network-zt/day08/practice.md
   - "3과목 · 접근통제 자동화":
-      - "Day 1 · RBAC 원리 & 최소권한 정책 설계 기준": subject-3-access-control/day01.md
+      - "Day 1 · RBAC 원리 & 최소권한 정책 설계 기준":
+          - "Day 1 · ① 개요·시간표": subject-3-access-control/day01/index.md
+          - "Day 1 · ② 강의1 · RBAC 구현 (오전)": subject-3-access-control/day01/lecture1.md
+          - "Day 1 · ③ 강의2 · 최소권한 정책 (오후)": subject-3-access-control/day01/lecture2.md
+          - "Day 1 · ④ 실습 · RBAC 설계·구현": subject-3-access-control/day01/practice.md
       - "Day 2 · 접근 요청-승인-부여 프로세스 자동화": subject-3-access-control/day02.md
       - "Day 3 · 접근 점검·회수 프로세스 & 과다권한 탐지": subject-3-access-control/day03.md
       - "Day 4 · 권한 회수 자동화 & 조건기반 정책·예외승인": subject-3-access-control/day04.md
