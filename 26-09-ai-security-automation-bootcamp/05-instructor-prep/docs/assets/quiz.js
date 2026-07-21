@@ -1,5 +1,32 @@
-/* 인터랙티브 객관식 퀴즈: 보기 클릭 → 정답/오답 표시 + 해설 */
+/* 인터랙티브 객관식 퀴즈: 보기 클릭 → 정답/오답 표시 + 해설
+   + 틀린 문제는 '복습하기'용으로 localStorage에 기록(맞히면 자동 제거) */
 (function () {
+  var WRONGKEY = "reviewWrong.v1";
+  function loadWrong() { try { return JSON.parse(localStorage.getItem(WRONGKEY)) || {}; } catch (e) { return {}; } }
+  function saveWrong(d) { localStorage.setItem(WRONGKEY, JSON.stringify(d)); }
+  function pageSource() {
+    var h = document.querySelector(".md-content__inner h1");
+    return (h ? h.textContent : document.title).replace(/¶/g, "").replace(/\s*\([^)]*\)\s*$/, "").replace(/\s+/g, " ").trim();
+  }
+  function recordResult(quiz, opts, explain, correctPicked) {
+    if (quiz.classList.contains("wb-wrongq")) return; // 복습 페이지의 재출제는 여기서 기록 안 함
+    var b = quiz.querySelector(".quiz-q b");
+    var qtext = b ? b.textContent.trim() : "";
+    if (!qtext) return;
+    var d = loadWrong();
+    if (correctPicked) {
+      if (d[qtext]) { delete d[qtext]; saveWrong(d); }
+    } else {
+      d[qtext] = {
+        q: qtext,
+        opts: opts.map(function (o) { return { t: o.textContent, c: o.hasAttribute("data-correct") }; }),
+        explain: explain ? explain.innerHTML : "",
+        source: pageSource(), url: location.pathname
+      };
+      saveWrong(d);
+    }
+  }
+
   function initQuiz(quiz) {
     if (quiz.dataset.qinit) return;
     quiz.dataset.qinit = "1";
@@ -15,6 +42,7 @@
       });
       if (picked && !picked.hasAttribute("data-correct")) picked.classList.add("quiz-wrong");
       if (explain) explain.classList.add("show");
+      recordResult(quiz, opts, explain, picked && picked.hasAttribute("data-correct"));
     }
     function reset() {
       quiz.classList.remove("answered");

@@ -55,6 +55,15 @@
   color: var(--md-default-fg-color--light);
 }
 
+/* 틀린 퀴즈 재출제 */
+.wb-wrongq { border-left: 4px solid #e03131; }
+.wb-wrongq .tag-wrong { background: #e03131 !important; color: #fff; }
+.wb-wrongq .wb-src { margin-left: .3rem; font-weight: 400; }
+.wb-wrongq .wb-del {
+  margin-top: .5rem; font-size: .75rem;
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: .2rem; padding: .2rem .6rem;
+}
+
 .wb-group {
   margin: 1.5rem 0 .3rem;
   font-size: .95rem;

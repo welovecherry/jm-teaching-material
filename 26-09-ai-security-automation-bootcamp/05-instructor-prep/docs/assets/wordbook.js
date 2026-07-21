@@ -10,6 +10,9 @@
     catch (e) { return {}; }
   }
   function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+  var WRONGKEY = "reviewWrong.v1";
+  function loadWrong() { try { return JSON.parse(localStorage.getItem(WRONGKEY)) || {}; } catch (e) { return {}; } }
+  function saveWrong(d) { localStorage.setItem(WRONGKEY, JSON.stringify(d)); }
   function norm(s) { return (s || "").replace(/\s+/g, " ").trim(); }
   function esc(s) {
     return String(s == null ? "" : s)
@@ -42,12 +45,12 @@
     return { order: 99, name: "기타" };
   }
 
-  /* 사이드바의 '내 단어장' 링크에 개수 표시 */
+  /* 사이드바의 '복습하기' 링크에 개수 표시 (단어 + 오답) */
   function updateNavCount() {
-    var n = count();
+    var n = count() + Object.keys(loadWrong()).length;
     document.querySelectorAll('.md-nav__link[href]').forEach(function (a) {
       if (!/wordbook\/?$/.test(a.getAttribute("href") || "")) return;
-      var base = a.dataset.wbBase || norm(a.textContent);
+      var base = a.dataset.wbBase || norm(a.textContent).replace(/\s*\(\d+\)\s*$/, "");
       a.dataset.wbBase = base;
       a.textContent = n ? base + " (" + n + ")" : base;
     });
@@ -228,9 +231,78 @@
     });
   }
 
+  /* 3) 틀린 문제 다시 풀기 */
+  function renderWrong() {
+    var root = document.getElementById("review-wrong-root");
+    if (!root) return;
+    var d = loadWrong();
+    var keys = Object.keys(d);
+    if (!keys.length) {
+      root.innerHTML =
+        '<p class="wb-empty">아직 틀린 문제가 없습니다. 강의의 퀴즈를 풀다 틀리면 여기에 모이고, 다시 풀어 맞히면 빠집니다.</p>';
+      return;
+    }
+    var html = '<p class="wb-hint">틀렸던 문제입니다. 다시 풀어보세요 — <b>맞히면 목록에서 자동으로 빠집니다.</b></p>';
+    keys.forEach(function (k) {
+      var it = d[k];
+      html +=
+        '<div class="quiz wb-wrongq" data-qinit="1" data-q="' + esc(k) + '">' +
+        '<p class="quiz-q"><span class="tag tag-wrong">오답</span><b>' + esc(it.q) + '</b> ' +
+        '<a class="wb-src" href="' + esc(it.url) + '">' + esc(shortSource(it.source)) + '</a></p>' +
+        (it.opts || []).map(function (o) {
+          return '<button class="quiz-opt"' + (o.c ? " data-correct" : "") + ">" + esc(o.t) + "</button>";
+        }).join("") +
+        '<div class="quiz-explain">' + (it.explain || "") + "</div>" +
+        '<button class="wb-del" title="목록에서 빼기">✕ 지우기</button>' +
+        "</div>";
+    });
+    root.innerHTML = html;
+    bindWrong(root);
+  }
+
+  function bindWrong(root) {
+    root.querySelectorAll(".wb-wrongq").forEach(function (quiz) {
+      var opts = Array.prototype.slice.call(quiz.querySelectorAll(".quiz-opt"));
+      var explain = quiz.querySelector(".quiz-explain");
+
+      opts.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (quiz.classList.contains("answered")) return;
+          quiz.classList.add("answered");
+          opts.forEach(function (b) {
+            b.disabled = true;
+            if (b.hasAttribute("data-correct")) b.classList.add("quiz-correct");
+          });
+          var correct = btn.hasAttribute("data-correct");
+          if (!correct) btn.classList.add("quiz-wrong");
+          if (explain) explain.classList.add("show");
+          if (correct) {
+            var d = loadWrong();
+            delete d[quiz.dataset.q];
+            saveWrong(d);
+            var note = document.createElement("div");
+            note.className = "wb-hint";
+            note.textContent = "✓ 맞혔어요! 새로고침하면 목록에서 빠집니다.";
+            quiz.appendChild(note);
+            updateNavCount();
+          }
+        });
+      });
+
+      quiz.querySelector(".wb-del").addEventListener("click", function () {
+        var d = loadWrong();
+        delete d[quiz.dataset.q];
+        saveWrong(d);
+        quiz.remove();
+        updateNavCount();
+      });
+    });
+  }
+
   function init() {
     injectTermTables();
     renderWordbook();
+    renderWrong();
     updateNavCount();
   }
 

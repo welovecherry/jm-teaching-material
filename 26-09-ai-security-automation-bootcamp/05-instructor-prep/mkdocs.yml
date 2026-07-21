@@ -70,7 +70,7 @@ extra_javascript:
 
 nav:
   - 홈: index.md
-  - "⭐ 내 단어장": wordbook.md
+  - "🔁 복습하기": wordbook.md
   - 예습 스타일 가이드: prep-style-guide.md
   - "🧪 샘플·파일럿 (임시)":
       - "퀴즈 형식 고르기": samples/quiz-demo.md
