@@ -162,6 +162,10 @@ nav:
           - "Day 2 · ② 강의1 · 베이스라인·이벤트 분류 (오전)": subject-4-anomaly-detection/day02/lecture1.md
           - "Day 2 · ③ 강의2 · 로그인·트래픽 탐지 룰 (오후)": subject-4-anomaly-detection/day02/lecture2.md
           - "Day 2 · ④ 실습 · 분류·탐지 룰 구현": subject-4-anomaly-detection/day02/practice.md
-      - "Day 3 · 비인가접근·SaaS이상·악성행위 탐지 & 상관분석": subject-4-anomaly-detection/day03.md
+      - "Day 3 · 비인가·SaaS·악성행위 탐지 & 상관분석":
+          - "Day 3 · ① 개요·시간표": subject-4-anomaly-detection/day03/index.md
+          - "Day 3 · ② 강의1 · 고급 탐지·위험점수 (오전)": subject-4-anomaly-detection/day03/lecture1.md
+          - "Day 3 · ③ 강의2 · 상관분석·체이닝 (오후)": subject-4-anomaly-detection/day03/lecture2.md
+          - "Day 3 · ④ 실습 · 고급 탐지·상관분석": subject-4-anomaly-detection/day03/practice.md
       - "Day 4 · 오탐·미탐 검토 & 탐지룰 튜닝": subject-4-anomaly-detection/day04.md
       - "Day 5 · AI 기반 이벤트 요약·우선순위 분류 & 전체 통합·발표": subject-4-anomaly-detection/day05.md
