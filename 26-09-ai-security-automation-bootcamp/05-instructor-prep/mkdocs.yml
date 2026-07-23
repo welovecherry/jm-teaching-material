@@ -172,4 +172,8 @@ nav:
           - "Day 4 · ② 강의1 · 오탐·미탐·성능지표 (오전)": subject-4-anomaly-detection/day04/lecture1.md
           - "Day 4 · ③ 강의2 · 성능 측정·룰 튜닝 (오후)": subject-4-anomaly-detection/day04/lecture2.md
           - "Day 4 · ④ 실습 · 탐지룰 튜닝(오탐 감소)": subject-4-anomaly-detection/day04/practice.md
-      - "Day 5 · AI 기반 이벤트 요약·우선순위 분류 & 전체 통합·발표": subject-4-anomaly-detection/day05.md
+      - "Day 5 · AI 이벤트 요약·우선순위 & 전체 통합·발표":
+          - "Day 5 · ① 개요·시간표": subject-4-anomaly-detection/day05/index.md
+          - "Day 5 · ② 강의1 · AI 우선순위·파이프라인 설계 (오전)": subject-4-anomaly-detection/day05/lecture1.md
+          - "Day 5 · ③ 강의2 · 파이프라인 통합·발표 준비 (오후)": subject-4-anomaly-detection/day05/lecture2.md
+          - "Day 5 · ④ 실습 · 파이프라인 완성·발표": subject-4-anomaly-detection/day05/practice.md
