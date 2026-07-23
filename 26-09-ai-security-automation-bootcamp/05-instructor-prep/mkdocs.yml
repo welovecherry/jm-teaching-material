@@ -82,7 +82,11 @@ nav:
           - "Day 1 · ② 강의1 · 개발환경·변수·자료형 (오전)": subject-1-ai-automation/day01/lecture1.md
           - "Day 1 · ③ 강의2 · 조건문·반복문·제어흐름 (오후)": subject-1-ai-automation/day01/lecture2.md
           - "Day 1 · ④ 실습 · 로그 필터링 스크립트": subject-1-ai-automation/day01/practice.md
-      - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅": subject-1-ai-automation/day02.md
+      - "Day 2 · 함수·모듈화 & 파일 입출력·예외처리·로깅":
+          - "Day 2 · ① 개요·시간표": subject-1-ai-automation/day02/index.md
+          - "Day 2 · ② 강의1 · 함수·모듈·파일 입출력 (오전)": subject-1-ai-automation/day02/lecture1.md
+          - "Day 2 · ③ 강의2 · 예외처리·로깅 (오후)": subject-1-ai-automation/day02/lecture2.md
+          - "Day 2 · ④ 실습 · 안전한 로그 파서": subject-1-ai-automation/day02/practice.md
       - "Day 3 · 자료구조 심화 & JSON·정규표현식": subject-1-ai-automation/day03.md
       - "Day 4 · API·HTTP·requests 실전 & 인증정보 관리": subject-1-ai-automation/day04.md
       - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링": subject-1-ai-automation/day05.md
