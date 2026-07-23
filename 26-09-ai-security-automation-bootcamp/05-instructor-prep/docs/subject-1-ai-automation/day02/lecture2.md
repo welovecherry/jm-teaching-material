@@ -47,6 +47,15 @@
         print(f'예상치 못한 오류: {e}')        # e에 오류 내용이 담김
     ```
 
+    **➕ 다른 맥락 예제** — 잘못된 입력값 방어:
+    ```python
+    try:
+        age = int('스무살')       # 숫자로 못 바꿈 → ValueError
+    except ValueError:
+        age = 0                   # 실패하면 기본값
+    print(age)                    # 0  (프로그램이 안 죽음)
+    ```
+
     - **`try:`** 안 = "오류가 날 수 있는 위험한 코드".
     - **`except 오류종류:`** = 그 오류가 나면 실행할 대응.
     - **`as e`** = 오류의 상세 정보를 변수 `e`에 담아 활용.
@@ -63,6 +72,16 @@
         print('파일 없음')
     finally:
         print('처리 종료')     # 성공하든 실패하든 항상 실행
+    ```
+
+    **➕ 다른 맥락 예제** — 0으로 나눠도 마무리는 실행:
+    ```python
+    try:
+        result = 10 / 0           # 0으로 나눔 → 에러
+    except ZeroDivisionError:
+        print('0으로는 못 나눔')
+    finally:
+        print('계산 시도 끝')      # 항상 출력
     ```
 
     - `finally`는 **성공·실패와 무관하게 항상** 실행됩니다(뒷정리용).
@@ -130,6 +149,14 @@ flowchart TD
     logging.error('파일을 찾을 수 없음')       # 오류
     # 2026-07-07 09:12:00 INFO 로그 파일 읽기 시작
     # 2026-07-07 09:12:00 WARNING 실패 로그 5건 이상 발견
+    ```
+
+    **➕ 다른 맥락 예제** — 주문 처리 상황 기록:
+    ```python
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logging.info('주문 접수 완료')
+    logging.warning('재고 부족 임박')
     ```
 
     - `logging.info/warning/error(...)` : 메시지를 그 **레벨**로 기록.
@@ -207,6 +234,13 @@ flowchart LR
     logging.basicConfig(level=logging.INFO, handlers=[handler])
     ```
 
+    **➕ 다른 맥락 예제** — 접속 로그를 더 작게 회전:
+    ```python
+    from logging.handlers import RotatingFileHandler
+    h = RotatingFileHandler('access.log', maxBytes=500_000, backupCount=3)
+    # 500KB 넘으면 새 파일로, 최대 3개까지 보관
+    ```
+
     - **`maxBytes`** : 파일이 이 크기를 넘으면 **새 파일로 회전(rotate)**.
     - **`backupCount`** : 옛 파일을 몇 개까지 보관할지(넘으면 가장 오래된 것 삭제).
     - 밑줄 `1_000_000` : 큰 숫자를 읽기 쉽게(= 1000000). 파이썬 문법.
@@ -269,6 +303,17 @@ def parse_logs(filepath):
     except FileNotFoundError:                               # ⑥ 파일 없으면
         logging.error(f'{filepath} 파일을 찾을 수 없음')      # ⑦ 오류 기록
         return []                                          # ⑧ 빈 리스트 반환
+```
+
+**➕ 다른 맥락 예제** — 설정 파일을 안전하게 읽기(없어도 안 죽음):
+```python
+def read_config(path):
+    try:
+        with open(path, encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        logging.error(f'{path} 없음')
+        return ''            # 없으면 빈 문자열로 계속 진행
 ```
 
 | 줄 | 하는 일 | 왜 |

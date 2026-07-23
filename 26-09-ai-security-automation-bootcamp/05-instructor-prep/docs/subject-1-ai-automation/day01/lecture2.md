@@ -50,6 +50,18 @@
     print(f'위험도: {level}')     # 위험도: 중간
     ```
 
+    **➕ 다른 맥락 예제** — 시험 점수 등급:
+    ```python
+    score = 85
+    if score >= 90:
+        grade = 'A'
+    elif score >= 80:
+        grade = 'B'
+    else:
+        grade = 'C'
+    print(grade)   # B
+    ```
+
     - **`if 조건:`** — 조건이 참(True)이면 아래 들여쓴 코드 실행.
     - **`elif`** — "else if"의 줄임. 앞 조건이 거짓일 때 **또 다른 조건** 검사.
     - **`else`** — 위 조건이 **모두 거짓**일 때.
@@ -63,6 +75,15 @@
         print('경보!')        # 4칸 들여씀 → if에 속한 코드
         print('담당자 확인')   # 같이 들여씀 → if에 속함
     print('로그 저장')         # 안 들여씀 → if와 무관, 항상 실행
+    ```
+
+    **➕ 다른 맥락 예제** — 들여쓰기로 묶음 구분:
+    ```python
+    temp = 38
+    if temp >= 37.5:
+        print('발열')          # if에 속함
+        print('휴식 권장')      # if에 속함
+    print('측정 완료')          # 항상 실행
     ```
 
     - 다른 언어는 `{ }`로 묶지만, **파이썬은 들여쓰기(공백)로 묶습니다.**
@@ -94,6 +115,14 @@ flowchart TD
     # or: 하나만 참이면
     if failed_count >= 10 or is_admin_account:
         print('즉시 확인')
+    ```
+
+    **➕ 다른 맥락 예제** — 할인 자격(미성년 또는 회원):
+    ```python
+    age = 15
+    is_member = True
+    if age < 18 or is_member:
+        print('할인 적용')
     ```
     *"조건이 여럿일 땐 `and`(그리고)·`or`(또는)로 잇습니다. 3과목 조건부 접근, 4과목 탐지 룰에서 이 복합 조건을 계속 씁니다."*
 
@@ -134,6 +163,15 @@ flowchart TD
     # 점검: park03
     ```
 
+    **➕ 다른 맥락 예제** — 장바구니 금액 합:
+    ```python
+    prices = [3000, 4500, 2000]
+    total = 0
+    for p in prices:
+        total = total + p
+    print(total)   # 9500
+    ```
+
     - **`for 변수 in 목록:`** — 목록의 값을 하나씩 `변수`에 담아 반복.
     - `user`는 매 바퀴 다음 값으로 바뀝니다(kim01→lee02→park03).
     - 콜론(`:`)과 들여쓰기는 if와 똑같습니다.
@@ -155,6 +193,13 @@ flowchart TD
     # 2번째 실패 로그: kim01
     ```
 
+    **➕ 다른 맥락 예제** — 순위 붙여 출력:
+    ```python
+    winners = ['금', '은', '동']
+    for rank, medal in enumerate(winners):
+        print(f'{rank + 1}위: {medal}')   # 1위: 금 / 2위: 은 / 3위: 동
+    ```
+
     - `enumerate(목록)` : **(순번, 값)** 을 함께 줍니다. 번호가 필요할 때.
     - ⚠️ f-string 안에서 딕셔너리 키를 꺼낼 땐 바깥과 다른 따옴표: `{log["user"]}` (바깥 `'`, 안 `"`).
 
@@ -167,6 +212,15 @@ flowchart TD
         print(f'시도 {count}')
         count = count + 1   # ⚠️ 이걸 빼먹으면 무한 반복!
     # 시도 0 / 시도 1 / 시도 2
+    ```
+
+    **➕ 다른 맥락 예제** — 카운트다운:
+    ```python
+    n = 3
+    while n > 0:
+        print(n)
+        n = n - 1     # 줄여야 언젠가 끝남
+    print('발사!')     # 3 / 2 / 1 / 발사!
     ```
 
     - **`while 조건:`** — 조건이 참인 동안 계속 반복.
@@ -231,6 +285,13 @@ flowchart TD
     print(failed_users)   # ['kim01', 'kim01']
     ```
 
+    **➕ 다른 맥락 예제** — 짝수만 골라 담기:
+    ```python
+    nums = [1, 2, 3, 4, 5, 6]
+    evens = [n for n in nums if n % 2 == 0]
+    print(evens)   # [2, 4, 6]
+    ```
+
     구조를 뜯어보면:
     ```
     [ log['user']              for log in logs        if log['event']=='login_failed' ]
@@ -260,6 +321,15 @@ flowchart TD
         if log['user'] == 'lee02':
             print('lee02 발견, 중단')
             break             # 반복 자체를 즉시 끝냄
+    ```
+
+    **➕ 다른 맥락 예제** — 찾으면 멈추기:
+    ```python
+    stock = ['빵', '우유', '계란']
+    for item in stock:
+        if item == '우유':
+            print('우유 있음!')
+            break        # 찾았으니 그만 돌기
     ```
 
     - **`continue`** : 이번 바퀴만 건너뛰고 **다음 반복 계속**.
@@ -300,6 +370,13 @@ flowchart TD
     print(len(unique_users))            # 2  ← 실제 몇 '명'인지
     ```
 
+    **➕ 다른 맥락 예제** — 중복 없는 방문 도시 수:
+    ```python
+    visits = ['서울', '부산', '서울', '제주']
+    print(set(visits))        # {'서울', '부산', '제주'}
+    print(len(set(visits)))   # 3  ← 서로 다른 도시 3곳
+    ```
+
     - `set(리스트)` : 중복을 없앤 집합을 만듭니다. `{}`로 표시(순서 없음).
     - "몇 **명**이 실패했나"(중복 제외)를 셀 때 딱입니다.
 
@@ -317,6 +394,14 @@ flowchart TD
         if cnt >= 2:
             print(f'{user} 반복 실패 {cnt}회 - 확인 필요')
     # kim01 반복 실패 2회 - 확인 필요
+    ```
+
+    **➕ 다른 맥락 예제** — 투표 집계:
+    ```python
+    from collections import Counter
+    votes = ['사과', '바나나', '사과', '사과']
+    print(Counter(votes))                  # Counter({'사과': 3, '바나나': 1})
+    print(Counter(votes).most_common(1))   # [('사과', 3)]  ← 최다 1개
     ```
 
     - `from ... import ...` : 다른 곳의 기능을 **가져오는** 문법(Day2에서 자세히).

@@ -46,6 +46,13 @@
     print(add(3, 5))      # 8
     ```
 
+    **➕ 다른 맥락 예제** — 직사각형 넓이 함수:
+    ```python
+    def area(width, height):
+        return width * height
+    print(area(4, 5))   # 20
+    ```
+
     - **`def 함수명(매개변수):`** — 함수를 정의. 콜론(`:`)과 들여쓰기는 if·for와 동일.
     - **매개변수** `a, b` — 함수가 **받을** 값(입력).
     - **`return`** — 결과를 **돌려줌**. return이 없으면 `None`을 돌려줍니다.
@@ -66,6 +73,13 @@ def count_failed_logins(logs, threshold=2):     # threshold 기본값 2
 # 이제 한 줄로 재사용 가능
 result = count_failed_logins(my_logs)            # threshold 생략 → 2 사용
 result2 = count_failed_logins(my_logs, 5)        # threshold=5
+```
+
+**➕ 다른 맥락 예제** — 점수 평균을 함수로:
+```python
+def average(scores):
+    return sum(scores) / len(scores)   # 합 ÷ 개수
+print(average([80, 90, 100]))          # 90.0
 ```
 
 ### 🔬 깊이 보기 — 함수로 묶으면 무엇이 좋아지나
@@ -97,6 +111,14 @@ flowchart LR
 
     greet('kim01')              # 안녕, kim01!      (기본값 사용)
     greet('lee02', '반가워')     # 반가워, lee02!    (직접 지정)
+    ```
+
+    **➕ 다른 맥락 예제** — 단위 기본값:
+    ```python
+    def price_tag(amount, unit='원'):
+        return f'{amount}{unit}'
+    print(price_tag(5000))        # 5000원   (기본값)
+    print(price_tag(10, 'USD'))   # 10USD    (직접 지정)
     ```
 
     - 기본값이 있으면 그 인자를 **생략 가능** — 안 넘기면 기본값을 씁니다.
@@ -138,6 +160,13 @@ flowchart LR
     from utils import count_failed_logins    # utils.py에서 그 함수를 가져오기
 
     result = count_failed_logins(logs, threshold=2)
+    ```
+
+    **➕ 다른 맥락 예제** — 표준 라이브러리도 같은 import 문법:
+    ```python
+    from random import choice        # random 모듈에서 choice 함수만
+    menu = ['김밥', '라면', '덮밥']
+    print(choice(menu))              # 셋 중 무작위 하나
     ```
 
     - **모듈** = 함수들을 담은 `.py` 파일. `utils.py` 파일 = `utils` 모듈.
@@ -203,6 +232,14 @@ flowchart LR
     print(ts.strftime('%Y년 %m월 %d일'))   # 2026년 07월 07일
     ```
 
+    **➕ 다른 맥락 예제** — 날짜에서 월·요일 꺼내기:
+    ```python
+    from datetime import datetime
+    d = datetime.strptime('2026-12-25', '%Y-%m-%d')
+    print(d.month)               # 12
+    print(d.strftime('%A'))      # Friday (요일 이름)
+    ```
+
     - **`strptime(문자열, 형식)`** : 글자를 시간 객체로 **파싱**(str→time). "p"=parse.
     - **`strftime(형식)`** : 시간 객체를 원하는 글자로 **포맷**(time→str). "f"=format.
     - 형식 기호: `%Y`(연4자리) `%m`(월) `%d`(일) `%H`(시24) `%M`(분) `%S`(초).
@@ -251,6 +288,14 @@ flowchart LR
         f.write('첫 줄\n')             # \n은 줄바꿈
     ```
 
+    **➕ 다른 맥락 예제** — 메모를 파일에 쓰고 다시 읽기:
+    ```python
+    with open('memo.txt', 'w', encoding='utf-8') as f:
+        f.write('우유 사기\n빵 사기\n')
+    with open('memo.txt', encoding='utf-8') as f:
+        print(f.read())               # 저장한 내용 그대로 출력
+    ```
+
     | 모드 | 뜻 | 주의 |
     |------|-----|------|
     | `'r'` | 읽기(read) | 파일 없으면 에러 |
@@ -273,6 +318,12 @@ flowchart LR
     with open('log.txt', 'r', encoding='utf-8') as f:
         data = f.read()
     # 여기서 자동으로 닫힘 (에러가 나도 닫힘)
+    ```
+
+    **➕ 다른 맥락 예제** — 방문 기록을 이어 쓰기(append):
+    ```python
+    with open('visits.log', 'a', encoding='utf-8') as f:
+        f.write('2026-07-07 방문\n')   # 'a'라 기존 내용 뒤에 추가
     ```
 
     - `with`는 블록을 벗어날 때 **자동으로 파일을 닫습니다**(에러가 나도!).
@@ -333,6 +384,14 @@ flowchart TD
         reader = csv.DictReader(f)          # 헤더를 키로 자동 인식
         for row in reader:                  # row는 딕셔너리
             print(row['user'], row['event'])  # kim01 login_failed
+    ```
+
+    **➕ 다른 맥락 예제** — 성적표 CSV 읽기:
+    ```python
+    import csv
+    with open('grades.csv', encoding='utf-8') as f:   # 헤더: name,score
+        for row in csv.DictReader(f):
+            print(row['name'], row['score'])   # 컬럼 이름으로 접근
     ```
 
     - **`csv.DictReader`** : 첫 줄(헤더)을 **키로** 삼아, 각 행을 **딕셔너리**로 줍니다.

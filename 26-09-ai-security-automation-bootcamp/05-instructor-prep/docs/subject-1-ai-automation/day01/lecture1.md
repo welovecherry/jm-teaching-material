@@ -150,6 +150,13 @@ security-agent-toolkit/       # 최상위 프로젝트 폴더
     failed_count = 7           # 숫자를 failed_count 상자에 담기
     ```
 
+    **➕ 다른 맥락 예제** — 일상 데이터도 똑같이 담깁니다:
+    ```python
+    city = '서울'              # 문자열 담기
+    temperature = 28           # 정수 담기
+    is_raining = False         # 참거짓 담기
+    ```
+
     - `=` 는 "같다"가 아니라 **"오른쪽 값을 왼쪽 상자에 담아라"**(대입)입니다.
     - 다른 언어와 달리 **`int`, `String` 같은 타입을 안 씁니다.** 파이썬이 값을 보고 알아서 판단해요.
     - 변수 이름 규칙: 영문 소문자+`_`(밑줄), 숫자는 맨 앞 불가. 의미가 드러나게(`x`보다 `failed_count`).
@@ -162,6 +169,14 @@ security-agent-toolkit/       # 최상위 프로젝트 폴더
     ratio = 0.18         # float (실수: 소수점 있는 숫자)
     user = 'kim01'       # str   (문자열: 따옴표로 감싼 글자)
     is_alert = True      # bool  (불: True 또는 False, 첫 글자 대문자!)
+    ```
+
+    **➕ 다른 맥락 예제** — 온라인 주문 한 건:
+    ```python
+    quantity = 3         # int   (수량)
+    price = 12900.0      # float (금액)
+    product = '키보드'    # str   (상품명)
+    in_stock = True      # bool  (재고 있음?)
     ```
 
     | 자료형 | 뜻 | 예 | 조심할 점 |
@@ -185,6 +200,14 @@ print(type(user))      # <class 'str'>   글자구나
 print(type(is_alert))  # <class 'bool'>  참거짓이구나
 ```
 
+**➕ 다른 맥락 예제** — 포트 번호는 숫자, 글자'443'은 다릅니다:
+```python
+port = 443
+label = '443'
+print(type(port))    # <class 'int'>   계산 가능
+print(type(label))   # <class 'str'>   글자(계산 불가)
+```
+
 `type(값)`은 그 값의 **자료형을 알려주는** 함수입니다. "이 값이 숫자야 글자야?"가 헷갈릴 때 확인용으로 씁니다.
 
 ### 🐍 문법 상자 — f-string: 값을 글자에 끼워넣기
@@ -198,6 +221,14 @@ print(type(is_alert))  # <class 'bool'>  참거짓이구나
     # 따옴표 앞에 f를 붙이고, {} 안에 변수를 넣으면 값이 끼워짐
     print(f'{customer_name} 고객사 - 실패 {failed_count}건, 경보: {is_alert}')
     # 출력: A사 고객사 - 실패 7건, 경보: True
+    ```
+
+    **➕ 다른 맥락 예제** — 인사말·영수증에도 똑같이:
+    ```python
+    name = '민홍'
+    total = 12900
+    print(f'{name}님, 결제 금액은 {total}원입니다.')
+    # 출력: 민홍님, 결제 금액은 12900원입니다.
     ```
 
     - **`f'...'`** : 따옴표 앞의 `f`가 "이 안에 `{}`가 있으면 값으로 바꿔라"는 표시.
@@ -244,6 +275,14 @@ print(type(is_alert))  # <class 'bool'>  참거짓이구나
     print(users)           # ['kim01', 'lee02', 'park03', 'choi04']
     ```
 
+    **➕ 다른 맥락 예제** — 장바구니 목록:
+    ```python
+    cart = ['우유', '빵']
+    cart.append('계란')     # 맨 뒤에 추가
+    print(cart[0])          # 우유
+    print(len(cart))        # 3
+    ```
+
     - **순서가 있습니다.** 그래서 `[0]`, `[1]`처럼 **번호(인덱스)로** 꺼냅니다.
     - ⚠️ **번호는 0부터** 시작! 첫 번째가 `[1]`이 아니라 `[0]`입니다(흔한 실수).
     - `.append(값)` : 맨 뒤에 값 추가. `len(리스트)` : 개수.
@@ -264,6 +303,13 @@ print(type(is_alert))  # <class 'bool'>  참거짓이구나
     print(log_event.values())   # 모든 값
     ```
 
+    **➕ 다른 맥락 예제** — 사람 프로필:
+    ```python
+    person = {'name': '민홍', 'age': 30, 'city': '서울'}
+    print(person['name'])    # 민홍
+    print(person.keys())     # dict_keys(['name', 'age', 'city'])
+    ```
+
     - **순서가 아니라 이름표(키)로** 찾습니다. `[0]`이 아니라 `['event']`.
     - 로그 한 줄처럼 "항목마다 이름이 있는" 데이터에 딱 맞습니다.
     - 주요 메서드: `.keys()`(키들), `.values()`(값들), `.items()`(키·값 쌍들).
@@ -276,6 +322,12 @@ ip_list = ['203.0.113.5', '203.0.113.8']    # IP들의 목록
 
 # 딕셔너리: 항목마다 이름(키)이 다를 때
 one_log = {'user': 'kim01', 'ip': '203.0.113.5'}   # 로그 한 줄
+```
+
+**➕ 다른 맥락 예제** — 요일 목록(리스트) vs 한 사람 정보(딕셔너리):
+```python
+days = ['월', '화', '수']                # 순서 있는 목록
+profile = {'name': '민홍', 'age': 30}    # 이름표가 다른 정보
 ```
 
 > **구분법:** "kim01, lee02… 같은 걸 줄 세운다" → **리스트**. "user는 이거, ip는 저거처럼 이름표가 다르다" → **딕셔너리**.
@@ -291,6 +343,13 @@ one_log = {'user': 'kim01', 'ip': '203.0.113.5'}   # 로그 한 줄
 
     print(log.get('country'))         # None   (에러 대신 '없음')
     print(log.get('country', '미상'))  # 미상   (없으면 이 기본값)
+    ```
+
+    **➕ 다른 맥락 예제** — 설정에서 없을 수 있는 값 읽기:
+    ```python
+    config = {'theme': 'dark'}
+    print(config.get('lang', 'ko'))   # ko   (lang 키 없어 기본값)
+    print(config.get('theme', 'ko'))  # dark (있으면 그 값)
     ```
 
     - `log['country']` : 키가 없으면 **KeyError로 프로그램이 멈춥니다.**
@@ -346,6 +405,14 @@ one_log = {'user': 'kim01', 'ip': '203.0.113.5'}   # 로그 한 줄
     print(not True)         # False  (반대로)
     ```
 
+    **➕ 다른 맥락 예제** — 놀이기구 탑승 판정:
+    ```python
+    age = 9
+    height = 135
+    print(age >= 8 and height >= 130)   # True  (둘 다 만족 → 탑승 가능)
+    print(10 // 3, 10 % 3)              # 3 1   (몫, 나머지)
+    ```
+
     > ⚠️ **`=` 와 `==` 를 헷갈리지 마세요.** `=`는 "담아라"(대입), `==`는 "같냐?"(비교). 초보자 최다 실수입니다.
 
 ### 🐍 문법 상자 — 형변환: 값의 종류 바꾸기
@@ -360,6 +427,13 @@ one_log = {'user': 'kim01', 'ip': '203.0.113.5'}   # 로그 한 줄
 
     print(str(7))            # '7'    숫자 → 글자
     print(float('3.14'))     # 3.14   글자 → 실수
+    ```
+
+    **➕ 다른 맥락 예제** — 입력받은 나이로 계산:
+    ```python
+    age_text = '20'               # input()으로 받은 값은 글자
+    next_age = int(age_text) + 1  # 숫자로 바꿔 계산
+    print('내년엔 ' + str(next_age) + '살')   # 내년엔 21살
     ```
 
     | 함수 | 하는 일 | 예 |
