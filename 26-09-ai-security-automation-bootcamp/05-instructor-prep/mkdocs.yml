@@ -107,7 +107,11 @@ nav:
           - "Day 6 · ② 강의1 · LLM 개념·프롬프트 엔지니어링 (오전)": subject-1-ai-automation/day06/lecture1.md
           - "Day 6 · ③ 강의2 · AI Agent·Tool-use 구조 (오후)": subject-1-ai-automation/day06/lecture2.md
           - "Day 6 · ④ 실습 · LLM 요약·도구 라우터": subject-1-ai-automation/day06/practice.md
-      - "Day 7 · LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성": subject-1-ai-automation/day07.md
+      - "Day 7 · LLM 활용(이벤트요약·체이닝) & 보고서 자동생성":
+          - "Day 7 · ① 개요·시간표": subject-1-ai-automation/day07/index.md
+          - "Day 7 · ② 강의1 · 이벤트 요약·프롬프트 체이닝 (오전)": subject-1-ai-automation/day07/lecture1.md
+          - "Day 7 · ③ 강의2 · 템플릿+LLM 보고서 생성 (오후)": subject-1-ai-automation/day07/lecture2.md
+          - "Day 7 · ④ 실습 · 요약·보고서 자동 생성": subject-1-ai-automation/day07/practice.md
       - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
   - "2과목 · 네트워크·ZT 운영 기초":
       - "Day 1 · OSI 7계층과 TCP/IP":
