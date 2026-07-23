@@ -105,6 +105,13 @@ LLM은 생성 모델이라 **매번 조금씩 다르게** 답합니다(temperatu
     )
     ```
 
+    **➕ 다른 맥락 예제** — 초대장 템플릿:
+    ```python
+    template = '{name}님, {date} {event}에 초대합니다.'
+    print(template.format(name='민홍', date='7/10', event='생일파티'))
+    # 민홍님, 7/10 생일파티에 초대합니다.
+    ```
+
     - `'''...'''` (삼중 따옴표) : **여러 줄 문자열**. 보고서 뼈대에 딱.
     - `{date}`, `{total}` : **채울 자리(플레이스홀더)**.
     - **`.format(date=..., total=...)`** : 그 자리에 값을 채워 완성.
@@ -125,6 +132,13 @@ LLM은 생성 모델이라 **매번 조금씩 다르게** 답합니다(temperatu
     )
     # - HIGH: kim01 반복 로그인 실패
     # - MEDIUM: ...
+    ```
+
+    **➕ 다른 맥락 예제** — 할 일 목록을 줄바꿈 문장으로:
+    ```python
+    todos = ['우유 사기', '메일 보내기', '운동']
+    text = '\n'.join(f'- {t}' for t in todos)
+    print(text)   # - 우유 사기 / - 메일 보내기 / - 운동 (각 줄바꿈)
     ```
     `'\n'.join(...)` : 각 항목을 줄바꿈으로 이어 붙임. 딕셔너리 리스트를 **사람이 읽을 텍스트**로 바꿉니다.
 
@@ -164,6 +178,13 @@ LLM은 생성 모델이라 **매번 조금씩 다르게** 답합니다(temperatu
 
     # 제목·구조·날짜·건수는 코드(템플릿)가 고정, details만 LLM
     report = template.format(date=today, total=..., details=details_text)
+    ```
+
+    **➕ 다른 맥락 예제** — 제목은 코드, 본문만 LLM:
+    ```python
+    title = f'{today} 날씨 리포트'            # 코드가 고정
+    body = call_llm('오늘 날씨를 한 문장으로')  # LLM이 생성
+    report = f'{title}\n{body}'
     ```
 
     - 보고서의 **제목·섹션·건수는 코드**가 정확히 채웁니다.
@@ -216,6 +237,15 @@ flowchart TD
     ```python
     if high_count >= 3:                         # high가 3건 이상이면
         report = '[긴급 확인 필요]\n' + report   # 보고서 맨 앞에 경고 추가
+    ```
+
+    **➕ 다른 맥락 예제** — 잔액 부족 경고 붙이기:
+    ```python
+    balance = 500
+    msg = '이번 달 요약'
+    if balance < 1000:
+        msg = '[잔액 부족]\n' + msg   # 앞에 경고 추가
+    print(msg)
     ```
 
     - `high_count >= 3` : 조건(Day1 if).

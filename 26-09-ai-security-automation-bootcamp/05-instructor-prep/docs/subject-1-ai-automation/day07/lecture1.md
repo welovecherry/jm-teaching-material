@@ -90,6 +90,16 @@ AI가 1000건을 20건으로 **압축**하면(4과목 피라미드!), 사람은 
         all_summaries.extend(parse_llm_json(result) or [])   # 결과 모으기
     ```
 
+    **➕ 다른 맥락 예제** — 사진을 10장씩 묶어 처리:
+    ```python
+    def chunk_list(items, size=10):
+        for i in range(0, len(items), size):
+            yield items[i:i+size]
+    photos = list(range(1, 25))          # 24장
+    for group in chunk_list(photos, 10):
+        print(len(group))                # 10, 10, 4
+    ```
+
     - **`range(0, len, size)`** : 0, 20, 40… 인덱스를 건너뛰며 생성.
     - **`items[i:i+size]`** : i번째부터 20개 슬라이스(조각).
     - **`yield`** : `return`과 달리 **값을 하나 내주고 멈췄다가**, 다음에 이어서 실행. 이런 함수가 **제너레이터**.
@@ -107,6 +117,15 @@ AI가 1000건을 20건으로 **압축**하면(4과목 피라미드!), 사람은 
         yield 1               # 1 내주고 멈춤
         yield 2               # (다음 요청 시) 2 내주고 멈춤
         yield 3
+    ```
+
+    **➕ 다른 맥락 예제** — 하나씩 세는 제너레이터:
+    ```python
+    def count_up(n):
+        for i in range(1, n + 1):
+            yield i           # 1, 2, 3... 하나씩
+    for x in count_up(3):
+        print(x)              # 1 / 2 / 3
     ```
     - `return`은 **전부 한 번에** 만들어 돌려줍니다(메모리 많이 씀).
     - `yield`는 **하나씩** 내줘서, 큰 데이터도 **메모리 조금씩** 쓰며 처리합니다.
@@ -166,6 +185,13 @@ LLM은 **한 번에 넣을 수 있는 길이(토큰) 제한**이 있습니다. 1
     )
     ```
 
+    **➕ 다른 맥락 예제** — 메달을 원하는 순서로 정렬:
+    ```python
+    order = {'금': 0, '은': 1, '동': 2}
+    medals = ['동', '금', '은']
+    print(sorted(medals, key=lambda m: order[m]))   # ['금', '은', '동']
+    ```
+
     - **`sorted(목록, key=기준)`** : 기준값 순으로 정렬(작은 값이 앞).
     - `risk_order['high']=0`이라 high가 맨 앞. 숫자로 바꿔야 정렬 순서가 명확.
     - **`key=lambda x: ...`** : 각 항목 x에서 "정렬 기준으로 쓸 값"을 뽑는 즉석 함수.
@@ -180,6 +206,12 @@ LLM은 **한 번에 넣을 수 있는 길이(토큰) 제한**이 있습니다. 1
         return risk_order.get(x['risk_level'], 3)
 
     get_risk_lambda = lambda x: risk_order.get(x['risk_level'], 3)
+    ```
+
+    **➕ 다른 맥락 예제** — 길이 기준으로 단어 정렬:
+    ```python
+    words = ['바나나', '배', '사과']
+    print(sorted(words, key=lambda w: len(w)))   # ['배', '사과', '바나나']
     ```
     `lambda x: 식`은 "x를 받아 식을 돌려주는" **한 줄짜리 이름 없는 함수**입니다. `sorted`의 key처럼 "잠깐 쓸 작은 함수"에 편리합니다(4과목 `sort(key=lambda ...)`에서도 봤죠).
 
@@ -291,6 +323,14 @@ flowchart TD
             {'step1': step1_result, 'step2': step2_result},   # 각 단계 결과
             f, ensure_ascii=False, indent=2,
         )
+    ```
+
+    **➕ 다른 맥락 예제** — 계산 과정을 단계별로 저장:
+    ```python
+    import json
+    steps = {'입력': 10, '2배': 20, '+5': 25}
+    with open('steps.json', 'w', encoding='utf-8') as f:
+        json.dump(steps, f, ensure_ascii=False, indent=2)
     ```
 
     - 체이닝의 **각 단계 결과를 파일로** 남깁니다.

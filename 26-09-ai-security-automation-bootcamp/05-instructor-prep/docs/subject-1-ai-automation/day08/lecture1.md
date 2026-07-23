@@ -105,6 +105,14 @@ flowchart LR
             server.send_message(msg)
     ```
 
+    **➕ 다른 맥락 예제** — 제목·본문만 담아 메시지 객체 만들기:
+    ```python
+    from email.mime.text import MIMEText
+    msg = MIMEText('회의는 오후 3시입니다.')   # 본문
+    msg['Subject'] = '회의 안내'
+    msg['To'] = 'team@company.com'
+    ```
+
     - `MIMEText` : 이메일 본문·제목·수신자를 담는 객체.
     - `smtplib.SMTP(서버, 587)` : 메일 서버에 연결(587은 표준 포트).
     - **`starttls()`** : 통신을 **암호화**(비번·내용 보호).
@@ -150,6 +158,16 @@ flowchart LR
             logging.error(f'알림 실패: {e}')                  # 실패 기록
             with open('failed_alerts.log', 'a', encoding='utf-8') as f:
                 f.write(f'{datetime.now()} {message}\n')     # 로컬에라도 남김
+    ```
+
+    **➕ 다른 맥락 예제** — 저장 실패 시 화면에라도 남기기:
+    ```python
+    def save_or_print(text):
+        try:
+            with open('out.txt', 'w', encoding='utf-8') as f:
+                f.write(text)
+        except OSError:
+            print('저장 실패, 내용:', text)   # 최소한 눈에 보이게
     ```
 
     - 메신저 **incoming webhook**에 POST로 메시지 전송(Day4 requests·Day5 webhook).
@@ -221,6 +239,14 @@ flowchart TD
     print(config['threshold'])           # 5
     ```
 
+    **➕ 다른 맥락 예제** — 앱 설정을 yaml로 읽기:
+    ```python
+    import yaml
+    with open('app.yaml', encoding='utf-8') as f:
+        cfg = yaml.safe_load(f)      # {'name': 'MyApp', 'port': 8080}
+    print(cfg['port'])               # 8080
+    ```
+
     - **YAML** : 들여쓰기로 표현하는 **사람이 읽기 쉬운** 설정 형식(`키: 값`).
     - `yaml.safe_load` : YAML 파일을 딕셔너리로 읽음(JSON `load`와 비슷).
     - 흩어져 있던 threshold·경로·채널을 **한 파일에** 모읍니다.
@@ -275,6 +301,14 @@ def run_pipeline(config_path):
     if has_high_risk(summaries):                              # ④ 고위험이면
         notify(f'고위험 이벤트 {len(summaries)}건 발견')       # ⑤ 알림(오늘)
     return generate_report(summaries)                        # ⑥ 리포트(Day7)
+```
+
+**➕ 다른 맥락 예제** — 3단계를 순서대로 잇는 미니 파이프라인:
+```python
+def run(path):
+    data = load(path)          # ① 읽기
+    clean = normalize(data)    # ② 정리
+    return summarize(clean)    # ③ 요약
 ```
 
 | 줄 | 하는 일 | 담당 |
