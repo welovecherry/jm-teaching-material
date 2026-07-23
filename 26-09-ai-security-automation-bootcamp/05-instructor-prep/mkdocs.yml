@@ -112,7 +112,11 @@ nav:
           - "Day 7 · ② 강의1 · 이벤트 요약·프롬프트 체이닝 (오전)": subject-1-ai-automation/day07/lecture1.md
           - "Day 7 · ③ 강의2 · 템플릿+LLM 보고서 생성 (오후)": subject-1-ai-automation/day07/lecture2.md
           - "Day 7 · ④ 실습 · 요약·보고서 자동 생성": subject-1-ai-automation/day07/practice.md
-      - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
+      - "Day 8 · 파이프라인 통합·알림연동 & 전체 리뷰·발표":
+          - "Day 8 · ① 개요·시간표": subject-1-ai-automation/day08/index.md
+          - "Day 8 · ② 강의1 · 파이프라인 통합·알림 연동 (오전)": subject-1-ai-automation/day08/lecture1.md
+          - "Day 8 · ③ 강의2 · 코드 리뷰·디버깅·발표 (오후)": subject-1-ai-automation/day08/lecture2.md
+          - "Day 8 · ④ 실습 · 미니 프로젝트 완성·시연": subject-1-ai-automation/day08/practice.md
   - "2과목 · 네트워크·ZT 운영 기초":
       - "Day 1 · OSI 7계층과 TCP/IP":
           - "Day 1 · ① 개요·시간표": subject-2-network-zt/day01/index.md
