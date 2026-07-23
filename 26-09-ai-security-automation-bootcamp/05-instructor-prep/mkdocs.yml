@@ -131,7 +131,10 @@ nav:
           - "Day 1 · ② 강의1 · RBAC 구현 (오전)": subject-3-access-control/day01/lecture1.md
           - "Day 1 · ③ 강의2 · 최소권한 정책 (오후)": subject-3-access-control/day01/lecture2.md
           - "Day 1 · ④ 실습 · RBAC 설계·구현": subject-3-access-control/day01/practice.md
-      - "Day 2 · 접근 요청-승인-부여 프로세스 자동화": subject-3-access-control/day02.md
+          - "Day 2 · ① 개요·시간표": subject-3-access-control/day02/index.md
+          - "Day 2 · ② 강의1 · 요청-승인 프로세스 설계 (오전)": subject-3-access-control/day02/lecture1.md
+          - "Day 2 · ③ 강의2 · 승인함수·SLA·정책연동 (오후)": subject-3-access-control/day02/lecture2.md
+          - "Day 2 · ④ 실습 · 요청-승인 워크플로우": subject-3-access-control/day02/practice.md
       - "Day 3 · 접근 점검·회수 프로세스 & 과다권한 탐지": subject-3-access-control/day03.md
       - "Day 4 · 권한 회수 자동화 & 조건기반 정책·예외승인": subject-3-access-control/day04.md
       - "Day 5 · 권한 점검 체크리스트 & 접근통제 결과 리포트 자동화·통합": subject-3-access-control/day05.md
