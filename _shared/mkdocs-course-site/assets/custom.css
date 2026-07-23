@@ -1,0 +1,42 @@
+/* 본문 ==하이라이트== 형광펜 색: 연한 노랑 (라이트/다크 모두 가독) */
+.md-typeset mark {
+  background-color: #ffec99;
+  color: #212121;
+  padding: 0 .14em;
+  border-radius: .14em;
+  box-shadow: none;
+}
+
+/* 가운데 본문 글자 크기 (사이드바는 그대로) */
+.md-typeset {
+  font-size: .84rem;         /* 본문: 기본 .8보다 살짝 크게, 이전 .88보다는 작게 */
+}
+/* 박스(콜아웃·접기) 안 글자 키우기: Material 기본 .64rem이라 너무 작았음 */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: .78rem;
+}
+
+/* 사이드바 최상위(과목 등) 항목을 크고 굵게 + 과목 사이 구분선으로 뚜렷이 */
+.md-nav--primary > .md-nav__list > .md-nav__item {
+  margin-top: .55rem;
+  padding-top: .55rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-nav--primary > .md-nav__list > .md-nav__item:first-child {
+  border-top: none;   /* 맨 위 항목은 선 제거 */
+}
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+/* 하위(Day·교시) 항목은 상대적으로 작게 유지해 대비를 준다 */
+.md-nav--primary .md-nav .md-nav__link {
+  font-size: .66rem;
+  font-weight: 400;
+}
+/* 오른쪽 목차(TOC)도 작게 */
+.md-nav--secondary .md-nav__link {
+  font-size: .66rem;
+}

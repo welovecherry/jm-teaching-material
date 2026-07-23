@@ -1,0 +1,121 @@
+/* ⭐ 내 단어장 — 용어표 체크박스 + 단어장 페이지 + 복습 모드 */
+
+/* --- 용어표에 붙는 별표 칸 --- */
+.md-typeset table td.wb-col,
+.md-typeset table th.wb-col {
+  width: 2.2rem;
+  text-align: center;
+  padding-left: .3rem;
+  padding-right: .3rem;
+}
+.wb-check {
+  width: 1.05rem;
+  height: 1.05rem;
+  cursor: pointer;
+  accent-color: #f59f00;
+}
+.md-typeset table tr.wb-on {
+  background: rgba(245,159,0,.14);
+}
+
+/* --- 단어장 페이지 --- */
+.wb-toolbar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin: .8rem 0 1rem;
+}
+.wb-btn {
+  padding: .35rem .8rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .25rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.wb-btn:hover { border-color: var(--md-accent-fg-color, #526cfe); }
+.wb-btn.on {
+  background: #f59f00;
+  border-color: #c67c00;
+  color: #212121;
+  font-weight: 700;
+}
+.wb-count {
+  margin-left: auto;
+  font-size: .78rem;
+  color: var(--md-default-fg-color--light);
+}
+.wb-empty {
+  padding: 1rem;
+  border: 1px dashed var(--md-default-fg-color--lighter);
+  border-radius: .3rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* 틀린 퀴즈 재출제 */
+.wb-wrongq { border-left: 4px solid #e03131; }
+.wb-wrongq .tag-wrong { background: #e03131 !important; color: #fff; }
+.wb-wrongq .wb-src { margin-left: .3rem; font-weight: 400; }
+.wb-wrongq .wb-del {
+  margin-top: .5rem; font-size: .75rem;
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: .2rem; padding: .2rem .6rem;
+}
+
+.wb-group {
+  margin: 1.5rem 0 .3rem;
+  font-size: .95rem;
+  border-bottom: 2px solid var(--md-accent-fg-color, #526cfe);
+  padding-bottom: .2rem;
+}
+.wb-gcount { font-size: .74rem; font-weight: 400; color: var(--md-default-fg-color--light); }
+
+.wb-table { width: 100%; font-size: .8rem; }
+.wb-table th, .wb-table td {
+  padding: .45rem .5rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  vertical-align: top;
+  text-align: left;
+}
+.wb-term { font-weight: 700; white-space: nowrap; }
+.wb-src { font-size: .72rem; color: var(--md-default-fg-color--light); }
+.wb-memo {
+  width: 100%;
+  min-width: 8rem;
+  min-height: 1.9rem;
+  padding: .3rem .45rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+  font-size: .78rem;
+  resize: vertical;
+}
+.wb-memo:focus { outline: 2px solid #f59f00; outline-offset: -1px; }
+.wb-del {
+  border: none; background: transparent; cursor: pointer;
+  color: var(--md-default-fg-color--light); font-size: .9rem;
+}
+.wb-del:hover { color: #e03131; }
+
+/* --- 복습 모드: 뜻·비유를 가리고, 줄을 클릭하면 공개 --- */
+.wb-review .wb-hide {
+  color: transparent;
+  background: var(--md-default-fg-color--lightest);
+  border-radius: .2rem;
+  cursor: pointer;
+  user-select: none;
+}
+.wb-review tr.revealed .wb-hide {
+  color: inherit;
+  background: transparent;
+}
+.wb-review .wb-term { cursor: pointer; }
+.wb-hint {
+  font-size: .75rem;
+  color: var(--md-default-fg-color--light);
+  margin: .2rem 0 .6rem;
+}

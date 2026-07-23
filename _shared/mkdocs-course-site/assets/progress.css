@@ -1,0 +1,66 @@
+/* 상단 완료 진행률 바 (체크박스 개수 기반) + 섹션별 '읽음' 체크박스 */
+
+/* 항상 보이는 배경 트랙 */
+.reading-progress-track {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--md-default-fg-color--lightest);
+  z-index: 2000;
+  pointer-events: none;
+}
+/* 체크한 만큼 차오르는 채움 */
+.reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 6px;
+  width: 0;
+  background: linear-gradient(90deg, #ff8787, #f03e3e, #c92a2a);
+  box-shadow: 0 0 6px rgba(240,62,62,.7);
+  z-index: 2001;
+  transition: width .3s ease;
+  pointer-events: none;
+}
+/* 우하단 진행률 배지 */
+.reading-progress-badge {
+  position: fixed;
+  bottom: 1rem; right: 1rem;
+  z-index: 2001;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  font-size: .8rem; font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #f03e3e, #c92a2a);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  pointer-events: none;
+}
+
+/* 섹션(시간블록) 끝 '여기까지 읽음' 체크박스 */
+.readcheck {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin: 1.1rem 0 .2rem;
+  padding: .35rem .8rem;
+  border: 1px dashed var(--md-default-fg-color--lighter);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  transition: background .15s, border-color .15s, color .15s;
+}
+.readcheck:hover { border-color: var(--md-accent-fg-color, #526cfe); }
+.readcheck input {
+  width: 1rem; height: 1rem;
+  cursor: pointer;
+  accent-color: #2f9e44;
+}
+.readcheck.checked {
+  border-style: solid;
+  border-color: #2f9e44;
+  background: rgba(47,158,68,.12);
+  color: #2f9e44;
+}

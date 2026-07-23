@@ -1,0 +1,94 @@
+# ────────────────────────────────────────────────────────────────
+# 강의 사이트 MkDocs 설정 템플릿  (복사 후 <...> 부분만 바꿔 쓰기)
+# 원본: 26-09-ai-security-automation-bootcamp/05-instructor-prep/mkdocs.yml
+# 사용법·구조 설명: 같은 폴더의 README.md 참고
+# ────────────────────────────────────────────────────────────────
+site_name: <사이트 제목 — 예: 강사 예습 튜토리얼 · OOO 부트캠프>
+site_description: <한 줄 설명>
+docs_dir: docs
+
+theme:
+  name: material
+  language: ko
+  palette:
+    # 라이트/다크 자동 전환 + 우상단 토글 버튼
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo          # ← 브랜드색만 바꾸면 전체 테마색이 바뀜
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로 전환
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로 전환
+  features:
+    - navigation.top          # 상단 탭 네비
+    - navigation.tracking     # 스크롤 위치를 URL에 반영
+    - toc.follow              # 오른쪽 목차가 스크롤 따라 이동
+    - content.code.copy       # 코드블록 복사 버튼
+    - search.highlight        # 검색어 하이라이트
+    - search.suggest          # 검색 자동완성
+
+markdown_extensions:
+  - admonition                # !!! note / tip / warning 콜아웃 상자
+  - attr_list
+  - md_in_html                # 마크다운 안에 HTML 위젯(퀴즈 등) 삽입 허용 — 위젯의 핵심
+  - tables
+  - footnotes
+  - abbr                      # 약어에 마우스 올리면 뜻 툴팁 ( *[OSI]: ... )
+  - pymdownx.details          # ??? 접기(details) 블록
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid       # ```mermaid 코드블록 → 다이어그램 렌더
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true   # === "탭 제목" 형태의 탭 콘텐츠
+  - pymdownx.keys             # ++ctrl+c++ → 키보드 키 모양
+  - pymdownx.mark             # ==형광펜==
+  - pymdownx.caret            # ^^밑줄^^ , 위첨자
+  - pymdownx.tilde            # ~~취소선~~ , 아래첨자
+  - pymdownx.emoji
+  - toc:
+      permalink: true         # 제목 옆 ¶ 앵커
+      toc_depth: 3
+
+plugins:
+  - search
+
+# 커스텀 위젯 4종 (assets/ 폴더째 복사해서 씀) — 순서 유지 권장
+extra_css:
+  - assets/quiz.css
+  - assets/progress.css
+  - assets/custom.css
+  - assets/wordbook.css
+extra_javascript:
+  - assets/quiz.js            # 인터랙티브 객관식 퀴즈 채점
+  - assets/progress.js        # 상단 진행률 바 + 하단 '읽기 %' 배지 + 섹션 읽음 체크
+  - assets/wordbook.js        # 용어표 체크 → 나만의 단어장 누적(localStorage)
+
+# ────────────────────────────────────────────────────────────────
+# nav — 사이드바 계층. 3단 중첩이 이 사이트의 핵심 구조:
+#   과목  →  Day(하루)  →  교시(개요/강의1/강의2/실습)
+# 폴더/파일명은 ASCII(깨끗한 URL), 사이드바에 보이는 이름은 한글.
+# ────────────────────────────────────────────────────────────────
+nav:
+  - 홈: index.md
+  - "🔁 복습하기": wordbook.md          # wordbook.js가 채우는 단어장/오답 페이지
+  - 스타일 가이드: prep-style-guide.md
+  - "<N과목 · 과목명>":
+      - "Day 1 · <Day 제목>":
+          - "Day 1 · ① 개요·시간표": subject-N-topic/day01/index.md
+          - "Day 1 · ② 강의1 · <제목> (오전)": subject-N-topic/day01/lecture1.md
+          - "Day 1 · ③ 강의2 · <제목> (오후)": subject-N-topic/day01/lecture2.md
+          - "Day 1 · ④ 실습 · <제목>": subject-N-topic/day01/practice.md
+      # Day 2, Day 3 … 같은 4-페이지 묶음을 반복
+  # 다음 과목 반복
