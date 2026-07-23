@@ -167,5 +167,9 @@ nav:
           - "Day 3 · ② 강의1 · 고급 탐지·위험점수 (오전)": subject-4-anomaly-detection/day03/lecture1.md
           - "Day 3 · ③ 강의2 · 상관분석·체이닝 (오후)": subject-4-anomaly-detection/day03/lecture2.md
           - "Day 3 · ④ 실습 · 고급 탐지·상관분석": subject-4-anomaly-detection/day03/practice.md
-      - "Day 4 · 오탐·미탐 검토 & 탐지룰 튜닝": subject-4-anomaly-detection/day04.md
+      - "Day 4 · 오탐·미탐 검토 & 탐지룰 튜닝":
+          - "Day 4 · ① 개요·시간표": subject-4-anomaly-detection/day04/index.md
+          - "Day 4 · ② 강의1 · 오탐·미탐·성능지표 (오전)": subject-4-anomaly-detection/day04/lecture1.md
+          - "Day 4 · ③ 강의2 · 성능 측정·룰 튜닝 (오후)": subject-4-anomaly-detection/day04/lecture2.md
+          - "Day 4 · ④ 실습 · 탐지룰 튜닝(오탐 감소)": subject-4-anomaly-detection/day04/practice.md
       - "Day 5 · AI 기반 이벤트 요약·우선순위 분류 & 전체 통합·발표": subject-4-anomaly-detection/day05.md
