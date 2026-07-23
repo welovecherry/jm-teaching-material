@@ -97,7 +97,11 @@ nav:
           - "Day 4 · ② 강의1 · API·HTTP 개념 (오전)": subject-1-ai-automation/day04/lecture1.md
           - "Day 4 · ③ 강의2 · requests 라이브러리 실전 (오후)": subject-1-ai-automation/day04/lecture2.md
           - "Day 4 · ④ 실습 · 공개 API 데이터 수집기": subject-1-ai-automation/day04/practice.md
-      - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링": subject-1-ai-automation/day05.md
+      - "Day 5 · Webhook·CLI 자동화 & 워크플로우 설계·스케줄링":
+          - "Day 5 · ① 개요·시간표": subject-1-ai-automation/day05/index.md
+          - "Day 5 · ② 강의1 · Webhook 수신·CLI 자동화 (오전)": subject-1-ai-automation/day05/lecture1.md
+          - "Day 5 · ③ 강의2 · 워크플로우 설계·스케줄링 (오후)": subject-1-ai-automation/day05/lecture2.md
+          - "Day 5 · ④ 실습 · Webhook·정기실행 자동화": subject-1-ai-automation/day05/practice.md
       - "Day 6 · LLM 개념·프롬프트 엔지니어링 & AI Agent Tool-use 구조": subject-1-ai-automation/day06.md
       - "Day 7 · LLM 활용(이벤트요약·고객리서치) & 보고서 자동생성": subject-1-ai-automation/day07.md
       - "Day 8 · 보안데이터 파이프라인 통합·알림연동 & 전체 리뷰·발표": subject-1-ai-automation/day08.md
