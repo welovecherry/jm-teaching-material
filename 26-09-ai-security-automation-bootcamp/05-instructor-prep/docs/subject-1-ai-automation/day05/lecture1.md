@@ -98,6 +98,16 @@ flowchart TD
         app.run(port=5000)                # 5000번 포트에서 서버 실행
     ```
 
+    **➕ 다른 맥락 예제** — GET 라우트로 인사 응답:
+    ```python
+    from flask import Flask
+    app = Flask(__name__)
+
+    @app.route('/hello')          # /hello 로 접속하면
+    def hello():
+        return 'Hello!'           # 이 문자열을 응답
+    ```
+
     - **`@app.route('/webhook', methods=['POST'])`** : "이 주소로 POST가 오면 아래 함수 실행"이라는 표시(**데코레이터**).
     - **`request.get_json()`** : 받은 요청의 JSON 본문을 파이썬 딕셔너리로(Day4 POST의 반대편).
     - **`return 본문, 200`** : 응답 본문과 **상태코드**를 함께 돌려줍니다.
@@ -202,6 +212,18 @@ flowchart TD
 
     # 실행: python script.py --input logs.csv --threshold 3
     #   → args.input='logs.csv', args.threshold=3
+    ```
+
+    **➕ 다른 맥락 예제** — 이름·반복횟수 옵션:
+    ```python
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', default='세상')
+    parser.add_argument('--times', type=int, default=1)
+    args = parser.parse_args()
+    for _ in range(args.times):
+        print(f'안녕, {args.name}!')
+    # 실행: python hi.py --name 민홍 --times 2
     ```
 
     - **`add_argument('--input', required=True)`** : `--input` 옵션(필수).

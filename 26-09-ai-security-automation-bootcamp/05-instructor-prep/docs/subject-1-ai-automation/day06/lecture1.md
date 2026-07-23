@@ -167,6 +167,18 @@ LLM이 사람 말투로 답하면 **코드로 값을 뽑기 어렵습니다**(�
     response = requests.post(llm_url, json=payload, headers=headers)
     ```
 
+    **➕ 다른 맥락 예제** — 번역 요청 payload:
+    ```python
+    payload = {
+        'model': 'gpt-4o-mini',
+        'messages': [
+            {'role': 'system', 'content': '너는 번역가야.'},
+            {'role': 'user', 'content': '"안녕"을 영어로'},
+        ],
+        'temperature': 0,     # 번역은 일관되게 → 0
+    }
+    ```
+
     - **`model`** : 사용할 LLM 이름.
     - **`messages`** : 대화 내용. 각 메시지에 **`role`**:
       - `system` : LLM의 역할·규칙 지정(페르소나).
@@ -226,6 +238,16 @@ flowchart LR
         except (ValueError, json.JSONDecodeError) as e:
             logging.warning(f'LLM 응답 파싱 실패: {e}')
             return None                       # 실패 시 None (안 죽음)
+    ```
+
+    **➕ 다른 맥락 예제** — 안전하게 float 변환(실패해도 안 죽음):
+    ```python
+    def to_float(text):
+        try:
+            return float(text)
+        except ValueError:
+            return None        # 못 바꾸면 None
+    print(to_float('3.14'), to_float('없음'))   # 3.14 None
     ```
 
     - LLM은 `"네, 요약하면: {...} 입니다"`처럼 **JSON 앞뒤에 군더더기**를 붙일 때가 있습니다.

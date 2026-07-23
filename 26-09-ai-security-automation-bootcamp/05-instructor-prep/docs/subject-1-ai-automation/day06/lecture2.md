@@ -103,6 +103,16 @@ flowchart TD
     # {'tool': 'count_failed_logins', 'args': {'threshold': 5}}
     ```
 
+    **➕ 다른 맥락 예제** — 계산기 도구 목록:
+    ```python
+    tools = [
+        {'name': 'add', 'description': '두 수를 더한다',
+         'parameters': {'a': 'int', 'b': 'int'}},
+        {'name': 'now', 'description': '현재 시각을 알려준다',
+         'parameters': {}},
+    ]
+    ```
+
     - LLM에게 **도구 목록**(이름·설명·파라미터)을 함께 줍니다.
     - LLM은 상황을 보고 **"이 도구를 이 인자로 호출해줘"** 라고 **JSON으로 응답**만 합니다.
     - ⚠️ **LLM은 실행하지 않습니다.** "무엇을 호출할지" 결정만 하고, 실제 실행은 **우리 코드**가 합니다.
@@ -167,6 +177,22 @@ def route_tool_call(llm_decision):
     return func(**args)                                 # ⑦ 함수 실행
 ```
 
+**➕ 다른 맥락 예제** — 명령어를 함수로 잇는 미니 라우터:
+```python
+def turn_on():  return '불 켬'
+def turn_off(): return '불 끔'
+
+commands = {'on': turn_on, 'off': turn_off}   # 이름 → 함수
+
+def run(name):
+    func = commands.get(name)
+    if func is None:
+        raise ValueError(f'모르는 명령: {name}')
+    return func()
+
+print(run('on'))    # 불 켬
+```
+
 | 줄 | 하는 일 | 왜 |
 |:--:|---------|-----|
 | **①** | "도구 이름 → 실제 함수" 딕셔너리 | 매핑표 |
@@ -182,6 +208,14 @@ def route_tool_call(llm_decision):
     args = {'threshold': 5}
     count_failed_logins(**args)      # = count_failed_logins(threshold=5)
     # ** 는 딕셔너리를 '키=값' 인자들로 펼쳐 넣음
+    ```
+
+    **➕ 다른 맥락 예제** — 딕셔너리로 함수 인자 넘기기:
+    ```python
+    def make_user(name, age):
+        return f'{name}({age})'
+    info = {'name': '민홍', 'age': 30}
+    print(make_user(**info))   # 민홍(30)
     ```
     `**args`는 딕셔너리를 함수의 **키워드 인자로 펼쳐** 넣습니다. `{'threshold': 5}` → `threshold=5`. LLM이 준 인자를 그대로 함수에 전달할 때 유용합니다.
 

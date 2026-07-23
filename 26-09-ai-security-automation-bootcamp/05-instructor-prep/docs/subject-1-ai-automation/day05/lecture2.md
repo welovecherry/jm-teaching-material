@@ -100,6 +100,16 @@ flowchart LR
         logging.info(f"이미 처리된 {event['id']} - 스킵")
     ```
 
+    **➕ 다른 맥락 예제** — 이미 보낸 알림은 다시 안 보내기:
+    ```python
+    sent = set()
+    def send_once(user):
+        if user not in sent:
+            print(f'{user}에게 알림 발송')
+            sent.add(user)
+        # 두 번째부터는 아무 일도 안 함
+    ```
+
     - **멱등성(idempotency)** = "여러 번 해도 결과가 같음". 같은 이벤트가 두 번 와도 **한 번만** 처리.
     - `set`에 처리한 ID를 기록하고, `in`으로 확인(Day1 set·in 활용).
     - 실무에선 `processed_ids.json` 파일로 저장해 **프로그램을 껐다 켜도** 유지합니다.
@@ -161,6 +171,13 @@ flowchart TD
     while True:                            # 무한 반복하며
         schedule.run_pending()             # 예약된 작업 중 실행할 때 된 것 실행
         time.sleep(1)                      # 1초 쉬고 다시 확인
+    ```
+
+    **➕ 다른 맥락 예제** — 매일 아침 9시에 실행:
+    ```python
+    import schedule
+    schedule.every().day.at('09:00').do(lambda: print('굿모닝!'))
+    # (위처럼 while True + run_pending 으로 돌린다)
     ```
 
     - **`schedule.every(10).minutes.do(job)`** : "10분마다 job 함수 실행"을 예약.
