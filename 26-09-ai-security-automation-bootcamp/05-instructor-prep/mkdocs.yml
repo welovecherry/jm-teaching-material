@@ -146,7 +146,11 @@ nav:
           - "Day 4 · ② 강의1 · 권한 회수 자동화 (오전)": subject-3-access-control/day04/lecture1.md
           - "Day 4 · ③ 강의2 · 조건기반 정책·임시권한 (오후)": subject-3-access-control/day04/lecture2.md
           - "Day 4 · ④ 실습 · 회수봇·조건정책 엔진": subject-3-access-control/day04/practice.md
-      - "Day 5 · 권한 점검 체크리스트 & 접근통제 결과 리포트 자동화·통합": subject-3-access-control/day05.md
+      - "Day 5 · 권한 점검 체크리스트 & 결과 리포트 자동화·통합":
+          - "Day 5 · ① 개요·시간표": subject-3-access-control/day05/index.md
+          - "Day 5 · ② 강의1 · 점검 체크리스트·리포트 설계 (오전)": subject-3-access-control/day05/lecture1.md
+          - "Day 5 · ③ 강의2 · 주간 리포트 통합·최종 리뷰 (오후)": subject-3-access-control/day05/lecture2.md
+          - "Day 5 · ④ 실습 · 리포트 자동화·발표": subject-3-access-control/day05/practice.md
   - "4과목 · 이상탐지 자동화":
       - "Day 1 · 로그·이벤트·알림 개념 & SIEM/XDR 구조·데이터 전처리": subject-4-anomaly-detection/day01.md
       - "Day 2 · 이벤트 유형 분류(베이스라인) & 로그인·트래픽 급증 탐지 룰": subject-4-anomaly-detection/day02.md
