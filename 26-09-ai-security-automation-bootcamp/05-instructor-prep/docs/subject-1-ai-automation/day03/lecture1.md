@@ -49,6 +49,14 @@
     print(event['tags'][0])         # login_failed   ← 리스트는 번호로
     ```
 
+    **➕ 다른 맥락 예제** — 주문 안의 배송지·상품:
+    ```python
+    order = {'id': 1, 'buyer': {'name': '민홍', 'city': '서울'},
+             'items': ['키보드', '마우스']}
+    print(order['buyer']['city'])   # 서울    ← 딕셔너리 안 딕셔너리
+    print(order['items'][1])        # 마우스  ← 리스트는 번호로
+    ```
+
     - **한 겹씩 벗깁니다.** `event['user']`가 딕셔너리 → 거기에 `['dept']`를 또 붙임.
     - 딕셔너리는 **키**(`['dept']`), 리스트는 **번호**(`[0]`)로 꺼냅니다.
     - 대괄호를 **이어 붙이는(체이닝)** 게 핵심. "서랍 안의 서랍"을 순서대로 여는 것.
@@ -65,6 +73,15 @@
     log = {'user': 'kim01', 'event': 'login_failed'}
     print('user' in log)                # True   ← 딕셔너리는 '키'가 있나?
     print('kim01' in log)               # False  ← 값이 아니라 키를 봄!
+    ```
+
+    **➕ 다른 맥락 예제** — 장바구니·회원정보 포함 검사:
+    ```python
+    cart = ['우유', '빵']
+    print('빵' in cart)            # True   (리스트: 값 검사)
+    member = {'name': '민홍', 'age': 30}
+    print('age' in member)         # True   (딕셔너리: 키 검사)
+    print(30 in member)            # False  (값이 아니라 키를 봄)
     ```
 
     - **리스트**에 `in` : 그 **값이 있나**?
@@ -181,6 +198,16 @@ JSON은 **언어에 상관없는** 텍스트 형식입니다. 파이썬이 저�
     back = json.loads(text)                          # 문자열 → 객체
     ```
 
+    **➕ 다른 맥락 예제** — 설정을 저장하고 다시 읽기:
+    ```python
+    import json
+    settings = {'theme': 'dark', 'font': 14}
+    with open('settings.json', 'w', encoding='utf-8') as f:
+        json.dump(settings, f)               # 객체 → 파일
+    with open('settings.json', encoding='utf-8') as f:
+        print(json.load(f)['theme'])         # dark
+    ```
+
     | 함수 | 방향 | 대상 |
     |------|------|------|
     | `json.dump(객체, f)` | 객체 → **파일** | 파일 저장 |
@@ -255,6 +282,15 @@ def save_as_json(events, filepath):
     # 이제 events가 filepath에 JSON으로 저장됨
 ```
 
+**➕ 다른 맥락 예제** — 반대로, JSON을 읽어오는 함수:
+```python
+import json
+
+def load_json(filepath):
+    with open(filepath, encoding='utf-8') as f:
+        return json.load(f)     # 파일 → 파이썬 객체
+```
+
 ### 🔬 깊이 보기 — 모듈 간 JSON 데이터 교환
 
 ```mermaid
@@ -305,6 +341,14 @@ if missing:                              # 빈 리스트가 아니면(누락 있
     print(f'필수 필드 누락: {missing}')
 ```
 
+**➕ 다른 맥락 예제** — 회원가입 필수 항목 확인:
+```python
+required = ['name', 'email', 'password']
+form = {'name': '민홍', 'email': 'a@b.c'}
+missing = [k for k in required if k not in form]
+print(missing)   # ['password']  ← 빠진 항목
+```
+
 - `k not in event` : event의 **키**에 k가 없으면 True(딕셔너리 in은 키 검사).
 - `missing`이 비어 있지 않으면 → 누락된 필드가 있다는 뜻.
 - `if missing:` : 빈 리스트는 거짓, 값이 있으면 참 (파이썬의 편리한 특성).
@@ -315,6 +359,15 @@ if missing:                              # 빈 리스트가 아니면(누락 있
     if [1, 2]:    # 값 있는 리스트 → 참 → 실행
     if '':        # 빈 문자열 → 거짓
     if {}:        # 빈 딕셔너리 → 거짓
+    ```
+
+    **➕ 다른 맥락 예제** — 장바구니가 비었나로 분기:
+    ```python
+    cart = []
+    if cart:
+        print('결제 진행')
+    else:
+        print('장바구니가 비었습니다')   # 빈 리스트 → 거짓
     ```
     파이썬은 **비어 있으면 거짓, 뭔가 있으면 참**으로 봅니다. 그래서 `if missing:`은 "누락이 하나라도 있으면"이라는 뜻이 됩니다. `len(missing) > 0`을 짧게 쓴 셈이죠.
 

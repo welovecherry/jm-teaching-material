@@ -47,6 +47,14 @@
     print(response.text)          # 원본 문자열(JSON 아닐 때)
     ```
 
+    **➕ 다른 맥락 예제** — 공개 API로 데이터 받기:
+    ```python
+    import requests
+    r = requests.get('https://api.example.com/quote')
+    if r.status_code == 200:
+        print(r.json())      # {'text': '...', 'author': '...'}
+    ```
+
     - **`requests.get(url)`** : GET 요청을 보내고 **응답 객체**를 받습니다.
     - **`.status_code`** : 상태코드(200 등). 성공 확인용.
     - **`.json()`** : 응답 본문(JSON)을 **파이썬 딕셔너리로** 변환(Day3 loads와 같은 일).
@@ -62,6 +70,15 @@
             data = response.json()      # JSON일 때만 파싱
         else:
             print('JSON이 아님:', response.text[:100])
+    ```
+
+    **➕ 다른 맥락 예제** — 상태코드로 성공/실패 분기:
+    ```python
+    r = requests.get(url)
+    if r.status_code == 200:
+        print('성공:', r.json())
+    elif r.status_code == 404:
+        print('없는 자원입니다')
     ```
 
     - `.json()`은 응답이 **JSON이 아니면 에러**(JSONDecodeError)를 냅니다.
@@ -100,6 +117,13 @@
 
     response = requests.get(url, params=params, headers=headers)
     # 실제 요청: url?status=open&limit=10  (requests가 자동으로 붙임)
+    ```
+
+    **➕ 다른 맥락 예제** — 검색어·페이지를 params로:
+    ```python
+    params = {'q': '보안 로그', 'page': 2}
+    r = requests.get('https://api.example.com/search', params=params)
+    # 실제 요청: .../search?q=보안+로그&page=2  (공백·한글 자동 인코딩)
     ```
 
     - **`params=딕셔너리`** : requests가 알아서 `?status=open&limit=10`으로 URL에 붙입니다.
@@ -161,6 +185,13 @@ URL에 직접 `?status=open`을 이어 붙이면, 값에 **공백·`&`·한글**
     print(response.status_code, response.json())   # 201 {...생성된 티켓...}
     ```
 
+    **➕ 다른 맥락 예제** — 새 글 작성 POST:
+    ```python
+    new_post = {'title': '오늘의 메모', 'body': '장보기'}
+    r = requests.post('https://api.example.com/posts', json=new_post)
+    print(r.status_code)   # 201 (생성됨)
+    ```
+
     - **`json=딕셔너리`** : 본문(Body)에 JSON으로 담아 보냅니다. requests가 **자동 직렬화**(Day3 dumps)하고 `Content-Type: application/json` 헤더도 설정.
     - POST는 "새로 만들기"라, 성공 시 보통 **201(Created)** 을 반환합니다.
 
@@ -208,6 +239,21 @@ def call_with_retry(url, headers, max_retry=3):
             logging.warning(f'요청 실패({attempt+1}/{max_retry}): {e}')
             time.sleep(2)                               # ⑥ 2초 쉬고 재시도
     raise RuntimeError('API 호출 최종 실패')            # ⑦ 다 실패하면
+```
+
+**➕ 다른 맥락 예제** — 파일 저장을 재시도:
+```python
+import time
+
+def save_with_retry(data, path, max_retry=3):
+    for attempt in range(max_retry):       # 정해진 횟수만
+        try:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(data)
+            return True                    # 성공하면 끝
+        except OSError:
+            time.sleep(1)                  # 잠깐 쉬고 다시
+    return False                           # 다 실패하면 False
 ```
 
 | 줄 | 하는 일 | 왜 |

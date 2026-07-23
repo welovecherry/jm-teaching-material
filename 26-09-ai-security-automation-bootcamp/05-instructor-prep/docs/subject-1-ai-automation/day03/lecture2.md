@@ -125,6 +125,14 @@ flowchart TD
         print(match.group())   # 203.0.113.5   ← 매칭된 부분
     ```
 
+    **➕ 다른 맥락 예제** — 전화번호 뽑기:
+    ```python
+    import re
+    text = '문의: 010-1234-5678 로 연락 주세요'
+    phone = re.search(r'\d{3}-\d{4}-\d{4}', text)
+    print(phone.group())   # 010-1234-5678
+    ```
+
     - **`r'...'`(raw string)** : 백슬래시(`\`)를 특수 처리 없이 그대로. 정규식엔 `\d` 등 백슬래시가 많아 **항상 `r'...'`로** 씁니다.
     - **`\.`** : 점(`.`)은 원래 "아무 문자"라, **진짜 점**을 찾으려면 `\`를 앞에 붙여 `\.`.
     - **`re.search(패턴, 문자열)`** : 첫 매칭을 찾아 결과 객체 반환(없으면 `None`).
@@ -134,6 +142,12 @@ flowchart TD
     ```python
     re.search(r'\d+', 'a1b22c333')      # 첫 매칭 객체 → '1'
     re.findall(r'\d+', 'a1b22c333')     # 모든 매칭 리스트 → ['1', '22', '333']
+    ```
+
+    **➕ 다른 맥락 예제** — 문장에서 한글 단어만:
+    ```python
+    re.search(r'[가-힣]+', 'apple 사과 banana 바나나')   # 첫 한글 → '사과'
+    re.findall(r'[가-힣]+', 'apple 사과 banana 바나나')  # ['사과', '바나나']
     ```
     - `search` : **첫 번째** 매칭 하나(객체). `.group()`으로 값 꺼냄.
     - `findall` : **모든** 매칭(리스트). 바로 값들이 담김.
@@ -176,6 +190,14 @@ flowchart TD
     print(m.group(2))   # 203.0.113.5  ← 두 번째 괄호
     ```
 
+    **➕ 다른 맥락 예제** — 날짜에서 연·월 뽑기:
+    ```python
+    import re
+    m = re.search(r'(\d{4})-(\d{2})', '가입일 2026-07')
+    print(m.group(1))   # 2026  ← 첫 괄호(연)
+    print(m.group(2))   # 07    ← 둘째 괄호(월)
+    ```
+
     - **`( )`** : 묶은 부분을 **따로 뽑아냅니다**(그룹).
     - `.group(1)`, `.group(2)` : 괄호 순서대로 꺼냄. `.group(0)`은 전체 매칭.
     - `[\d.]+` : 숫자 또는 점이 1개 이상 → IP 모양(대괄호 안은 "이 중 하나").
@@ -191,6 +213,13 @@ flowchart TD
     print(m.group('user'))   # kim01        ← 번호 대신 이름!
     print(m.group('ip'))     # 203.0.113.5
     print(m.groupdict())     # {'time':..., 'level':..., 'user':'kim01', 'ip':...}
+    ```
+
+    **➕ 다른 맥락 예제** — 이메일을 이름·도메인으로:
+    ```python
+    m = re.search(r'(?P<user>\w+)@(?P<domain>[\w.]+)', 'minhong@company.com')
+    print(m.group('user'))     # minhong
+    print(m.groupdict())       # {'user': 'minhong', 'domain': 'company.com'}
     ```
 
     - **`(?P<이름>패턴)`** : 그룹에 **이름**을 붙입니다.
@@ -251,6 +280,19 @@ def parse_raw_logs(lines, pattern):
         if m:                             # ④ 매칭됐으면
             results.append(m.groupdict()) # ⑤ 딕셔너리로 쌓기
     return results                        # ⑥
+```
+
+**➕ 다른 맥락 예제** — 여러 문장에서 이메일만 모으기:
+```python
+import re
+
+def collect_emails(lines):
+    found = []
+    for line in lines:
+        m = re.search(r'[\w.]+@[\w.]+', line)
+        if m:
+            found.append(m.group())
+    return found
 ```
 
 | 줄 | 하는 일 | 왜 |

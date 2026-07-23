@@ -223,6 +223,14 @@ flowchart TD
     # API_TOKEN은 코드가 아니라 환경변수/설정파일에서 불러온다!
     ```
 
+    **➕ 다른 맥락 예제** — 언어·형식 헤더 지정:
+    ```python
+    headers = {
+        'Accept-Language': 'ko',            # 한국어 응답 요청
+        'Content-Type': 'application/json',  # 본문이 JSON임을 알림
+    }
+    ```
+
     - **헤더(headers)** : 요청에 딸린 부가 정보(누구인지 등). 딕셔너리로 만듭니다.
     - `'Authorization': 'Bearer 토큰'` : 인증 정보를 담는 표준 헤더.
     - ⚠️ **`API_TOKEN`을 코드에 직접 쓰지 마세요.** 환경변수에서 불러옵니다(다음 블록).
@@ -267,6 +275,13 @@ flowchart TD
     load_dotenv()                        # .env 파일을 읽어 환경변수로 로드
     token = os.environ['API_TOKEN']      # 환경변수에서 꺼내기
     # 또는 안전하게: os.environ.get('API_TOKEN')
+    ```
+
+    **➕ 다른 맥락 예제** — DB 접속 정보도 환경변수로:
+    ```python
+    import os
+    db_host = os.environ.get('DB_HOST', 'localhost')  # 없으면 기본값
+    print(db_host)
     ```
 
     - **`.env`** : `키=값` 형식으로 비밀을 담는 파일(코드 아님).
